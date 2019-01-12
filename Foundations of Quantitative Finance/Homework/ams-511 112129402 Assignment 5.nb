@@ -1,0 +1,702 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     28771,        694]
+NotebookOptionsPosition[     25156,        628]
+NotebookOutlinePosition[     25555,        645]
+CellTagsIndexPosition[     25512,        642]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["AMS-511 Foundations of Quantitative Finance", "Title",
+ CellChangeTimes->{{3.410118002352737*^9, 3.4101180035512123`*^9}, {
+   3.4104512493187323`*^9, 3.410451249562763*^9}, {3.411070441580077*^9, 
+   3.411070441827072*^9}, {3.411127582523164*^9, 3.41112758277359*^9}, {
+   3.4111315188866587`*^9, 3.411131524894576*^9}, {3.411253224366561*^9, 
+   3.411253224912155*^9}, {3.4114345716329317`*^9, 3.4114345742149363`*^9}, {
+   3.411436143492992*^9, 3.411436148100697*^9}, {3.461105702626305*^9, 
+   3.461105709176071*^9}, 3.4611060748428698`*^9, 3.461106153130972*^9, 
+   3.461106185408854*^9},ExpressionUUID->"7489b20b-ece0-427d-93bd-\
+d022f95d08e5"],
+
+Cell["Fall 2018 \[LongDash] Assignment 05", "Subtitle",
+ CellChangeTimes->{{3.4101180191149073`*^9, 3.410118026587117*^9}, {
+   3.410451275016321*^9, 3.410451277624028*^9}, {3.41113152964636*^9, 
+   3.41113154518227*^9}, {3.4113965922506437`*^9, 3.411396608797546*^9}, {
+   3.411436154989222*^9, 3.4114361574128437`*^9}, {3.411436292462274*^9, 
+   3.411436309145669*^9}, {3.4611057192910433`*^9, 3.461105731739766*^9}, {
+   3.461106187281069*^9, 3.461106188567719*^9}, {3.461106347014133*^9, 
+   3.461106392456594*^9}, {3.461106425305952*^9, 3.461106433518922*^9}, {
+   3.461107458414324*^9, 3.461107510113055*^9}, {3.491414090059168*^9, 
+   3.4914141198204203`*^9}, {3.491414406521193*^9, 3.4914144159195843`*^9}, {
+   3.4914147112780046`*^9, 3.491414711427609*^9}, {3.555082975519517*^9, 
+   3.555082980676901*^9}, {3.555083477712988*^9, 3.555083478687748*^9}, {
+   3.585766164931189*^9, 3.585766165724255*^9}, {3.5858640317953672`*^9, 
+   3.58586403231535*^9}, {3.585980273287774*^9, 3.5859802812381983`*^9}, {
+   3.5864711538486023`*^9, 3.586471154459456*^9}, {3.599790496221098*^9, 
+   3.599790537399109*^9}, {3.617917652767757*^9, 3.6179176619292107`*^9}, {
+   3.617917919337837*^9, 3.617917919855098*^9}, {3.64938928036769*^9, 
+   3.649389302000416*^9}, 3.652198735751018*^9, {3.683054219247025*^9, 
+   3.6830542228671417`*^9}, {3.683054259780175*^9, 3.68305426284271*^9}, {
+   3.683054301458186*^9, 3.683054301657826*^9}, {3.7137069380036087`*^9, 
+   3.713706950755329*^9}, {3.745089018615395*^9, 3.745089019200886*^9}, {
+   3.745854458241702*^9, 3.7458544588709993`*^9}, {3.7462078003194942`*^9, 
+   3.746207800693631*^9}, {3.747056974262774*^9, 
+   3.7470569743081293`*^9}},ExpressionUUID->"bb9862ee-20aa-46cf-9aa9-\
+ae1eaae946c0"],
+
+Cell["\<\
+Robert J. Frey, Research Professor
+Stony Brook University, Applied Mathematics and Statistics
+
+Robert.Frey@StonyBrook.edu
+http://www.ams.sunysb.edu/~frey\
+\>", "Subsubtitle",
+ CellChangeTimes->{{3.411439843209729*^9, 3.411439853156939*^9}, 
+   3.5853679457875834`*^9, {3.587183885529838*^9, 
+   3.587183898552814*^9}},ExpressionUUID->"7d251ea9-61fe-4cd9-9680-\
+567c82ae4807"],
+
+Cell[CellGroupData[{
+
+Cell["Question 1", "Section",
+ CellChangeTimes->{{3.745854495105418*^9, 
+  3.745854505635058*^9}},ExpressionUUID->"7c392387-cda3-4a09-8570-\
+0a7ad078d799"],
+
+Cell[TextData[{
+ "You are given the following annual data on four investments, ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"i", "\[Element]", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}]}], TraditionalForm]],
+  ExpressionUUID->"f8753574-bb9e-41ad-a5a6-9074ef6e35d9"],
+ " in a market ",
+ Cell[BoxData[
+  FormBox["M", TraditionalForm]],ExpressionUUID->
+  "b5d0ae9c-56b6-42c1-8415-92e514ca7536"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.747057107076458*^9, 3.74705712707745*^9}, {
+  3.74705716142741*^9, 3.7470571922914143`*^9}, {3.747057906095235*^9, 
+  3.747057914999214*^9}, {3.747058488487917*^9, 
+  3.747058490199564*^9}},ExpressionUUID->"a8f55078-3550-46db-82fc-\
+2b1a0b80c75e"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["r", "f"], "=", "0.02"}], 
+  TraditionalForm]],ExpressionUUID->"7c07d592-dfd1-4c35-98e8-1fb5bf5882ab"]], \
+"Item",
+ CellChangeTimes->{{3.747057196140562*^9, 3.747057233783681*^9}, {
+   3.747057391065632*^9, 3.747057406992078*^9}, {3.7470579231427593`*^9, 
+   3.74705792963069*^9}, 
+   3.747058056971715*^9},ExpressionUUID->"2c8ae6bf-148d-465d-babe-\
+f7d046d0d768"],
+
+Cell[TextData[Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["\[Mu]", "M"], "=", "0.085"}], TraditionalForm]],
+ FormatType->
+  "TraditionalForm",ExpressionUUID->"5adaf1a2-0bb5-44e0-a8e8-5937b0db3160"]], \
+"Item",
+ CellChangeTimes->{{3.747057196140562*^9, 3.747057233783681*^9}, {
+  3.747057391065632*^9, 3.747057430223357*^9}, {3.747057933998928*^9, 
+  3.7470579399103823`*^9}, {3.747058052404619*^9, 
+  3.747058061441925*^9}},ExpressionUUID->"6bfb1908-478b-4414-a71c-\
+3d50f2950ba6"],
+
+Cell[TextData[Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["\[Sigma]", "M"], "=", "0.105"}], 
+  TraditionalForm]],ExpressionUUID->"487771e9-43e4-414d-a1ed-a77c84a3b3f5"]], \
+"Item",
+ CellChangeTimes->{{3.747057196140562*^9, 3.747057233783681*^9}, {
+  3.747057391065632*^9, 3.747057452531926*^9}, {3.747057942777398*^9, 
+  3.747057956109923*^9}, {3.7470580467141247`*^9, 
+  3.747058065385803*^9}},ExpressionUUID->"91d799e7-bcf8-4ce8-9280-\
+5ff90af84715"],
+
+Cell[TextData[Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox["\[Beta]",
+    FontWeight->"Bold"], "=", 
+   RowBox[{"{", 
+    RowBox[{"0.9", ",", "1.2", ",", "0.6", ",", "2.1"}], "}"}]}], 
+  TraditionalForm]],
+ FormatType->
+  "TraditionalForm",ExpressionUUID->"694e0f72-467c-47b6-abd4-dda971755e43"]], \
+"Item",
+ CellChangeTimes->{{3.747057196140562*^9, 3.747057233783681*^9}, {
+   3.747057961382168*^9, 3.747057966686077*^9}, 
+   3.7470580683139257`*^9},ExpressionUUID->"35c4086e-1f18-42a2-93b8-\
+0cdd2a6da4e1"],
+
+Cell[TextData[Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox[
+    StyleBox["\[Sigma]",
+     FontWeight->"Bold"], "\[Epsilon]"], "=", 
+   RowBox[{"{", 
+    RowBox[{"0.05", ",", "0.07", ",", "0.04", ",", "0.09"}], "}"}]}], 
+  TraditionalForm]],
+ FormatType->
+  "TraditionalForm",ExpressionUUID->"31091672-dff2-4f22-9074-6f30bdb625eb"]], \
+"Item",
+ CellChangeTimes->{{3.747057196140562*^9, 3.7470572976168823`*^9}, 
+   3.74705738494446*^9, {3.74705798172397*^9, 3.747058039754878*^9}, 
+   3.747058072426825*^9},ExpressionUUID->"2b4d3b1d-ecaa-46aa-9aab-\
+5a0e611af13e"]
+}, Open  ]],
+
+Cell["Under the assumption that the CAPM applies:", "Text",
+ CellChangeTimes->{{3.747057610726487*^9, 
+  3.747057673664794*^9}},ExpressionUUID->"b2a83021-dcd0-4162-ad8b-\
+796318a07c3d"],
+
+Cell["\<\
+Compute the covariance matrix and correlation matrix of the assets.\
+\>", "Item",
+ CellChangeTimes->{{3.747057688969304*^9, 3.74705770209901*^9}, {
+  3.74705773682228*^9, 3.74705777574282*^9}, {3.747057855738315*^9, 
+  3.747057885430168*^9}, {3.7470580815285387`*^9, 3.747058087884445*^9}, {
+  3.747058870848472*^9, 3.74705889193464*^9}, {3.747059201477456*^9, 
+  3.74705922038068*^9}},ExpressionUUID->"4649d155-6067-49fb-ace8-\
+9271c3680d61"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nRiskFree", "=", "0.02"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nMarketReturn", "=", "0.085"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nMarketStdDev", " ", "=", " ", "0.105"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nMarketVar", "=", " ", 
+   RowBox[{"nMarketStdDev", "^", "2"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vnBeta", "=", 
+   RowBox[{"{", 
+    RowBox[{"0.9", ",", "1.2", ",", "0.6", ",", "2.1"}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vnErrorStdDev", " ", "=", " ", 
+   RowBox[{"{", 
+    RowBox[{"0.05", ",", "0.07", ",", "0.04", ",", "0.09"}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"vnErrorVar", "=", 
+    RowBox[{"vnErrorStdDev", "^", "2"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"vnExpectedReturn", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"nMarketReturn", "-", "nRiskFree"}], ")"}], "vnBeta"}], "+", 
+   "nRiskFree"}]}], "\[IndentingNewLine]", 
+ RowBox[{"mnCovariance", "=", 
+  RowBox[{
+   RowBox[{"nMarketVar", " ", 
+    RowBox[{"Outer", "[", 
+     RowBox[{"Times", ",", "vnBeta", ",", "vnBeta"}], "]"}]}], "+", 
+   RowBox[{
+   "DiagonalMatrix", "[", "vnErrorVar", "]"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"mnInvStdDev", "=", 
+   RowBox[{"Inverse", "[", 
+    RowBox[{"Sqrt", "[", 
+     RowBox[{"DiagonalMatrix", "[", 
+      RowBox[{"Diagonal", "[", "mnCovariance", "]"}], "]"}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"mnCorrelation", "=", 
+   RowBox[{"mnInvStdDev", "*", "mnCovariance", "*", "mnInvStdDev"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.7474437135678115`*^9, 3.7474438368438625`*^9}, {
+   3.7474438818674383`*^9, 3.747443942849926*^9}, {3.7474444674979343`*^9, 
+   3.747444489665202*^9}, {3.747444574359046*^9, 3.747444741622613*^9}, 
+   3.7474448021060724`*^9, {3.747445375152849*^9, 3.7474454668150916`*^9}, {
+   3.747446022741889*^9, 3.7474460229349003`*^9}, {3.7474488004747663`*^9, 
+   3.7474488325376*^9}, {3.7474511117949657`*^9, 3.747451121505522*^9}, 
+   3.747451344181258*^9, 3.747451651361828*^9, {3.747504659174701*^9, 
+   3.7475046747065897`*^9}, {3.747788413989385*^9, 3.7477884459092107`*^9}, {
+   3.747788480980217*^9, 
+   3.747788501631398*^9}},ExpressionUUID->"6980489b-9a1d-4a70-850a-\
+c7a5ce03fd43"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.0785`", ",", "0.098`", ",", "0.059`", ",", "0.1565`"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{
+  3.7474513456793437`*^9, 3.7474515289408255`*^9, 3.747451652907916*^9, 
+   3.747500710991878*^9, 3.7475046777357626`*^9, {3.7477884398598647`*^9, 
+   3.7477884480613337`*^9}, {3.747788483365353*^9, 
+   3.7477885054346156`*^9}},ExpressionUUID->"1bdd3b6c-7515-4f42-9477-\
+26cd4c8a691a"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "0.01143025`", ",", "0.011907`", ",", "0.0059535`", ",", 
+     "0.020837249999999998`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.011907`", ",", "0.020776`", ",", "0.007937999999999999`", ",", 
+     "0.027782999999999995`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.0059535`", ",", "0.007937999999999999`", ",", "0.005568999999999999`", 
+     ",", "0.013891499999999998`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "0.020837249999999998`", ",", "0.027782999999999995`", ",", 
+     "0.013891499999999998`", ",", "0.05672025`"}], "}"}]}], "}"}]], "Output",\
+
+ CellChangeTimes->{
+  3.7474513456793437`*^9, 3.7474515289408255`*^9, 3.747451652907916*^9, 
+   3.747500710991878*^9, 3.7475046777357626`*^9, {3.7477884398598647`*^9, 
+   3.7477884480613337`*^9}, {3.747788483365353*^9, 
+   3.7477885054376154`*^9}},ExpressionUUID->"5aaed239-0d9b-4a91-a04f-\
+719964b42942"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Compute the mean-variance efficient portfolio such that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["\[DoubleStruckOne]", 
+      StyleBox["T",
+       FontSlant->"Plain"]], 
+     StyleBox["x",
+      FontWeight->"Bold",
+      FontSlant->"Plain"]}], "=", "1"}], TraditionalForm]],ExpressionUUID->
+  "00f57d75-38f6-4855-9d65-dd1218bec6e4"],
+ "."
+}], "Item",
+ CellChangeTimes->{{3.747057688969304*^9, 3.74705770209901*^9}, {
+  3.74705773682228*^9, 3.74705777574282*^9}, {3.747058099256143*^9, 
+  3.7470581016078043`*^9}, {3.7474508020702505`*^9, 
+  3.747450802071251*^9}},ExpressionUUID->"09fbecb6-7886-4ff2-b7e1-\
+9784e22f0ed1"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"vnPositions", "=", 
+  RowBox[{
+   RowBox[{
+    FractionBox["#", 
+     RowBox[{"Total", "[", "#", "]"}]], "&"}], "[", 
+   RowBox[{
+    RowBox[{"Inverse", "[", "mnCovariance", "]"}], ".", 
+    RowBox[{"(", 
+     RowBox[{"vnExpectedReturn", "-", "nRiskFree"}], ")"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.7474454706473107`*^9, 3.747445477745717*^9}, {
+   3.7474455087254887`*^9, 3.747445521022192*^9}, {3.747445716997401*^9, 
+   3.747445719406539*^9}, {3.747445765340166*^9, 3.747445765460173*^9}, {
+   3.74744589722871*^9, 3.747445898742797*^9}, {3.7474459544989853`*^9, 
+   3.7474459623514347`*^9}, {3.747446029442272*^9, 3.7474460326054535`*^9}, 
+   3.747446382509466*^9, {3.747446789080721*^9, 3.74744679343297*^9}, {
+   3.7474468557395334`*^9, 3.7474468640830107`*^9}, {3.7474468967898817`*^9, 
+   3.7474469376122165`*^9}, {3.7474469765644445`*^9, 
+   3.7474469861999955`*^9}, {3.7474470188798647`*^9, 3.747447019354892*^9}, {
+   3.7474470522547736`*^9, 3.747447067501646*^9}, {3.7474471462881517`*^9, 
+   3.747447150724406*^9}, {3.7474471839563065`*^9, 3.7474472510531445`*^9}, {
+   3.7474473794154863`*^9, 3.7474474005146933`*^9}, {3.7474475090208993`*^9, 
+   3.7474475254998417`*^9}, {3.7474478320893774`*^9, 3.74744783702466*^9}, {
+   3.7474479390424953`*^9, 3.7474480128557167`*^9}, {3.7474480496008186`*^9, 
+   3.747448071584076*^9}, {3.747448103694913*^9, 3.747448109139224*^9}, {
+   3.7474483880771785`*^9, 3.747448416759819*^9}, {3.747449215261491*^9, 
+   3.747449225988104*^9}, {3.747449518895858*^9, 3.747449519306881*^9}, {
+   3.747449597933378*^9, 3.7474495983083997`*^9}, {3.7474498631065454`*^9, 
+   3.7474498652556677`*^9}, {3.7474499001986666`*^9, 3.747449907846104*^9}, {
+   3.747450112116788*^9, 3.747450122176363*^9}, {3.747500305520686*^9, 
+   3.747500324959798*^9}, {3.747500572781973*^9, 3.7475005731659946`*^9}, {
+   3.7475006584318714`*^9, 3.747500663507162*^9}, 3.747500729494936*^9, {
+   3.7475007955337133`*^9, 3.7475008117926435`*^9}, {3.747501175264433*^9, 
+   3.7475012581141715`*^9}, {3.7475013247919855`*^9, 3.747501387906595*^9}, {
+   3.7475014194674006`*^9, 3.7475014616848154`*^9}, {3.747501555884203*^9, 
+   3.747501559695421*^9}, {3.7475017217426896`*^9, 3.7475017219877033`*^9}, {
+   3.7475019406222086`*^9, 3.7475019436533823`*^9}, 3.747501992285164*^9, {
+   3.7475021204904966`*^9, 3.747502151213254*^9}, {3.7475021996730256`*^9, 
+   3.747502270787093*^9}, {3.7475023727639256`*^9, 
+   3.7475023734559655`*^9}},ExpressionUUID->"2104b15e-3e47-4d52-a2b9-\
+e8bad082d32e"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.2905200362326568`", ",", "0.19763267770929144`", ",", 
+   "0.3026250377423514`", ",", "0.20922224831570035`"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.7474478392897897`*^9, 3.747447961946805*^9, {3.7474479934846087`*^9, 
+   3.747448016438922*^9}, 3.7474480744562407`*^9, {3.747448106849093*^9, 
+   3.7474481167496595`*^9}, 3.7474484213460813`*^9, 3.747449227824209*^9, 
+   3.7474495217560215`*^9, {3.74744958188846*^9, 3.747449602887662*^9}, {
+   3.7474496419288945`*^9, 3.7474496702495146`*^9}, 3.747449714857066*^9, {
+   3.7474499106942673`*^9, 3.7474499318724785`*^9}, {3.747450117331086*^9, 
+   3.747450125193536*^9}, {3.7475007074316745`*^9, 3.7475007320720835`*^9}, 
+   3.747500814478797*^9, 3.7475012475715685`*^9, {3.747501421607523*^9, 
+   3.747501464824995*^9}, 3.7475015625875864`*^9, 3.747501730597196*^9, 
+   3.7475019942812777`*^9, {3.7475021366644216`*^9, 3.747502153867406*^9}, {
+   3.747502205067334*^9, 3.7475022144418707`*^9}, 3.7475022638646975`*^9, 
+   3.7475023358718157`*^9, 3.747502375673092*^9, 3.7475046827360487`*^9, 
+   3.747788551878272*^9},ExpressionUUID->"8d0380b2-19e2-414b-a024-\
+276077d809cf"]
+}, Open  ]],
+
+Cell["Compute the mean and standard deviation of that portfolio.", "Item",
+ CellChangeTimes->{{3.747057688969304*^9, 3.747057715499988*^9}, {
+  3.7470581241486073`*^9, 
+  3.747058129923827*^9}},ExpressionUUID->"f46b2f9c-7ace-49da-a210-\
+6da6d9ba7664"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"xPortSdevMean", "[", 
+    RowBox[{"x_", ",", 
+     RowBox[{"{", 
+      RowBox[{"\[Mu]_", ",", "\[CapitalSigma]_"}], "}"}]}], "]"}], ":=", 
+   RowBox[{"{", 
+    RowBox[{
+     SqrtBox[
+      RowBox[{"x", ".", "\[CapitalSigma]", ".", "x"}]], ",", 
+     RowBox[{"\[Mu]", ".", "x"}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"xPortSdevMean", "[", 
+  RowBox[{"vnPositions", ",", 
+   RowBox[{"{", 
+    RowBox[{"vnExpectedReturn", ",", " ", "mnCovariance"}], "}"}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.7474483357171836`*^9, 3.747448345728756*^9}, {
+   3.7474484273474245`*^9, 3.747448442460289*^9}, {3.7474484987505083`*^9, 
+   3.7474485041898193`*^9}, {3.7474485585999317`*^9, 
+   3.7474485588529463`*^9}, {3.747448653026333*^9, 3.7474486553534656`*^9}, {
+   3.747450173252284*^9, 3.74745017719851*^9}, 
+   3.74750235464489*^9},ExpressionUUID->"7127771b-fedc-4b78-9a39-\
+4d3a76a95671"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.12133676323344145`", ",", "0.09277198434797995`"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.747448447360569*^9, 3.7474485096181297`*^9, 
+  3.747448658982673*^9, 3.7474501814687543`*^9, 3.747502363493396*^9, 
+  3.747504687759336*^9, 
+  3.747788560793782*^9},ExpressionUUID->"ea9c4dc4-f9dc-42cd-b341-\
+72e8050b0fc1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+The investor wishes to keep 10% of its assets in cash and place the remainder \
+in the optimal portfolio. Assuming returns are Normally distributed \
+\>", "Item",
+ CellChangeTimes->{{3.747057688969304*^9, 3.747057715499988*^9}, {
+  3.7470581241486073`*^9, 3.747058128580743*^9}, {3.7470582873027277`*^9, 
+  3.7470584230166597`*^9}},ExpressionUUID->"32551bc4-2653-413a-84e7-\
+1303de3bc654"],
+
+Cell["\<\
+What is the mean and standard deviation of return for the combined cash-risky \
+portfolio?\
+\>", "Subitem",
+ CellChangeTimes->{{3.747057688969304*^9, 3.747057715499988*^9}, {
+  3.7470581241486073`*^9, 3.747058128580743*^9}, {3.7470582873027277`*^9, 
+  3.7470584831116753`*^9}},ExpressionUUID->"24c372f1-b191-44af-aa30-\
+ee72f27a670b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"0.1", "nRiskFree"}], "+", 
+  RowBox[{"0.9", "nMarketReturn"}]}], "\[IndentingNewLine]", 
+ RowBox[{"0.9", "nMarketStdDev"}]}], "Input",
+ CellChangeTimes->{{3.747502664729625*^9, 3.7475027456742554`*^9}, {
+  3.747502910747697*^9, 3.747502954803217*^9}, {3.747505819504068*^9, 
+  3.747505821132161*^9}, {3.7475059032938604`*^9, 
+  3.747505929401354*^9}},ExpressionUUID->"a2ad17d9-f406-4d21-bed2-\
+5c6cdd773177"],
+
+Cell[BoxData["0.07850000000000001`"], "Output",
+ CellChangeTimes->{3.7475029589804554`*^9, 3.747504690345484*^9, 
+  3.7475058240933304`*^9, 
+  3.7475059405879936`*^9},ExpressionUUID->"53e95b99-1200-4643-a068-\
+3b76ce7d0f2a"],
+
+Cell[BoxData["0.0945`"], "Output",
+ CellChangeTimes->{3.7475029589804554`*^9, 3.747504690345484*^9, 
+  3.7475058240933304`*^9, 
+  3.7475059405899935`*^9},ExpressionUUID->"9ab084bc-0fd1-4f4b-baf3-\
+1b715a1ff987"]
+}, Open  ]],
+
+Cell["\<\
+What is the largest loss one would expect in a given year at a 1% confidence \
+level?\
+\>", "Subitem",
+ CellChangeTimes->{{3.747057688969304*^9, 3.747057715499988*^9}, {
+  3.7470581241486073`*^9, 3.747058128580743*^9}, {3.7470582873027277`*^9, 
+  3.747058429726996*^9}, {3.74705891757316*^9, 3.7470589178377438`*^9}, {
+  3.74705926426264*^9, 
+  3.747059264263524*^9}},ExpressionUUID->"5d780590-8743-4c68-a45b-\
+516392e09092"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"nVaR", "=", 
+  RowBox[{"InverseCDF", "[", 
+   RowBox[{
+    RowBox[{"NormalDistribution", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"0.1", "nRiskFree"}], "+", 
+       RowBox[{"0.9", "nMarketReturn"}]}], ",", 
+      RowBox[{"0.9", "nMarketStdDev"}]}], "]"}], ",", 
+    RowBox[{"1", "-", "0.99"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{
+  3.74750456177713*^9, {3.747504640846653*^9, 3.7475046420477214`*^9}, {
+   3.747504693057639*^9, 3.747504694783738*^9}, {3.7475050429096494`*^9, 
+   3.7475050668770204`*^9}, {3.747505934174627*^9, 
+   3.747505937616824*^9}},ExpressionUUID->"a51b76b1-10de-4641-8775-\
+42a59fc0c970"],
+
+Cell[BoxData[
+ RowBox[{"-", "0.14133987409685944`"}]], "Output",
+ CellChangeTimes->{{3.7475050505650873`*^9, 3.747505069945196*^9}, 
+   3.7475059449132414`*^9},ExpressionUUID->"c4031a10-dff2-4262-a522-\
+d1fd2182faea"]
+}, Open  ]],
+
+Cell["\<\
+The investor wants to see a plot of the percentage held in cash from 5% to \
+25% against the largest expected loss at a 1% level.\
+\>", "Item",
+ CellChangeTimes->{{3.747057688969304*^9, 3.747057715499988*^9}, {
+  3.7470581241486073`*^9, 3.747058128580743*^9}, {3.7470582873027277`*^9, 
+  3.747058429726996*^9}, {3.74705891757316*^9, 3.7470589178377438`*^9}, {
+  3.7470592669603357`*^9, 
+  3.747059319308662*^9}},ExpressionUUID->"e777f40e-5f4a-4a5b-b6f6-\
+a86a6b9ac264"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"mnCashVsLoss", "=", 
+   RowBox[{"Table", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"cash", ",", "\[IndentingNewLine]", 
+       RowBox[{"InverseCDF", "[", 
+        RowBox[{
+         RowBox[{"NormalDistribution", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"cash", " ", "nRiskFree"}], "+", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"1", "-", "cash"}], ")"}], "nMarketReturn"}]}], ",", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"1", "-", "cash"}], ")"}], "nMarketStdDev"}]}], "]"}], 
+         ",", 
+         RowBox[{"1", "-", "0.99"}]}], "]"}]}], "\[IndentingNewLine]", "}"}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"cash", ",", "0.05", ",", "0.25", ",", "0.01"}], "}"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", "\[IndentingNewLine]", 
+  RowBox[{"mnCashVsLoss", ",", "\[IndentingNewLine]", 
+   RowBox[{"PlotStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"PointSize", "[", "Large", "]"}], ",", "Black"}], "}"}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"PlotLabel", "\[Rule]", 
+    RowBox[{"Style", "[", 
+     RowBox[{"\"\<Cash Vs Loss\>\"", ",", 
+      RowBox[{"FontSize", "\[Rule]", "14"}]}], "]"}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+   RowBox[{"Mesh", "\[Rule]", "All"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<cash\>\"", ",", "\"\<loss\>\""}], "}"}]}]}], 
+  "\[IndentingNewLine]", "]"}]}], "Input",
+ CellChangeTimes->{
+  3.7475053878423786`*^9, {3.7475056439280252`*^9, 3.74750570047826*^9}, {
+   3.7475057676241007`*^9, 3.7475058018740597`*^9}, {3.747505858023271*^9, 
+   3.747505881485613*^9}, 3.7475059845885105`*^9, {3.7475060301271152`*^9, 
+   3.747506081330044*^9}},ExpressionUUID->"c8b91b41-f73c-44f5-afd0-\
+079d7ce97877"],
+
+Cell[BoxData[
+ GraphicsBox[{{}, GraphicsComplexBox[CompressedData["
+1:eJxTTMoPSmViYGAQBWIQPWsmCKy0l8rTXahke3j/TrnW14E71tmrKF1ZmcJ0
+eP+bwB1AkY32uteqNi07fmh/tcg694dVW+zNuhR3v+g5tJ/r+uICW67t9vZ2
+Jw5rBR3aDzFvp73Hp7wzOeKH9mvG9B/6qrHHPnCZ6NV1dw5Czd9nHxW15+6H
+hQf3LwHqvr74gH0yX/Izo/SDUPsO2ucc4nxfonNwv4kxCBy2Ly3b8H3bxwNQ
++4/Y12qFM/zcdmA/0HCgDUft2+/95bCuOQB1z3H7CZOWCNY6HtgfBDIu8IT9
+LDdvqf1sB6DuO2nv8vWxK9OM/fsfVYEMPGUfFmsY3qa0f78W2L1n7DOO1mVw
+rd23H+y8grP2NbpnKvvM9+0HG7fjnH33VMluoUN79zOAwQX7eX/T5kzz2bsf
+AIH3reM=
+    "], {{{}, {}, 
+      {GrayLevel[0], PointSize[Large], AbsoluteThickness[1.6], 
+       LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+         19, 20, 21}]}}, {
+      {GrayLevel[0], AbsolutePointSize[6], AbsoluteThickness[1.6], 
+       PointBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 
+        18, 19, 20, 21}]}, {}, {}}}], {}, {}, {}, {}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{
+    FormBox["\"cash\"", TraditionalForm], 
+    FormBox["\"loss\"", TraditionalForm]},
+  AxesOrigin->{0.046875000000000014`, -0.11265722981297333`},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->All,
+  Method->{"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Identity[#]& )[
+         Part[#, 1]], 
+        (Identity[#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Identity[#]& )[
+         Part[#, 1]], 
+        (Identity[#]& )[
+         Part[#, 2]]}& )}},
+  PlotLabel->FormBox[
+    StyleBox["\"Cash Vs Loss\"", FontSize -> 14, StripOnInput -> False], 
+    TraditionalForm],
+  PlotRange->{{0.05, 0.25}, {-0.15030320043557382`, -0.11444989508071621`}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.05], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{{3.7475058779874134`*^9, 3.747505884001757*^9}, {
+  3.747506057221665*^9, 
+  3.747506084844245*^9}},ExpressionUUID->"24e1b65d-057c-4102-bbd0-\
+5c80f92bb518"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowToolbars->{},
+WindowSize->{917, 957},
+WindowMargins->{{4, Automatic}, {Automatic, 2}},
+Magnification:>1.25 Inherited,
+FrontEndVersion->"11.2 for Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"StonyBrook.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 656, 9, 196, "Title",ExpressionUUID->"7489b20b-ece0-427d-93bd-d022f95d08e5"],
+Cell[1239, 33, 1741, 24, 66, "Subtitle",ExpressionUUID->"bb9862ee-20aa-46cf-9aa9-ae1eaae946c0"],
+Cell[2983, 59, 385, 10, 143, "Subsubtitle",ExpressionUUID->"7d251ea9-61fe-4cd9-9680-567c82ae4807"],
+Cell[CellGroupData[{
+Cell[3393, 73, 155, 3, 83, "Section",ExpressionUUID->"7c392387-cda3-4a09-8570-0a7ad078d799"],
+Cell[3551, 78, 706, 18, 38, "Text",ExpressionUUID->"a8f55078-3550-46db-82fc-2b1a0b80c75e"],
+Cell[CellGroupData[{
+Cell[4282, 100, 429, 10, 38, "Item",ExpressionUUID->"2c8ae6bf-148d-465d-babe-f7d046d0d768"],
+Cell[4714, 112, 488, 11, 36, "Item",ExpressionUUID->"6bfb1908-478b-4414-a71c-3d50f2950ba6"],
+Cell[5205, 125, 459, 10, 36, "Item",ExpressionUUID->"91d799e7-bcf8-4ce8-9280-5ff90af84715"],
+Cell[5667, 137, 510, 14, 36, "Item",ExpressionUUID->"35c4086e-1f18-42a2-93b8-0cdd2a6da4e1"],
+Cell[6180, 153, 569, 15, 36, "Item",ExpressionUUID->"2b4d3b1d-ecaa-46aa-9aab-5a0e611af13e"]
+}, Open  ]],
+Cell[6764, 171, 185, 3, 38, "Text",ExpressionUUID->"b2a83021-dcd0-4162-ad8b-796318a07c3d"],
+Cell[6952, 176, 453, 8, 36, "Item",ExpressionUUID->"4649d155-6067-49fb-ace8-9271c3680d61"],
+Cell[CellGroupData[{
+Cell[7430, 188, 2407, 60, 300, "Input",ExpressionUUID->"6980489b-9a1d-4a70-850a-c7a5ce03fd43"],
+Cell[9840, 250, 424, 9, 40, "Output",ExpressionUUID->"1bdd3b6c-7515-4f42-9477-26cd4c8a691a"],
+Cell[10267, 261, 963, 25, 89, "Output",ExpressionUUID->"5aaed239-0d9b-4a91-a04f-719964b42942"]
+}, Open  ]],
+Cell[11245, 289, 672, 19, 38, "Item",ExpressionUUID->"09fbecb6-7886-4ff2-b7e1-9784e22f0ed1"],
+Cell[CellGroupData[{
+Cell[11942, 312, 2545, 41, 54, "Input",ExpressionUUID->"2104b15e-3e47-4d52-a2b9-e8bad082d32e"],
+Cell[14490, 355, 1175, 19, 40, "Output",ExpressionUUID->"8d0380b2-19e2-414b-a024-276077d809cf"]
+}, Open  ]],
+Cell[15680, 377, 251, 4, 36, "Item",ExpressionUUID->"f46b2f9c-7ace-49da-a210-6da6d9ba7664"],
+Cell[CellGroupData[{
+Cell[15956, 385, 945, 23, 70, "Input",ExpressionUUID->"7127771b-fedc-4b78-9a39-4d3a76a95671"],
+Cell[16904, 410, 358, 8, 40, "Output",ExpressionUUID->"ea9c4dc4-f9dc-42cd-b341-72e8050b0fc1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17299, 423, 399, 7, 59, "Item",ExpressionUUID->"32551bc4-2653-413a-84e7-1303de3bc654"],
+Cell[17701, 432, 344, 7, 30, "Subitem",ExpressionUUID->"24c372f1-b191-44af-aa30-ee72f27a670b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18082, 444, 444, 9, 60, "Input",ExpressionUUID->"a2ad17d9-f406-4d21-bed2-5c6cdd773177"],
+Cell[18529, 455, 224, 4, 40, "Output",ExpressionUUID->"53e95b99-1200-4643-a068-3b76ce7d0f2a"],
+Cell[18756, 461, 211, 4, 40, "Output",ExpressionUUID->"9ab084bc-0fd1-4f4b-baf3-1b715a1ff987"]
+}, Open  ]],
+Cell[18982, 468, 435, 9, 30, "Subitem",ExpressionUUID->"5d780590-8743-4c68-a45b-516392e09092"],
+Cell[CellGroupData[{
+Cell[19442, 481, 650, 16, 60, "Input",ExpressionUUID->"a51b76b1-10de-4641-8775-42a59fc0c970"],
+Cell[20095, 499, 217, 4, 40, "Output",ExpressionUUID->"c4031a10-dff2-4262-a522-d1fd2182faea"]
+}, Open  ]],
+Cell[20327, 506, 479, 9, 59, "Item",ExpressionUUID->"e777f40e-5f4a-4a5b-b6f6-a86a6b9ac264"],
+Cell[CellGroupData[{
+Cell[20831, 519, 2017, 48, 372, "Input",ExpressionUUID->"c8b91b41-f73c-44f5-afd0-079d7ce97877"],
+Cell[22851, 569, 2265, 54, 295, "Output",ExpressionUUID->"24e1b65d-057c-4102-bbd0-5c80f92bb518"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

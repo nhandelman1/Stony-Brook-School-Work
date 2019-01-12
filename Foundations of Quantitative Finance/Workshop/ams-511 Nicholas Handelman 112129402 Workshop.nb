@@ -1,0 +1,2167 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     92332,       2159]
+NotebookOptionsPosition[     87298,       2080]
+NotebookOutlinePosition[     87748,       2099]
+CellTagsIndexPosition[     87705,       2096]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["AMS-511 Foundations of Quantitative Finance", "Title",
+ CellChangeTimes->{{3.410118002352737*^9, 3.4101180035512123`*^9}, {
+   3.4104512493187323`*^9, 3.410451249562763*^9}, {3.411070441580077*^9, 
+   3.411070441827072*^9}, {3.411127582523164*^9, 3.41112758277359*^9}, {
+   3.4111315188866587`*^9, 3.411131524894576*^9}, {3.411253224366561*^9, 
+   3.411253224912155*^9}, {3.4114345716329317`*^9, 3.4114345742149363`*^9}, {
+   3.411436143492992*^9, 3.411436148100697*^9}, {3.461105702626305*^9, 
+   3.461105709176071*^9}, 3.4611060748428698`*^9, 3.461106153130972*^9, 
+   3.461106185408854*^9},ExpressionUUID->"67db5256-f2d4-419c-adfe-\
+66cb56024799"],
+
+Cell["Fall 2018 \[LongDash] Workshop \[LongDash] Due Monday 2018-12-10", \
+"Subtitle",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGCQBGIQHbQ2eYNHxkvHVSeDNoLoLa0Jma+BNNePzWD69zqT
+ieZZLx01rqpOBtFurBz/dgDp+lZJhp1AeuvyeP8zQJrFbC2Y/nyqLwFEB61c
+kgSirQJesnWefOmotaacA0S3/MtwBNEHtSaB6ePFCaEgOnsOXzSIjjmlGQ+i
+mWYbJIBoFSffByBabd7hZyB6yxNHzgjmV46PHH7xgOi5ay8YgGib3L+GIDrr
+6YswEP1z3VswrXS/p72V7ZXjruQnnSA69tLetjtA+tjsbe0gmjv4hmbE7leO
+T8r/aYPoZaEP81dce+XIxMhfBqKLTB5ePHf9lePeOeyXQXTO5ekvuu6+ctxz
+tvIliO7aNUF2yr1XjoskZ4HpfU8fKYHoHKEoFRA9o3WhetLn144rN+pogOiQ
+ea4XN3557chlJHkJRHOaPL8Bop3e/rsJogHB7NgM
+  
+  "],ExpressionUUID->"6a37688f-4360-4fd7-9b6c-c4f676fb4ba2"],
+
+Cell["Examining the CAPM Against Actual Data", "Subtitle",
+ CellChangeTimes->{{3.4101180191149073`*^9, 3.410118026587117*^9}, {
+   3.410451275016321*^9, 3.410451277624028*^9}, {3.41113152964636*^9, 
+   3.41113154518227*^9}, {3.4113965922506437`*^9, 3.411396608797546*^9}, {
+   3.411436154989222*^9, 3.4114361574128437`*^9}, {3.411436292462274*^9, 
+   3.411436309145669*^9}, {3.4611057192910433`*^9, 3.461105731739766*^9}, {
+   3.461106187281069*^9, 3.461106188567719*^9}, {3.461106347014133*^9, 
+   3.461106414219338*^9}, 3.461106464619837*^9, {3.491414446289631*^9, 
+   3.4914144551523657`*^9}, {3.49141474162271*^9, 3.491414794268467*^9}, {
+   3.493080178809965*^9, 3.4930801954498453`*^9}, {3.493259314481339*^9, 
+   3.493259334726796*^9}, 3.5878833642315407`*^9, {3.602203588070765*^9, 
+   3.6022036091746397`*^9}, {3.602806516883963*^9, 3.602806549394257*^9}, {
+   3.60581307175016*^9, 3.605813141124806*^9}, {3.606356313983981*^9, 
+   3.606356344623466*^9}, {3.751481669862256*^9, 
+   3.751481683948976*^9}},ExpressionUUID->"ef2da9ed-e663-4c23-bc77-\
+1961fed400b9"],
+
+Cell["\<\
+Robert J. Frey, Research Professor
+Stony Brook University, Applied Mathematics and Statistics
+
+Robert.Frey@StonyBrook.edu
+http://www.ams.sunysb.edu/~frey\
+\>", "Subsubtitle",
+ CellChangeTimes->{{3.411439843209729*^9, 3.411439853156939*^9}, {
+  3.587883368607191*^9, 
+  3.587883390413391*^9}},ExpressionUUID->"52f90e3c-06fc-4cb0-b186-\
+c24b2345d649"],
+
+Cell[CellGroupData[{
+
+Cell["Workshop Description", "Section",
+ CellChangeTimes->{{3.606356393712226*^9, 
+  3.606356399982332*^9}},ExpressionUUID->"8b897484-1157-4934-a778-\
+90785cca49c7"],
+
+Cell[CellGroupData[{
+
+Cell["Overview", "Subsection",
+ CellChangeTimes->{{3.6063568279972153`*^9, 3.606356832151638*^9}, 
+   3.751481573114182*^9},ExpressionUUID->"02e7ee86-a394-4a94-aa3c-\
+c5fb4fab989b"],
+
+Cell[TextData[{
+ "The Capital Asset Pricing Model (CAPM) makes some specific predictions \
+about the market for securities. There are two that we will address here. \
+First, that the relationship between the return of an asset ",
+ Cell[BoxData[
+  FormBox["i", TraditionalForm]],ExpressionUUID->
+  "c15b8862-d931-4bfd-9e57-fad77183ba38"],
+ " and the market ",
+ Cell[BoxData[
+  FormBox["M", TraditionalForm]],ExpressionUUID->
+  "f235afb6-502a-4f4e-bf2c-1e29f832bc23"],
+ " follows the relationship"
+}], "Text",
+ CellChangeTimes->{{3.606356405758417*^9, 3.6063565226599617`*^9}, {
+  3.6063566109223003`*^9, 3.606356740961532*^9}, {3.75148171227868*^9, 
+  3.7514817446306753`*^9}, {3.751482042999752*^9, 3.751482103134801*^9}, {
+  3.7521676691411877`*^9, 
+  3.75216767118215*^9}},ExpressionUUID->"3effbb3d-0bc7-4e3c-9d3d-\
+37160744e293"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     SubscriptBox["r", "i"], "(", "t", ")"}], "-", 
+    SubscriptBox["r", "f"]}], "=", 
+   RowBox[{
+    RowBox[{"\[Beta]", "(", 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["r", "M"], "(", "t", ")"}], "-", 
+      SubscriptBox["r", "f"]}], ")"}], "+", 
+    RowBox[{
+     SubscriptBox["\[Epsilon]", "i"], "(", "t", ")"}]}]}], 
+  TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.751481790459296*^9, 
+  3.7514818339319153`*^9}},ExpressionUUID->"e3a3b6f2-5378-486c-bd35-\
+3b9989c8d351"],
+
+Cell[TextData[{
+ "And second, the proportion of asset ",
+ Cell[BoxData[
+  FormBox["i", TraditionalForm]],ExpressionUUID->
+  "1c90f788-a550-41b4-8512-6a7119199d8c"],
+ " in the market (",
+ StyleBox["i.e.",
+  FontSlant->"Italic"],
+ ", tangent) portfolio is"
+}], "Text",
+ CellChangeTimes->{{3.751482108630368*^9, 3.751482153861524*^9}, {
+   3.751482241903092*^9, 3.75148226192347*^9}, 3.752167712733596*^9, {
+   3.752169752242923*^9, 
+   3.752169752570551*^9}},ExpressionUUID->"407f26b8-06bd-4734-83c6-\
+489ecc4ca8a3"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["x", "i"], "\[Proportional]", 
+   FractionBox[
+    SubscriptBox["\[Beta]", "i"], 
+    RowBox[{"Var", "[", 
+     SubscriptBox["\[Epsilon]", "i"], "]"}]]}], TraditionalForm]], "Equation",\
+
+ CellChangeTimes->{{3.751481843411338*^9, 
+  3.751481875434973*^9}},ExpressionUUID->"56f24882-c2d2-4ab3-8ca3-\
+dc35b9a3c75e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Assignment", "Subsection",
+ CellChangeTimes->{{3.606356841211917*^9, 
+  3.606356843723832*^9}},ExpressionUUID->"500fa8a4-1a88-4fd4-8431-\
+4b3e6db86f57"],
+
+Cell["\<\
+The assignment for this Workshop is to perform an analysis which computes the \
+theoretical allocation, the actual allocation, and compares the two. You will \
+be working with daily return data for the Dow Jones Industrial Index, which \
+consists of 30 stocks, beginning 2013-01-02 and ending 2018-10-31, inclusive. \
+The work involved is the following:\
+\>", "Text",
+ CellChangeTimes->{{3.606357010882896*^9, 3.60635711453198*^9}, {
+   3.6063571741163387`*^9, 3.606357244031556*^9}, 3.7518128169661493`*^9, {
+   3.7520912754273033`*^9, 3.7520912874399443`*^9}, {3.752167561131868*^9, 
+   3.752167623073411*^9}, {3.7521677389008427`*^9, 3.7521678326907797`*^9}, {
+   3.752169694465784*^9, 
+   3.7521696948892937`*^9}},ExpressionUUID->"d4956cf1-c790-4812-89bf-\
+3febb30c64f6"],
+
+Cell["\<\
+Load the necessary data. The required data files are all listed under Class \
+11 on the AMS 511 course page.\
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.752091302593513*^9, 3.752091395736289*^9}, {
+  3.752091498495406*^9, 3.752091509821958*^9}, {3.752091844122957*^9, 
+  3.752091855594795*^9}, {3.752092161340963*^9, 3.7520921763166018`*^9}, {
+  3.752167851278137*^9, 
+  3.752167914039482*^9}},ExpressionUUID->"b2ffef64-43c0-4b61-b38d-\
+9b0431858434"],
+
+Cell[BoxData[{
+ RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"xLocal", "[", "s_", "]"}], ":=", 
+  RowBox[{"FileNameJoin", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"NotebookDirectory", "[", "]"}], ",", "s"}], "}"}], 
+   "]"}]}]}], "Input",
+ CellChangeTimes->{
+  3.7533363574716988`*^9, {3.7533999019880953`*^9, 3.753399902374117*^9}, {
+   3.753465456538349*^9, 3.753465502800995*^9}, {3.753466079259967*^9, 
+   3.7534660795349827`*^9}},ExpressionUUID->"eaa710bd-7409-416e-a027-\
+9d8b6a248456"],
+
+Cell["\<\
+Import[\[NonBreakingSpace]] the daily return vector for the returns of the \
+Dow Jones Industrial (DJI) Index which will represent the market. This is a \
+vector of length 1471 with each element representing a different date.\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.752091302593513*^9, 3.752091395736289*^9}, {
+  3.752091498495406*^9, 3.752091509821958*^9}, {3.752091844122957*^9, 
+  3.752091855594795*^9}, {3.752092161340963*^9, 
+  3.7520921763166018`*^9}},ExpressionUUID->"dde48f60-6725-4e85-83f8-\
+1911ba4ea1c6"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"vnDJIReturns", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"xLocal", "[", "\"\<vnDJIReturns.m\>\"", "]"}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{
+  3.7533364399276934`*^9},ExpressionUUID->"553e97dc-fb08-48ef-b73e-\
+b7083d825920"],
+
+Cell["\<\
+Import[\[NonBreakingSpace]] the daily returns matrix for the thirty members \
+of the DJI. This is a matrix of dimension 1471\[Times]30 with each row \
+representing a different date and each column a different stock.\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.752091302593513*^9, 3.752091409673483*^9}, {
+  3.75209147711377*^9, 3.7520914771141853`*^9}, {3.752091512062207*^9, 
+  3.7520915182537003`*^9}, {3.752091858554912*^9, 3.752091886522338*^9}, {
+  3.7520921281251287`*^9, 
+  3.752092153868792*^9}},ExpressionUUID->"1487b952-1295-452e-a05c-\
+4b802b771fd7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"mnReturns", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"xLocal", "[", "\"\<mnReturns.m\>\"", "]"}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{
+  3.7533364521679215`*^9, {3.753337101583562*^9, 
+   3.7533371160913916`*^9}},ExpressionUUID->"2b01eb1b-4628-4fbd-9612-\
+819eb7dd41ef"],
+
+Cell["\<\
+Import[\[NonBreakingSpace]] vectors representing the tickers of the DJI \
+members (a vector of 30 strings).\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.752091302593513*^9, 3.752091409673483*^9}, {
+  3.752091478574601*^9, 3.752091492574679*^9}, {3.752091540100728*^9, 
+  3.752091571404366*^9}, {3.752091894426344*^9, 3.75209198144808*^9}, {
+  3.752092012780987*^9, 3.75209205661274*^9}, {3.7520920981658897`*^9, 
+  3.752092098166602*^9}, {3.752092197975747*^9, 3.7520922057747087`*^9}, {
+  3.7521679492037897`*^9, 
+  3.752167950908297*^9}},ExpressionUUID->"64495be7-ac8d-4cc5-96a4-\
+92a7be084c25"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"vsDJI", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"xLocal", "[", "\"\<vsDJI.m\>\"", "]"}], "]"}]}], ";"}]], "Input",\
+
+ CellChangeTimes->{
+  3.7533363934737816`*^9},ExpressionUUID->"d1bc9966-924b-4134-8a3e-\
+509975fe4feb"],
+
+Cell["\<\
+Import[\[NonBreakingSpace]] the calendar of dates (a vector of length 1471 \
+with each element a date represented by a vector of length 3; alternately, it \
+can be viewed as a 1471\[Times]3 matrix). \
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.752091302593513*^9, 3.752091409673483*^9}, {
+  3.752091478574601*^9, 3.752091492574679*^9}, {3.752091540100728*^9, 
+  3.752091571404366*^9}, {3.752091894426344*^9, 3.75209198144808*^9}, {
+  3.752092012780987*^9, 3.75209205661274*^9}, {3.7520920981658897`*^9, 
+  3.752092098166602*^9}, {3.752092197975747*^9, 3.7520922057747087`*^9}, {
+  3.7521679492037897`*^9, 3.752167971201702*^9}, {3.7521683736883783`*^9, 
+  3.752168394183525*^9}},ExpressionUUID->"1bb92edf-677c-452d-9a74-\
+3860100865cb"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"vxReturnCalendar", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"xLocal", "[", "\"\<vxReturnCalendar.m\>\"", "]"}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{
+  3.753336465402952*^9},ExpressionUUID->"2a36052f-06d1-43ef-ae0a-\
+4f77584bd224"],
+
+Cell["All of the above are aligned properly.", "SubitemNumbered",
+ CellChangeTimes->{{3.752091302593513*^9, 3.752091409673483*^9}, {
+  3.752091478574601*^9, 3.752091492574679*^9}, {3.752091540100728*^9, 
+  3.752091571404366*^9}, {3.752091894426344*^9, 3.75209198144808*^9}, {
+  3.752092012780987*^9, 3.75209205661274*^9}, {3.75209209970374*^9, 
+  3.752092112023779*^9}, {3.752167996817019*^9, 
+  3.752168002625675*^9}},ExpressionUUID->"f3d0b339-3f2b-486b-88ee-\
+5e935c69e135"],
+
+Cell[TextData[{
+ "Perform a CAPM  linear regression to estimate the betas and error variances \
+of each member of the DJI. For simplicity assume an annual risk free rate of \
+2%. Approximate the ",
+ StyleBox["daily",
+  FontSlant->"Italic"],
+ " rate as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"1", "+", "0.02"}], ")"}], "^", 
+     RowBox[{"(", 
+      RowBox[{"1", "/", "250"}], ")"}]}], "-", "1"}], TraditionalForm]],
+  ExpressionUUID->"79c6450d-d88c-4f85-a1af-eff23ccca92e"],
+ "."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.752091302593513*^9, 3.752091440633685*^9}, {
+  3.752092230123786*^9, 3.7520923903273153`*^9}, {3.7521676595030327`*^9, 
+  3.75216766267008*^9}},ExpressionUUID->"9af40ae2-e134-40ab-9602-\
+e05f1df3ee30"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nDailyRiskFree", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"1", "+", "0.02"}], ")"}], "^", 
+     RowBox[{"(", 
+      RowBox[{"1", "/", "250"}], ")"}]}], "-", "1"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"mnEstBetaErrVar", " ", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Flatten", "[", 
+      RowBox[{
+       RowBox[{"LinearModelFit", "[", 
+        RowBox[{
+         RowBox[{"Transpose", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"mnReturns", "\[LeftDoubleBracket]", 
+              RowBox[{"All", ",", " ", "i"}], "\[RightDoubleBracket]"}], "-", 
+             "nDailyRiskFree"}], ",", " ", 
+            RowBox[{"vnDJIReturns", "-", "nDailyRiskFree"}]}], "}"}], "]"}], 
+         ",", " ", "\[FormalX]", ",", " ", "\[FormalX]", ",", " ", 
+         RowBox[{"IncludeConstantBasis", "\[Rule]", "False"}]}], "]"}], "[", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<BestFitParameters\>\"", ",", " ", "\"\<EstimatedVariance\>\""}], 
+        "}"}], "]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "vsDJI", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.75333662885294*^9, 3.7533366598716135`*^9}, {
+  3.7533367169807453`*^9, 3.753336759781845*^9}, {3.7533369685069504`*^9, 
+  3.7533369875150375`*^9}, {3.753337066897578*^9, 3.7533370766651363`*^9}, {
+  3.753337161137968*^9, 3.7533372122058887`*^9}, {3.753399024800923*^9, 
+  3.753399025591968*^9}, {3.7534647760772*^9, 3.753464777247202*^9}, {
+  3.7534654837999086`*^9, 3.753465505386143*^9}, {3.753466117008126*^9, 
+  3.753466122603446*^9}},ExpressionUUID->"8f125045-6384-4189-b67e-\
+f7c0b775a2c3"],
+
+Cell["\<\
+Use these estimates of the betas and error variances to compute the \
+proportional allocations of each as predicted by the CAPM and normalize them \
+so they sum to one.\
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.752091302593513*^9, 3.752091463086854*^9}, {
+   3.752091689524867*^9, 3.752091700050976*^9}, {3.75209242544576*^9, 
+   3.7520924325974913`*^9}, {3.752168034304762*^9, 3.75216804328088*^9}, 
+   3.753336790564721*^9},ExpressionUUID->"42aa6fab-4c95-46a6-bc7c-\
+ff4eedf49b1c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"vnCAPMAllocations", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"mnEstBetaErrVar", "[", 
+       RowBox[{"[", 
+        RowBox[{"i", ",", "1"}], "]"}], "]"}], "/", 
+      RowBox[{"mnEstBetaErrVar", "[", 
+       RowBox[{"[", 
+        RowBox[{"i", ",", "2"}], "]"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "vsDJI", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"vnCAPMNormalizedAllocations", "=", 
+  RowBox[{"vnCAPMAllocations", "/", 
+   RowBox[{"Total", "[", "vnCAPMAllocations", "]"}]}]}]}], "Input",
+ CellChangeTimes->{{3.7533370410450993`*^9, 3.753337061401263*^9}, {
+   3.75333714491504*^9, 3.753337148215229*^9}, {3.7533372950956297`*^9, 
+   3.7533373657576714`*^9}, {3.753337398226529*^9, 3.7533374348806252`*^9}, {
+   3.7533374770133457`*^9, 3.753337681830304*^9}, {3.753337789661802*^9, 
+   3.7533378018360305`*^9}, {3.7533378625554714`*^9, 
+   3.7533378900693464`*^9}, {3.7533379367119894`*^9, 
+   3.7533379699986634`*^9}, {3.753338014654896*^9, 3.7533380426535616`*^9}, {
+   3.753338186464776*^9, 3.7533382237338667`*^9}, {3.7533384741330447`*^9, 
+   3.7533384978497076`*^9}, {3.7533385506292963`*^9, 
+   3.7533385554907064`*^9}, {3.753338603023223*^9, 3.753338619569662*^9}, {
+   3.753338672635184*^9, 3.753338701562652*^9}, {3.7533388011227665`*^9, 
+   3.7533388125889935`*^9}, {3.7533388875672293`*^9, 
+   3.7533389322491345`*^9}, {3.753339032746957*^9, 3.753339099973919*^9}, {
+   3.7533394010424414`*^9, 3.7533394907776656`*^9}, 3.7533962016637735`*^9, {
+   3.753398812588785*^9, 3.7533988168890305`*^9}, {3.7533990920547695`*^9, 
+   3.753399094045883*^9}, {3.753399924525384*^9, 3.7533999254524374`*^9}, {
+   3.753464783783613*^9, 3.7534647857960167`*^9}, {3.7534654883741703`*^9, 
+   3.753465506673217*^9}, 
+   3.7534661479118934`*^9},ExpressionUUID->"bde04a8b-418c-43e7-8554-\
+6b5e68e9475c"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.06474411348292063`", ",", "0.03278583683794139`", ",", 
+   "0.016074359470014912`", ",", "0.03446900800127841`", ",", 
+   "0.030256820602978934`", ",", "0.03140871533315188`", ",", 
+   "0.028201065392684046`", ",", "0.03139036222928834`", ",", 
+   "0.03568021576182657`", ",", "0.02791250130409856`", ",", 
+   "0.03958250355234282`", ",", "0.0492431637050253`", ",", 
+   "0.03775302338717698`", ",", "0.02264420702786971`", ",", 
+   "0.031890735446535715`", ",", "0.04841780212278754`", ",", 
+   "0.05366088882747835`", ",", "0.028769402811237597`", ",", 
+   "0.023634837686973907`", ",", "0.02612349816145647`", ",", 
+   "0.01962983641585618`", ",", "0.032115253801809164`", ",", 
+   "0.02910430432954447`", ",", "0.048101032139731464`", ",", 
+   "0.027780015688828607`", ",", "0.054560928799852304`", ",", 
+   "0.022473702034722796`", ",", "0.03827767082507398`", ",", 
+   "0.014784513314155081`", ",", "0.018529681505357838`"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.753396204017908*^9, 3.75339627870818*^9, 3.753398819272167*^9, 
+   3.753399005485818*^9, {3.753399086201435*^9, 3.7533991212174377`*^9}, 
+   3.7533997865824943`*^9, {3.7533999087924843`*^9, 3.7533999309827538`*^9}, 
+   3.753400804559719*^9, 3.7534008374365997`*^9, 3.753400890447632*^9, 
+   3.75346480478125*^9, 3.753465520596013*^9, 3.753466170462183*^9, 
+   3.7534678955488524`*^9, 3.7534760517133584`*^9, 3.753476090424573*^9, 
+   3.7534761992107944`*^9, 3.753476293811206*^9, 3.7534763304373007`*^9, 
+   3.7534764165922284`*^9, 3.7534765270995493`*^9, 3.7534765756763277`*^9, {
+   3.753476666145502*^9, 3.753476694946149*^9}, 3.7534767398647184`*^9, 
+   3.7534768978127527`*^9, 3.753477263157649*^9, 3.7534773935611076`*^9, 
+   3.7534774447430353`*^9, 3.7534817732816133`*^9, 
+   3.753488628516466*^9},ExpressionUUID->"dfbc1f24-4434-4b7a-bd1c-\
+955829f0398a"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Use FinancialData[",
+ StyleBox["ticker",
+  FontSlant->"Italic"],
+ ", \[OpenCurlyDoubleQuote]MarketCap\[CloseCurlyDoubleQuote]] to download the \
+market capitalization of the members of the DJI and use them to compute the \
+actual proportion of each in the DJI. Again, normalize their sum to one. I \
+found that the DJI is calculated using the formula: DJI_Price = sum(price of \
+each component)/dow_divisor. I get the price through FinancialData[] and the \
+dow_divisor from http://www.wsj.com/mdc/public/page/2_3022-djiahourly.html. \
+Then I calculate the weight of each component in the DJI. Also, DWDP and GS \
+were not returning price data, so I removed the Missing values and all of the \
+corresponding values from the CAPM allocations and the list of components in \
+the DJI (variable vsDJI)."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.752091302593513*^9, 3.752091463086854*^9}, {
+   3.752091689524867*^9, 3.752091778756324*^9}, 3.752168017866414*^9, {
+   3.7521680534982758`*^9, 3.752168066103909*^9}, {3.753397390972473*^9, 
+   3.753397398115882*^9}, {3.753397475118286*^9, 3.7533975163896465`*^9}, {
+   3.7533976929327445`*^9, 3.753397746199791*^9}, {3.753397800602903*^9, 
+   3.7533978017749696`*^9}, {3.7533983403947773`*^9, 
+   3.7533983470831594`*^9}, {3.7533984118058615`*^9, 
+   3.7533984422246013`*^9}, {3.7533986202857857`*^9, 3.753398639011857*^9}, {
+   3.7534677151715355`*^9, 3.753467748382435*^9}, {3.7534678437608905`*^9, 
+   3.7534678488091793`*^9}, {3.753477038090776*^9, 3.7534770569228535`*^9}, {
+   3.7534772185070953`*^9, 
+   3.7534772334229484`*^9}},ExpressionUUID->"1c1ea4eb-ff92-44de-b21b-\
+034de086929b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"vnPricesDJI", "=", 
+  RowBox[{"FinancialData", "[", 
+   RowBox[{"vsDJI", ",", "\"\<Price\>\""}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nDJIPrice", "=", 
+   RowBox[{"FinancialData", "[", 
+    RowBox[{"\"\<DJI\>\"", ",", "\"\<Price\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"nDJIDivisor", "=", "0.14748071991788"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"viMissingPositions", "=", 
+   RowBox[{
+    RowBox[{"Position", "[", 
+     RowBox[{"vnPricesDJI", ",", "Missing"}], "]"}], "[", 
+    RowBox[{"[", 
+     RowBox[{"All", ",", "1"}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vnPricesDJI", "=", 
+   RowBox[{"Delete", "[", 
+    RowBox[{"vnPricesDJI", ",", 
+     RowBox[{"List", "/@", "viMissingPositions"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vnCAPMNormalizedAllocations", "=", 
+   RowBox[{"Delete", "[", 
+    RowBox[{"vnCAPMNormalizedAllocations", ",", 
+     RowBox[{"List", "/@", "viMissingPositions"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"vsDJI", "=", 
+    RowBox[{"Delete", "[", 
+     RowBox[{"vsDJI", ",", 
+      RowBox[{"List", "/@", "viMissingPositions"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"vnDJIAllocations", "=", 
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"vnPricesDJI", "/", "nDJIDivisor"}], ")"}], "/", 
+   "nDJIPrice"}]}]}], "Input",
+ CellChangeTimes->{{3.753396148048707*^9, 3.7533961633915844`*^9}, {
+   3.753396234635659*^9, 3.7533962569659367`*^9}, {3.7533963454119883`*^9, 
+   3.753396350107257*^9}, {3.7533966074779778`*^9, 3.7533966201387014`*^9}, {
+   3.753397217120529*^9, 3.7533972401438465`*^9}, {3.7533972755788727`*^9, 
+   3.7533972767129383`*^9}, {3.7533973666090794`*^9, 
+   3.7533973830250187`*^9}, {3.753397765307884*^9, 3.753397766907975*^9}, {
+   3.753397811374519*^9, 3.753397843175338*^9}, {3.7533979366916866`*^9, 
+   3.7533979501714573`*^9}, {3.7533979923758717`*^9, 3.753398003606514*^9}, {
+   3.753398049453136*^9, 3.753398052161291*^9}, {3.753398108477512*^9, 
+   3.7533981109646544`*^9}, {3.753398269392716*^9, 3.7533982905599265`*^9}, {
+   3.753398465176914*^9, 3.753398519167002*^9}, 3.753398865251797*^9, {
+   3.7534650371163597`*^9, 3.7534650376593904`*^9}, {3.7534659186997833`*^9, 
+   3.7534659197278423`*^9}, {3.753466457471599*^9, 3.753466464925026*^9}, {
+   3.753466555337197*^9, 3.7534665574653187`*^9}, {3.753466802811352*^9, 
+   3.753466845676803*^9}, {3.7534668804467916`*^9, 3.75346688495405*^9}, {
+   3.7534669565641456`*^9, 3.7534669897440434`*^9}, {3.7534670289792876`*^9, 
+   3.7534670340985804`*^9}, {3.7534670676665*^9, 3.753467105701676*^9}, {
+   3.7534672026872234`*^9, 3.753467212390778*^9}, {3.7534673215610223`*^9, 
+   3.7534673226410837`*^9}, {3.7534674103671017`*^9, 3.753467415994424*^9}, {
+   3.753467491937767*^9, 3.7534675501270957`*^9}, {3.753467621990206*^9, 
+   3.7534676295256367`*^9}, {3.753467675229251*^9, 3.753467682935692*^9}, {
+   3.753467768195568*^9, 3.7534678356214247`*^9}, 3.75347628986598*^9, {
+   3.7534763713276396`*^9, 3.753476392861871*^9}, {3.753476517616007*^9, 
+   3.7534765213632207`*^9}, {3.7534765593993964`*^9, 
+   3.7534765697539887`*^9}, {3.753476651127643*^9, 3.753476653625786*^9}, {
+   3.7534766876597323`*^9, 3.753476730666192*^9}, {3.753476859524563*^9, 
+   3.753476874263406*^9}, 3.7534769722620106`*^9, {3.753477175647644*^9, 
+   3.7534772084715214`*^9}, 3.753477243470523*^9, {3.7534773554929304`*^9, 
+   3.7534774038786983`*^9}, {3.7534774380546527`*^9, 
+   3.7534774412218337`*^9}, {3.7534817172644095`*^9, 
+   3.753481721314641*^9}},ExpressionUUID->"1e951d28-4893-4783-ab5a-\
+c8631bb5838d"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "198.32`", ",", "105.79`", ",", "169.6`", ",", "326.35`", ",", "123.39`", 
+   ",", "114.94`", ",", "46.86`", ",", "49.24`", ",", "111.86`", ",", 
+   RowBox[{"Missing", "[", "\<\"NotAvailable\"\>", "]"}], ",", "76.54`", ",", 
+   
+   RowBox[{"Missing", "[", "\<\"NotAvailable\"\>", "]"}], ",", "171.69`", ",",
+    "47.21`", ",", "121.13`", ",", "145.26`", ",", "101.36`", ",", "184.65`", 
+   ",", "77.42`", ",", "107.59`", ",", "72.51`", ",", "44.4`", ",", "93.03`", 
+   ",", "123", ",", "266.53`", ",", "119.41`", ",", "58.27`", ",", "137.88`", 
+   ",", "81.16`", ",", "93.94`"}], "}"}]], "Output",
+ CellChangeTimes->{{3.7533962213609*^9, 3.753396237738837*^9}, 
+   3.753396292593974*^9, 3.753396354606514*^9, 3.7533966240779266`*^9, {
+   3.7533972261460457`*^9, 3.7533972465072103`*^9}, 3.7533972831543064`*^9, {
+   3.753397840487184*^9, 3.753397849422695*^9}, 3.7533979593879848`*^9, 
+   3.753398021614544*^9, 3.7533980622078657`*^9, 3.7533981190211153`*^9, 
+   3.753398302371602*^9, 3.753398532970792*^9, 3.7533988717131667`*^9, 
+   3.7533989699427853`*^9, 3.753399012796236*^9, {3.7533990886435747`*^9, 
+   3.7533991235595713`*^9}, 3.7533997890886374`*^9, {3.753399911237624*^9, 
+   3.753399933403892*^9}, 3.7534008311872425`*^9, 3.7534008638511105`*^9, 
+   3.753400916887144*^9, 3.753464814016466*^9, 3.753465041561614*^9, 
+   3.7534655206090136`*^9, 3.753466174301403*^9, 3.753466471769417*^9, 
+   3.75346656396669*^9, 3.7534668527422075`*^9, 3.753466892066457*^9, 
+   3.753467000194641*^9, 3.7534670534706883`*^9, {3.7534670939170017`*^9, 
+   3.7534671116190147`*^9}, 3.753467219344176*^9, 3.7534673295424786`*^9, 
+   3.7534674226748056`*^9, 3.753467525640695*^9, 3.7534675565074606`*^9, 
+   3.7534676357389927`*^9, 3.7534676886290174`*^9, 3.7534678995930843`*^9, 
+   3.753476055735588*^9, 3.753476100420144*^9, {3.7534761867800837`*^9, 
+   3.7534762030260134`*^9}, 3.753476298752488*^9, 3.7534763407078876`*^9, {
+   3.7534763766739454`*^9, 3.7534764228015833`*^9}, 3.7534765311217794`*^9, 
+   3.75347658026859*^9, {3.7534766587750807`*^9, 3.7534766988293715`*^9}, 
+   3.7534767471531353`*^9, 3.7534769017119756`*^9, 3.7534772686179614`*^9, 
+   3.753477398987418*^9, 3.753477448336241*^9, 3.7534817771638355`*^9, 
+   3.753488633059074*^9},ExpressionUUID->"8bf46e85-1b26-426d-81eb-\
+f0752b36cd9e"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.055058912866085774`", ",", "0.029370120976720523`", ",", 
+   "0.04708547610976275`", ",", "0.09060345004965255`", ",", 
+   "0.03425634962962043`", ",", "0.03191040462297246`", ",", 
+   "0.013009583788346003`", ",", "0.013670335162999514`", ",", 
+   "0.031055314608714978`", ",", "0.021249542107554482`", ",", 
+   "0.04766571576229461`", ",", "0.01310675310814799`", ",", 
+   "0.0336289134503276`", ",", "0.040328043984104577`", ",", 
+   "0.028140235014655374`", ",", "0.05126375686124818`", ",", 
+   "0.02149385354019948`", ",", "0.029869848907130743`", ",", 
+   "0.020130706796691607`", ",", "0.012326622283452039`", ",", 
+   "0.02582760520336809`", ",", "0.03414807524469821`", ",", 
+   "0.07399582516235297`", ",", "0.03315139565015784`", ",", 
+   "0.016177303613890776`", ",", "0.03827915946942268`", ",", 
+   "0.02253217712894071`", ",", "0.026080245434853253`"}], "}"}]], "Output",
+ CellChangeTimes->{{3.7533962213609*^9, 3.753396237738837*^9}, 
+   3.753396292593974*^9, 3.753396354606514*^9, 3.7533966240779266`*^9, {
+   3.7533972261460457`*^9, 3.7533972465072103`*^9}, 3.7533972831543064`*^9, {
+   3.753397840487184*^9, 3.753397849422695*^9}, 3.7533979593879848`*^9, 
+   3.753398021614544*^9, 3.7533980622078657`*^9, 3.7533981190211153`*^9, 
+   3.753398302371602*^9, 3.753398532970792*^9, 3.7533988717131667`*^9, 
+   3.7533989699427853`*^9, 3.753399012796236*^9, {3.7533990886435747`*^9, 
+   3.7533991235595713`*^9}, 3.7533997890886374`*^9, {3.753399911237624*^9, 
+   3.753399933403892*^9}, 3.7534008311872425`*^9, 3.7534008638511105`*^9, 
+   3.753400916887144*^9, 3.753464814016466*^9, 3.753465041561614*^9, 
+   3.7534655206090136`*^9, 3.753466174301403*^9, 3.753466471769417*^9, 
+   3.75346656396669*^9, 3.7534668527422075`*^9, 3.753466892066457*^9, 
+   3.753467000194641*^9, 3.7534670534706883`*^9, {3.7534670939170017`*^9, 
+   3.7534671116190147`*^9}, 3.753467219344176*^9, 3.7534673295424786`*^9, 
+   3.7534674226748056`*^9, 3.753467525640695*^9, 3.7534675565074606`*^9, 
+   3.7534676357389927`*^9, 3.7534676886290174`*^9, 3.7534678995930843`*^9, 
+   3.753476055735588*^9, 3.753476100420144*^9, {3.7534761867800837`*^9, 
+   3.7534762030260134`*^9}, 3.753476298752488*^9, 3.7534763407078876`*^9, {
+   3.7534763766739454`*^9, 3.7534764228015833`*^9}, 3.7534765311217794`*^9, 
+   3.75347658026859*^9, {3.7534766587750807`*^9, 3.7534766988293715`*^9}, 
+   3.7534767471531353`*^9, 3.7534769017119756`*^9, 3.7534772686179614`*^9, 
+   3.753477398987418*^9, 3.753477448336241*^9, 3.7534817771638355`*^9, 
+   3.7534886351494775`*^9},ExpressionUUID->"1ff1d1f9-87ee-4743-86ab-\
+04bcafc2c582"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Plot the CAPM allocations estimated in (",
+ StyleBox["3.",
+  FontWeight->"Bold"],
+ ") against the market\[CloseCurlyQuote]s observed in (",
+ StyleBox["4.",
+  FontWeight->"Bold"],
+ "). Hover over the points to see the associated ticker. I included a 45 \
+degree line on which the points would lie if the CAPM and DJI allocations \
+were equal for each ticker."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.752091302593513*^9, 3.752091463086854*^9}, {
+  3.752091689524867*^9, 3.7520918239795*^9}, {3.752092449797036*^9, 
+  3.75209246000627*^9}, {3.752168073104002*^9, 3.752168079240131*^9}, {
+  3.752168986307334*^9, 3.752169008131302*^9}, {3.7521699092548933`*^9, 
+  3.7521699092553463`*^9}, {3.7534774642781525`*^9, 3.753477521804443*^9}, {
+  3.753480894732363*^9, 3.7534809102972536`*^9}, {3.753481273040001*^9, 
+  3.7534813186876125`*^9}},ExpressionUUID->"da641e83-495d-4780-a316-\
+aa56eb9f818a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"ListPlot", "[", 
+    RowBox[{
+     RowBox[{"MapThread", "[", 
+      RowBox[{"Tooltip", ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Transpose", "[", 
+          RowBox[{"{", 
+           RowBox[{"vnCAPMNormalizedAllocations", ",", "vnDJIAllocations"}], 
+           "}"}], "]"}], ",", "vsDJI"}], "}"}]}], "]"}], ",", " ", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<CAPM Allocation\>\"", ",", "\"\<DJI Allocation\>\""}], 
+       "}"}]}], ",", " ", 
+     RowBox[{"ImageSize", "\[Rule]", "800"}]}], "]"}], ",", " ", 
+   RowBox[{"Graphics", "[", 
+    RowBox[{"Line", "[", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "1"}], "}"}]}], "}"}], "]"}], "]"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.753398794876772*^9, 3.7533988356811056`*^9}, 
+   3.753399117742239*^9, {3.753399172977398*^9, 3.7533991764445963`*^9}, {
+   3.753399247438657*^9, 3.7533993655724134`*^9}, {3.7533994792389154`*^9, 
+   3.753399508052563*^9}, {3.7533995606325703`*^9, 3.753399594504508*^9}, 
+   3.753399690404993*^9, {3.7534000619692454`*^9, 3.753400062277263*^9}, {
+   3.7534000940880823`*^9, 3.753400107771865*^9}, {3.753400168679349*^9, 
+   3.7534001811420617`*^9}, {3.7534002521211214`*^9, 
+   3.7534002703171625`*^9}, {3.753400357558152*^9, 3.753400399908574*^9}, {
+   3.7534005005033283`*^9, 3.7534005112439423`*^9}, {3.7534005972088594`*^9, 
+   3.7534007112783837`*^9}, {3.753400848368225*^9, 3.7534008490052614`*^9}, {
+   3.753464791739627*^9, 3.753464792472829*^9}, {3.753465496885657*^9, 
+   3.753465511236478*^9}, {3.7534656219898124`*^9, 3.753465626026043*^9}, {
+   3.7534656697855463`*^9, 3.753465713928071*^9}, {3.7534657442088027`*^9, 
+   3.7534658397972703`*^9}, {3.7534665702100477`*^9, 3.753466571965148*^9}, {
+   3.7534678798729563`*^9, 3.7534678880694246`*^9}, {3.7534782551003847`*^9, 
+   3.7534782603716865`*^9}, {3.753478294187621*^9, 3.75347834068428*^9}, {
+   3.7534785497742395`*^9, 3.7534787468095093`*^9}, {3.7534788021446743`*^9, 
+   3.753478871144621*^9}, {3.7534789099028378`*^9, 3.7534789147051125`*^9}, {
+   3.753479020112141*^9, 3.753479059942419*^9}, {3.753479989853607*^9, 
+   3.753480129407589*^9}, {3.753480172830073*^9, 3.7534802739238553`*^9}, {
+   3.7534804652567987`*^9, 3.7534805187878604`*^9}, {3.7534806252239485`*^9, 
+   3.753480641180861*^9}, {3.7534806909107056`*^9, 3.753480695165949*^9}, {
+   3.753480804424198*^9, 3.7534808046082087`*^9}, {3.753480859303337*^9, 
+   3.7534808909091444`*^9}, {3.753481182790839*^9, 3.7534812385340276`*^9}, {
+   3.7534817264159327`*^9, 
+   3.7534817371305456`*^9}},ExpressionUUID->"914179a9-aca9-4337-a38a-\
+8e976f1bfb65"],
+
+Cell[BoxData[
+ GraphicsBox[{{{}, {{{}, 
+      {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+       0.012833333333333334`], AbsoluteThickness[1.6], 
+       PointBox[CompressedData["
+1:eJwB0QEu/iFib1JlAgAAABwAAAACAAAAJ4UE+hGTsD8Q7zmMrjCsP9dd+yFO
+yaA/PF5MdDMTnj+kVOkAzHWQPz0bBGiWG6g/g54u/OuloT8JN96myTG3P/gH
+4tuk+54/ANutWgyKoT8ZnVSazRSgP5H9g4CPVqA/t7VLdr3gnD8ngD7HxKSK
+P/xnXsZlEqA/M4GaUzH/iz+hXp9frUSiP5MYcuL2zJ8/T5KAbChEpD8CsKCh
+cMKVP/zMi0FdVKM/P9GtBKRnqD+Zo4MCCzCXPzBipp+214o/qpaTg/tToD9B
+N/AWzzehP4y5Utk3yqg/S/gLnOClpD8jNy2lcHmrPwjaWzTL0Jw/VoLM8Ll1
+nT8g2WA+Pj+qP3a0pRu7M5g/macUGHwClj9N0wpJHsCaP8I1xaAzlp4/bEy6
+BdgZlD9CP1ndJJ2UPxUikBlpcaA/ut2ePLM+iT9/qRLNhM2dPzTYuj6Ncpo/
+3FLjz7KgqD9RbstE23uhP8Oqdktdcpw/E+Mc8WPxsj9gZKv5aO+rP9ezREA4
++aA/SWcJnVgDlz94JNZ3yJCQP7azuIAhmaM/eT4UdFOZoz97YV/JV0eOP9mD
+gc+sEpc/4oFI4HH5kj8Mftukx7SaP8Qj124=
+        "]]}, {}}, {
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.06474411348292063, 0.055058912866085774`}}]},
+        "\"NYSE:MMM\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:MMM", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.03278583683794139, 0.029370120976720523`}}]},
+        "\"NYSE:AXP\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:AXP", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.016074359470014912`, 0.04708547610976275}}]},
+        "\"NASDAQ:AAPL\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NASDAQ:AAPL", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], PointBox[{{0.03446900800127841, 0.09060345004965255}}]},
+        
+        "\"NYSE:BA\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:BA", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.030256820602978934`, 0.03425634962962043}}]},
+        "\"NYSE:CAT\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:CAT", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], PointBox[{{0.03140871533315188, 0.03191040462297246}}]},
+        
+        "\"NYSE:CVX\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:CVX", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.028201065392684046`, 0.013009583788346003`}}]},
+        "\"NASDAQ:CSCO\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NASDAQ:CSCO", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.03139036222928834, 0.013670335162999514`}}]},
+        "\"NYSE:KO\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:KO", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.03568021576182657, 0.031055314608714978`}}]},
+        "\"NYSE:DIS\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:DIS", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.03958250355234282, 0.021249542107554482`}}]},
+        "\"NYSE:XOM\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:XOM", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], PointBox[{{0.03775302338717698, 0.04766571576229461}}]},
+        
+        "\"NYSE:HD\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:HD", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], PointBox[{{0.02264420702786971, 0.01310675310814799}}]},
+        
+        "\"NASDAQ:INTC\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NASDAQ:INTC", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], PointBox[{{0.031890735446535715`, 0.0336289134503276}}]},
+        "\"NYSE:IBM\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:IBM", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.04841780212278754, 0.040328043984104577`}}]},
+        "\"NYSE:JNJ\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:JNJ", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.05366088882747835, 0.028140235014655374`}}]},
+        "\"NYSE:JPM\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:JPM", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.028769402811237597`, 0.05126375686124818}}]},
+        "\"NYSE:MCD\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:MCD", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.023634837686973907`, 0.02149385354019948}}]},
+        "\"NYSE:MRK\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:MRK", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.02612349816145647, 0.029869848907130743`}}]},
+        "\"NASDAQ:MSFT\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NASDAQ:MSFT", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.01962983641585618, 0.020130706796691607`}}]},
+        "\"NYSE:NKE\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:NKE", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.032115253801809164`, 0.012326622283452039`}}]},
+        "\"NYSE:PFE\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:PFE", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], PointBox[{{0.02910430432954447, 0.02582760520336809}}]},
+        
+        "\"NYSE:PG\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:PG", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.048101032139731464`, 0.03414807524469821}}]},
+        "\"NYSE:TRV\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:TRV", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.027780015688828607`, 0.07399582516235297}}]},
+        "\"NYSE:UNH\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:UNH", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.054560928799852304`, 0.03315139565015784}}]},
+        "\"NYSE:UTX\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:UTX", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.022473702034722796`, 0.016177303613890776`}}]},
+        "\"NYSE:VZ\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:VZ", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], PointBox[{{0.03827767082507398, 0.03827915946942268}}]},
+        
+        "\"NYSE:V\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:V", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.014784513314155081`, 0.02253217712894071}}]},
+        "\"NASDAQ:WBA\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NASDAQ:WBA", "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        {Opacity[0.], 
+         PointBox[{{0.018529681505357838`, 0.026080245434853253`}}]},
+        "\"NYSE:WMT\"",
+        TooltipStyle->"TextStyling"],
+       Annotation[#, "NYSE:WMT", "Tooltip"]& ]}}, {}, {}, {}, {}}, 
+   LineBox[{{0, 0}, {1, 1}}]},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{
+    FormBox["\"CAPM Allocation\"", TraditionalForm], 
+    FormBox["\"DJI Allocation\"", TraditionalForm]},
+  AxesOrigin->{0.014003894561518121`, 0},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->All,
+  ImageSize->800,
+  Method->{"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Identity[#]& )[
+         Part[#, 1]], 
+        (Identity[#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Identity[#]& )[
+         Part[#, 1]], 
+        (Identity[#]& )[
+         Part[#, 2]]}& )}},
+  PlotRange->{{0.014784513314155081`, 0.06474411348292063}, {
+    0, 0.09060345004965255}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{
+  3.7533988384702654`*^9, {3.7533990184295588`*^9, 3.753399037475648*^9}, {
+   3.753399090454678*^9, 3.753399125301671*^9}, 3.75339917878373*^9, {
+   3.7533992594043417`*^9, 3.7533992844817753`*^9}, {3.7533993394949226`*^9, 
+   3.75339936865559*^9}, 3.753399512457815*^9, 3.7533995981857185`*^9, 
+   3.7533996924231086`*^9, 3.7533997908857403`*^9, {3.753399913120732*^9, 
+   3.7533999351819935`*^9}, 3.7534000645233917`*^9, 3.7534001109380465`*^9, 
+   3.753400183660206*^9, 3.753400273198327*^9, {3.753400367990749*^9, 
+   3.753400402858743*^9}, 3.753400515177168*^9, 3.753400615083882*^9, {
+   3.7534006676038857`*^9, 3.753400714265555*^9}, 3.7534008334103694`*^9, {
+   3.753400866093239*^9, 3.753400869242419*^9}, 3.753400919054268*^9, 
+   3.7534648187120748`*^9, 3.7534655250562677`*^9, {3.753465704485531*^9, 
+   3.753465716744232*^9}, 3.753465751210203*^9, {3.7534658312157793`*^9, 
+   3.7534658430824585`*^9}, 3.7534661763415194`*^9, 3.7534679021182284`*^9, 
+   3.7534760582717333`*^9, 3.7534761062784796`*^9, 3.7534762054221497`*^9, 
+   3.7534763014736443`*^9, 3.7534763460671945`*^9, 3.753476425027711*^9, 
+   3.7534765333539066`*^9, 3.7534765824917173`*^9, {3.7534766722248497`*^9, 
+   3.753476701025497*^9}, 3.7534767493642616`*^9, 3.753476904256121*^9, 
+   3.7534772687569695`*^9, 3.7534773991154256`*^9, 3.753477450224349*^9, 
+   3.7534782626428165`*^9, 3.753478298818886*^9, {3.7534783336308765`*^9, 
+   3.753478343570445*^9}, 3.7534786462527575`*^9, {3.753478678088578*^9, 
+   3.7534787210210342`*^9}, 3.753478821960808*^9, {3.753478903914495*^9, 
+   3.7534789165092154`*^9}, 3.7534790867499523`*^9, {3.7534799972740316`*^9, 
+   3.753480006104537*^9}, 3.7534802765910077`*^9, 3.753480470139078*^9, {
+   3.7534805003078036`*^9, 3.7534805215530186`*^9}, 3.753480662730094*^9, 
+   3.7534808068423367`*^9, 3.753480913173418*^9, {3.753481230671578*^9, 
+   3.753481243519313*^9}, 3.7534817791219473`*^9, 
+   3.753488635227478*^9},ExpressionUUID->"5dc4514b-da5e-450c-8691-\
+29eb97a184dd"]
+}, Open  ]],
+
+Cell["\<\
+Perform whatever additional comparisons you feel would be useful to \
+characterize what you found. I created another plot that shows the same data \
+in a different form. For each of the tickers, I removed the exchange so the \
+tickers values fit nicely on the x-axis.\
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.752091302593513*^9, 3.752091463086854*^9}, {
+  3.752091689524867*^9, 3.7520918239795*^9}, {3.752092449797036*^9, 
+  3.75209246000627*^9}, {3.752168073104002*^9, 3.752168079240131*^9}, {
+  3.752168986307334*^9, 3.752169008131302*^9}, {3.7521699103784*^9, 
+  3.75216994608255*^9}, {3.7534775670990334`*^9, 3.7534776022580442`*^9}, {
+  3.7534807111688643`*^9, 3.753480720484397*^9}, {3.753480901284738*^9, 
+  3.753480967043499*^9}},ExpressionUUID->"93fb1970-099a-4860-917f-\
+5e72b13f304f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"vsDJINoExchange", "=", 
+   RowBox[{"StringDelete", "[", 
+    RowBox[{"vsDJI", ",", "\"\<NYSE:\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vsDJINoExchange", "=", 
+   RowBox[{"StringDelete", "[", 
+    RowBox[{"vsDJINoExchange", ",", "\"\<NASDAQ:\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPlot", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"MapThread", "[", 
+      RowBox[{"Tooltip", ",", 
+       RowBox[{"{", 
+        RowBox[{"vnCAPMNormalizedAllocations", ",", "vsDJINoExchange"}], 
+        "}"}]}], "]"}], ",", 
+     RowBox[{"MapThread", "[", 
+      RowBox[{"Tooltip", ",", 
+       RowBox[{"{", 
+        RowBox[{"vnDJIAllocations", ",", "vsDJINoExchange"}], "}"}]}], 
+      "]"}]}], "}"}], ",", 
+   RowBox[{"PlotLabels", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<CAPM Allocation\>\"", ",", "\"\<DJI Allocation\>\""}], 
+     "}"}]}], ",", " ", 
+   RowBox[{"AxesLabel", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Ticker\>\"", ",", "\"\<Allocation\>\""}], "}"}]}], ",", 
+   RowBox[{"ImageSize", "\[Rule]", "1000"}], ",", " ", 
+   RowBox[{"Ticks", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Transpose", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Range", "[", 
+          RowBox[{"Length", "[", "vsDJINoExchange", "]"}], "]"}], ",", 
+         "vsDJINoExchange"}], "}"}], "]"}], ",", "Automatic"}], "}"}]}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.753401050982814*^9, 3.7534010877819185`*^9}, {
+  3.7534011599970493`*^9, 3.7534011895667405`*^9}, {3.753478046749468*^9, 
+  3.753478064230468*^9}, {3.753478238161416*^9, 3.753478242408659*^9}, {
+  3.753479302521294*^9, 3.7534793921344194`*^9}, {3.753479434697854*^9, 
+  3.7534794685447903`*^9}, {3.7534795533156385`*^9, 3.753479570347613*^9}, {
+  3.7534796389335356`*^9, 3.753479727632609*^9}, {3.7534798239341173`*^9, 
+  3.7534798396640167`*^9}, {3.7534805513767242`*^9, 3.7534805878318095`*^9}, {
+  3.753480862358512*^9, 3.7534808673627977`*^9}, {3.753481755006568*^9, 
+  3.753481766530227*^9}},ExpressionUUID->"9d6d94b5-219b-46f2-9e2c-\
+04a90bbd174e"],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {{{}, 
+     {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+      0.011000000000000001`], AbsoluteThickness[1.6], PointBox[CompressedData["
+1:eJxTTMoPSmViYGCQAWIQDQEf7NVbWX4JTt5gDxVwuB77W9Hv5AIon8NhSchL
+hjOlE6B8AYfmeXp/Xi9dCOWLOPxgf3R7ye95UL6Eg+TckFlnRWD6ZRy2b/Uu
+2/tgDpSv4PAnPe5YqhBMXslhYdz8+LUui6B8FQf/SQ05Gi5LoHw1hz9nuh1j
+QxZD+RoOMxc3M3EbTIfytRxWTZvc/DsYZp6OQ8/OoJvmp1ZA+XoOyua6Swsq
+V0P5Bg5hTWc+7CydC+UbOpRtWSq923gGlG/k4HuZy1PuwCwo39ghx2cX6w3J
+KVC+iYOo0gTJzEKYfaYO9SuFzrachZln5nAn6PH5TQtg9ps7HF5V5h1bBPO/
+hUNCyuqfGe9h7rF08EznnBvBDPOPlcO2zTsaFGfC/GvtUJ0YfzLcvQ/Kt3F4
+1OjxoPDnJHsA1JR7LA==
+       "]]}, 
+     {RGBColor[0.880722, 0.611041, 0.142051], PointSize[
+      0.011000000000000001`], AbsoluteThickness[1.6], PointBox[CompressedData["
+1:eJxTTMoPSmViYGCQAWIQDQEf7AXeW/asM1hjDxVwsInzKTEWngflczjYSrNk
+TJNeAeULOHCa31t20nA7lC/iwHB7bRRP10IoX8Jh4t/mhv6wBVC+jIN6g93x
+I0u6oHwFB+PGWcGG/7uhfCWHyRJFj76dmQ/lqzgwbViwsODQVChfzcH+4lqW
+Jekw+zUcDJKWzd92HWaeloOj+Qex8+Yw+3UcvH9wz3mwdAmUr+fAcSva5PSF
+OVC+gYPCzQQ7O/tVUL6hw8zlIhI1TNOgfCOHQ6ZHFxhPg/nf2MHJPvKuytwp
+UL6Jw66782w223VC+aYOJjd22fUWzYLyzRwC80673K6GucfcQfixzMfkj5ug
+fAuH65tdHCx+wsLH0qFC5Vr5iQkToHwrh0o7kZLgmYuhfGuHm82N59cITYfy
+bRx46m4vOb5llj0AH6h2lg==
+       "]]}, {}}, {
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{1., 0.06474411348292063}}]},
+       "\"MMM\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "MMM", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{2., 0.03278583683794139}}]},
+       "\"AXP\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "AXP", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{3., 0.016074359470014912`}}]},
+       "\"AAPL\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "AAPL", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{4., 0.03446900800127841}}]},
+       "\"BA\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "BA", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{5., 0.030256820602978934`}}]},
+       "\"CAT\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "CAT", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{6., 0.03140871533315188}}]},
+       "\"CVX\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "CVX", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{7., 0.028201065392684046`}}]},
+       "\"CSCO\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "CSCO", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{8., 0.03139036222928834}}]},
+       "\"KO\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "KO", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{9., 0.03568021576182657}}]},
+       "\"DIS\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "DIS", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{10., 0.03958250355234282}}]},
+       "\"XOM\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "XOM", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{11., 0.03775302338717698}}]},
+       "\"HD\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "HD", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{12., 0.02264420702786971}}]},
+       "\"INTC\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "INTC", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{13., 0.031890735446535715`}}]},
+       "\"IBM\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "IBM", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{14., 0.04841780212278754}}]},
+       "\"JNJ\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "JNJ", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{15., 0.05366088882747835}}]},
+       "\"JPM\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "JPM", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{16., 0.028769402811237597`}}]},
+       "\"MCD\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "MCD", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{17., 0.023634837686973907`}}]},
+       "\"MRK\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "MRK", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{18., 0.02612349816145647}}]},
+       "\"MSFT\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "MSFT", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{19., 0.01962983641585618}}]},
+       "\"NKE\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "NKE", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{20., 0.032115253801809164`}}]},
+       "\"PFE\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "PFE", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{21., 0.02910430432954447}}]},
+       "\"PG\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "PG", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{22., 0.048101032139731464`}}]},
+       "\"TRV\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "TRV", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{23., 0.027780015688828607`}}]},
+       "\"UNH\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "UNH", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{24., 0.054560928799852304`}}]},
+       "\"UTX\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "UTX", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{25., 0.022473702034722796`}}]},
+       "\"VZ\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "VZ", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{26., 0.03827767082507398}}]},
+       "\"V\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "V", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{27., 0.014784513314155081`}}]},
+       "\"WBA\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "WBA", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{28., 0.018529681505357838`}}]},
+       "\"WMT\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "WMT", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{1., 0.055058912866085774`}}]},
+       "\"MMM\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "MMM", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{2., 0.029370120976720523`}}]},
+       "\"AXP\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "AXP", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{3., 0.04708547610976275}}]},
+       "\"AAPL\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "AAPL", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{4., 0.09060345004965255}}]},
+       "\"BA\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "BA", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{5., 0.03425634962962043}}]},
+       "\"CAT\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "CAT", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{6., 0.03191040462297246}}]},
+       "\"CVX\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "CVX", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{7., 0.013009583788346003`}}]},
+       "\"CSCO\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "CSCO", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{8., 0.013670335162999514`}}]},
+       "\"KO\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "KO", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{9., 0.031055314608714978`}}]},
+       "\"DIS\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "DIS", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{10., 0.021249542107554482`}}]},
+       "\"XOM\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "XOM", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{11., 0.04766571576229461}}]},
+       "\"HD\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "HD", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{12., 0.01310675310814799}}]},
+       "\"INTC\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "INTC", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{13., 0.0336289134503276}}]},
+       "\"IBM\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "IBM", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{14., 0.040328043984104577`}}]},
+       "\"JNJ\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "JNJ", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{15., 0.028140235014655374`}}]},
+       "\"JPM\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "JPM", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{16., 0.05126375686124818}}]},
+       "\"MCD\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "MCD", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{17., 0.02149385354019948}}]},
+       "\"MRK\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "MRK", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{18., 0.029869848907130743`}}]},
+       "\"MSFT\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "MSFT", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{19., 0.020130706796691607`}}]},
+       "\"NKE\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "NKE", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{20., 0.012326622283452039`}}]},
+       "\"PFE\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "PFE", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{21., 0.02582760520336809}}]},
+       "\"PG\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "PG", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{22., 0.03414807524469821}}]},
+       "\"TRV\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "TRV", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{23., 0.07399582516235297}}]},
+       "\"UNH\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "UNH", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{24., 0.03315139565015784}}]},
+       "\"UTX\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "UTX", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{25., 0.016177303613890776`}}]},
+       "\"VZ\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "VZ", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{26., 0.03827915946942268}}]},
+       "\"V\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "V", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{27., 0.02253217712894071}}]},
+       "\"WBA\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "WBA", "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       {Opacity[0.], PointBox[{{28., 0.026080245434853253`}}]},
+       "\"WMT\"",
+       TooltipStyle->"TextStyling"],
+      Annotation[#, "WMT", "Tooltip"]& ]}}, {{}, {}}, {{GraphicsGroupBox[{
+       {GrayLevel[1], AbsoluteThickness[4], Opacity[
+         NCache[
+          Rational[2, 3], 0.6666666666666666]], CapForm["Butt"], JoinForm[
+        "Round"], 
+        BSplineCurveBox[{
+         Offset[{0, 0}, {28.583333333333332`, 0.018529681505357838`}], 
+          Offset[{0, 0}, {28.583333333333332`, 0.018529681505357838`}], 
+          Offset[{0., 0.}, {28.86333333333333, 0.018529681505357838`}], 
+          Offset[{0., 0.}, {28.86333333333333, 0.018529681505357838`}], 
+          Offset[{0., 0.}, {29.14333333333333, 0.018529681505357838`}], 
+          Offset[{0, 0}, {30.15483677596362, 0.015481821953092459`}], 
+          Offset[{5., 1.1102230246251565`*^-15}, {30.15483677596362, 
+           0.015481821953092459`}], 
+          Offset[{10., 2.220446049250313*^-15}, {30.15483677596362, 
+           0.015481821953092459`}], 
+          Offset[{10., 2.220446049250313*^-15}, {30.15483677596362, 
+           0.015481821953092459`}]}]}, 
+       {RGBColor[0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+        BSplineCurveBox[{
+         Offset[{0, 0}, {28.583333333333332`, 0.018529681505357838`}], 
+          Offset[{0, 0}, {28.583333333333332`, 0.018529681505357838`}], 
+          Offset[{0., 0.}, {28.86333333333333, 0.018529681505357838`}], 
+          Offset[{0., 0.}, {28.86333333333333, 0.018529681505357838`}], 
+          Offset[{0., 0.}, {29.14333333333333, 0.018529681505357838`}], 
+          Offset[{0, 0}, {30.15483677596362, 0.015481821953092459`}], 
+          Offset[{5., 1.1102230246251565`*^-15}, {30.15483677596362, 
+           0.015481821953092459`}], 
+          Offset[{10., 2.220446049250313*^-15}, {30.15483677596362, 
+           0.015481821953092459`}], 
+          Offset[{10., 2.220446049250313*^-15}, {30.15483677596362, 
+           0.015481821953092459`}]}]}, 
+       {GrayLevel[1], Opacity[
+         NCache[
+          Rational[2, 3], 0.6666666666666666]], EdgeForm[None], 
+        PolygonBox[{
+         Offset[{97., 7.000000000000021}, {30.15483677596362, 
+           0.015481821953092459`}], 
+          Offset[{97., -6.999999999999979}, {30.15483677596362, 
+           0.015481821953092459`}], 
+          Offset[{10., -6.999999999999998}, {30.15483677596362, 
+           0.015481821953092459`}], 
+          Offset[{10., 7.000000000000002}, {30.15483677596362, 
+           0.015481821953092459`}]}]}, 
+       {RGBColor[0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+        EdgeForm[None]}, {}, InsetBox[
+        RotationBox["\<\"CAPM Allocation\"\>",
+         BoxRotation->0.], 
+        Offset[{53.5, 1.1879386363489175*^-14}, \
+{30.15483677596362, 0.015481821953092459}], {0, 0}]}], GraphicsGroupBox[{
+       {GrayLevel[1], AbsoluteThickness[4], Opacity[
+         NCache[
+          Rational[2, 3], 0.6666666666666666]], CapForm["Butt"], JoinForm[
+        "Round"], 
+        BSplineCurveBox[{
+         Offset[{0, 0}, {28.583333333333332`, 0.026080245434853253`}], 
+          Offset[{0, 0}, {28.583333333333332`, 0.026080245434853253`}], 
+          Offset[{0., 0.}, {28.86333333333333, 0.026080245434853253`}], 
+          Offset[{0., 0.}, {28.86333333333333, 0.026080245434853253`}], 
+          Offset[{0., 0.}, {29.14333333333333, 0.026080245434853253`}], 
+          Offset[{0, 0}, {30.15483677596362, 0.03046322075038175}], 
+          Offset[{5., 1.1102230246251565`*^-15}, {30.15483677596362, 
+           0.03046322075038175}], 
+          Offset[{10., 2.220446049250313*^-15}, {30.15483677596362, 
+           0.03046322075038175}], 
+          Offset[{10., 2.220446049250313*^-15}, {30.15483677596362, 
+           0.03046322075038175}]}]}, 
+       {RGBColor[0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+        BSplineCurveBox[{
+         Offset[{0, 0}, {28.583333333333332`, 0.026080245434853253`}], 
+          Offset[{0, 0}, {28.583333333333332`, 0.026080245434853253`}], 
+          Offset[{0., 0.}, {28.86333333333333, 0.026080245434853253`}], 
+          Offset[{0., 0.}, {28.86333333333333, 0.026080245434853253`}], 
+          Offset[{0., 0.}, {29.14333333333333, 0.026080245434853253`}], 
+          Offset[{0, 0}, {30.15483677596362, 0.03046322075038175}], 
+          Offset[{5., 1.1102230246251565`*^-15}, {30.15483677596362, 
+           0.03046322075038175}], 
+          Offset[{10., 2.220446049250313*^-15}, {30.15483677596362, 
+           0.03046322075038175}], 
+          Offset[{10., 2.220446049250313*^-15}, {30.15483677596362, 
+           0.03046322075038175}]}]}, 
+       {GrayLevel[1], Opacity[
+         NCache[
+          Rational[2, 3], 0.6666666666666666]], EdgeForm[None], 
+        PolygonBox[{
+         Offset[{82., 7.000000000000018}, {30.15483677596362, 
+           0.03046322075038175}], 
+          Offset[{82., -6.999999999999982}, {30.15483677596362, 
+           0.03046322075038175}], 
+          Offset[{10., -6.999999999999998}, {30.15483677596362, 
+           0.03046322075038175}], 
+          Offset[{10., 7.000000000000002}, {30.15483677596362, 
+           0.03046322075038175}]}]}, 
+       {RGBColor[0.6666666666666666, 0.6666666666666666, 0.6666666666666666], 
+        EdgeForm[None]}, {}, InsetBox[
+        RotationBox["\<\"DJI Allocation\"\>",
+         BoxRotation->0.], 
+        Offset[{46., 1.021405182655144*^-14}, \
+{30.15483677596362, 0.03046322075038175}], {0, 0}]}]}, {}}, {}, {}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{
+    FormBox["\"Ticker\"", TraditionalForm], 
+    FormBox["\"Allocation\"", TraditionalForm]},
+  AxesOrigin->{0., 0},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->{{All, 157.12512295108166`}, {All, All}},
+  ImageSize->1000,
+  Method->{"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Identity[#]& )[
+         Part[#, 1]], 
+        (Identity[#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Identity[#]& )[
+         Part[#, 1]], 
+        (Identity[#]& )[
+         Part[#, 2]]}& )}},
+  PlotRange->{{0., 28.}, {0, 0.09060345004965255}},
+  PlotRangeClipping->False,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.05]}},
+  Ticks->{{{1, 
+      FormBox["\"MMM\"", TraditionalForm]}, {2, 
+      FormBox["\"AXP\"", TraditionalForm]}, {3, 
+      FormBox["\"AAPL\"", TraditionalForm]}, {4, 
+      FormBox["\"BA\"", TraditionalForm]}, {5, 
+      FormBox["\"CAT\"", TraditionalForm]}, {6, 
+      FormBox["\"CVX\"", TraditionalForm]}, {7, 
+      FormBox["\"CSCO\"", TraditionalForm]}, {8, 
+      FormBox["\"KO\"", TraditionalForm]}, {9, 
+      FormBox["\"DIS\"", TraditionalForm]}, {10, 
+      FormBox["\"XOM\"", TraditionalForm]}, {11, 
+      FormBox["\"HD\"", TraditionalForm]}, {12, 
+      FormBox["\"INTC\"", TraditionalForm]}, {13, 
+      FormBox["\"IBM\"", TraditionalForm]}, {14, 
+      FormBox["\"JNJ\"", TraditionalForm]}, {15, 
+      FormBox["\"JPM\"", TraditionalForm]}, {16, 
+      FormBox["\"MCD\"", TraditionalForm]}, {17, 
+      FormBox["\"MRK\"", TraditionalForm]}, {18, 
+      FormBox["\"MSFT\"", TraditionalForm]}, {19, 
+      FormBox["\"NKE\"", TraditionalForm]}, {20, 
+      FormBox["\"PFE\"", TraditionalForm]}, {21, 
+      FormBox["\"PG\"", TraditionalForm]}, {22, 
+      FormBox["\"TRV\"", TraditionalForm]}, {23, 
+      FormBox["\"UNH\"", TraditionalForm]}, {24, 
+      FormBox["\"UTX\"", TraditionalForm]}, {25, 
+      FormBox["\"VZ\"", TraditionalForm]}, {26, 
+      FormBox["\"V\"", TraditionalForm]}, {27, 
+      FormBox["\"WBA\"", TraditionalForm]}, {28, 
+      FormBox["\"WMT\"", TraditionalForm]}}, Automatic}]], "Output",
+ CellChangeTimes->{{3.7534010762982616`*^9, 3.753401089891039*^9}, {
+   3.753401180485221*^9, 3.753401192391902*^9}, 3.753464818758875*^9, 
+   3.7534655250962706`*^9, 3.7534661764105234`*^9, 3.7534679021792316`*^9, 
+   3.753476058491746*^9, 3.753476106348483*^9, 3.7534762054811535`*^9, 
+   3.753476301698657*^9, 3.7534763461171975`*^9, 3.753476425068713*^9, 
+   3.7534765333909087`*^9, 3.7534765825277195`*^9, {3.7534766722588515`*^9, 
+   3.7534767010684996`*^9}, 3.753476749399264*^9, 3.753476904295123*^9, 
+   3.7534772687939715`*^9, 3.7534773991524277`*^9, 3.753477450262351*^9, 
+   3.753478244929803*^9, 3.753479343956664*^9, {3.7534793878821764`*^9, 
+   3.753479393857518*^9}, {3.7534794458104897`*^9, 3.7534794593172626`*^9}, 
+   3.753479573877815*^9, {3.753479643017769*^9, 3.7534797307727885`*^9}, {
+   3.753479832755622*^9, 3.753479842013151*^9}, 3.753480558399126*^9, 
+   3.7534805903489532`*^9, 3.7534807046644917`*^9, 3.7534807458088455`*^9, 
+   3.753480974787942*^9, 3.753481779255955*^9, 
+   3.7534886353522778`*^9},ExpressionUUID->"c5951b7c-0dd7-49be-998f-\
+7c96ee9ae198"]
+}, Open  ]],
+
+Cell["What discrepancies do you note? How might you explain them?", \
+"ItemNumbered",
+ CellChangeTimes->{{3.752091302593513*^9, 3.752091463086854*^9}, {
+  3.752091689524867*^9, 3.7520918239795*^9}, {3.752092449797036*^9, 
+  3.75209247808451*^9}, {3.753465866822816*^9, 
+  3.753465866822816*^9}},ExpressionUUID->"106b60db-5e8d-4ec5-902b-\
+db9f2dd2f1e4"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Sort", "[", 
+  RowBox[{"Transpose", "[", 
+   RowBox[{"{", 
+    RowBox[{"vnPricesDJI", ",", "vsDJI"}], "}"}], "]"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Sort", "[", 
+  RowBox[{"Transpose", "[", 
+   RowBox[{"{", 
+    RowBox[{"vnCAPMNormalizedAllocations", ",", "vsDJI"}], "}"}], "]"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Sort", "[", 
+  RowBox[{"Transpose", "[", 
+   RowBox[{"{", 
+    RowBox[{"vnDJIAllocations", ",", "vsDJI"}], "}"}], "]"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vsDJIOrig", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{"xLocal", "[", "\"\<vsDJI.m\>\"", "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Transpose", "[", 
+  RowBox[{"{", 
+   RowBox[{"mnEstBetaErrVar", ",", " ", "vsDJIOrig"}], "}"}], "]"}]}], "Input",\
+
+ CellChangeTimes->{{3.7534820441911087`*^9, 3.753482062103133*^9}, {
+  3.7534821074757285`*^9, 3.753482161464816*^9}, {3.753487324476745*^9, 
+  3.753487373788432*^9}, {3.753487723400646*^9, 3.753487758687908*^9}, {
+  3.7534880741522875`*^9, 
+  3.7534881317851653`*^9}},ExpressionUUID->"43cb498b-98ba-4e6e-b48f-\
+9febc1e45761"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"44.4`", ",", "\<\"NYSE:PFE\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"46.86`", ",", "\<\"NASDAQ:CSCO\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"47.21`", ",", "\<\"NASDAQ:INTC\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"49.24`", ",", "\<\"NYSE:KO\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"58.27`", ",", "\<\"NYSE:VZ\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"72.51`", ",", "\<\"NYSE:NKE\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"76.54`", ",", "\<\"NYSE:XOM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"77.42`", ",", "\<\"NYSE:MRK\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"81.16`", ",", "\<\"NASDAQ:WBA\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"93.03`", ",", "\<\"NYSE:PG\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"93.94`", ",", "\<\"NYSE:WMT\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"101.36`", ",", "\<\"NYSE:JPM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"105.79`", ",", "\<\"NYSE:AXP\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"107.59`", ",", "\<\"NASDAQ:MSFT\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"111.86`", ",", "\<\"NYSE:DIS\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"114.94`", ",", "\<\"NYSE:CVX\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"119.41`", ",", "\<\"NYSE:UTX\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"121.13`", ",", "\<\"NYSE:IBM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"123", ",", "\<\"NYSE:TRV\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"123.39`", ",", "\<\"NYSE:CAT\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"137.88`", ",", "\<\"NYSE:V\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"145.26`", ",", "\<\"NYSE:JNJ\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"169.6`", ",", "\<\"NASDAQ:AAPL\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"171.69`", ",", "\<\"NYSE:HD\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"184.65`", ",", "\<\"NYSE:MCD\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"198.32`", ",", "\<\"NYSE:MMM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"266.53`", ",", "\<\"NYSE:UNH\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"326.35`", ",", "\<\"NYSE:BA\"\>"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.753482079060103*^9, 3.7534821119469843`*^9, 
+  3.7534821645319915`*^9, 3.7534873290631533`*^9, 3.7534876201440644`*^9, 
+  3.753487762197914*^9, 3.753488106790921*^9, 3.753488139678779*^9, 
+  3.753488635383478*^9},ExpressionUUID->"80dcd477-2d55-427c-a375-\
+febaaf95ceb3"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"0.014784513314155081`", ",", "\<\"NASDAQ:WBA\"\>"}], "}"}], ",", 
+   
+   RowBox[{"{", 
+    RowBox[{"0.016074359470014912`", ",", "\<\"NASDAQ:AAPL\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.018529681505357838`", ",", "\<\"NYSE:WMT\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.01962983641585618`", ",", "\<\"NYSE:NKE\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.022473702034722796`", ",", "\<\"NYSE:VZ\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.02264420702786971`", ",", "\<\"NASDAQ:INTC\"\>"}], "}"}], ",", 
+   
+   RowBox[{"{", 
+    RowBox[{"0.023634837686973907`", ",", "\<\"NYSE:MRK\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.02612349816145647`", ",", "\<\"NASDAQ:MSFT\"\>"}], "}"}], ",", 
+   
+   RowBox[{"{", 
+    RowBox[{"0.027780015688828607`", ",", "\<\"NYSE:UNH\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.028201065392684046`", ",", "\<\"NASDAQ:CSCO\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.028769402811237597`", ",", "\<\"NYSE:MCD\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.02910430432954447`", ",", "\<\"NYSE:PG\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.030256820602978934`", ",", "\<\"NYSE:CAT\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.03139036222928834`", ",", "\<\"NYSE:KO\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.03140871533315188`", ",", "\<\"NYSE:CVX\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.031890735446535715`", ",", "\<\"NYSE:IBM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.032115253801809164`", ",", "\<\"NYSE:PFE\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.03278583683794139`", ",", "\<\"NYSE:AXP\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.03446900800127841`", ",", "\<\"NYSE:BA\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.03568021576182657`", ",", "\<\"NYSE:DIS\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.03775302338717698`", ",", "\<\"NYSE:HD\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.03827767082507398`", ",", "\<\"NYSE:V\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.03958250355234282`", ",", "\<\"NYSE:XOM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.048101032139731464`", ",", "\<\"NYSE:TRV\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.04841780212278754`", ",", "\<\"NYSE:JNJ\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.05366088882747835`", ",", "\<\"NYSE:JPM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.054560928799852304`", ",", "\<\"NYSE:UTX\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.06474411348292063`", ",", "\<\"NYSE:MMM\"\>"}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.753482079060103*^9, 3.7534821119469843`*^9, 
+  3.7534821645319915`*^9, 3.7534873290631533`*^9, 3.7534876201440644`*^9, 
+  3.753487762197914*^9, 3.753488106790921*^9, 3.753488139678779*^9, 
+  3.753488635383478*^9},ExpressionUUID->"9bd435ad-87a1-4e1f-b193-\
+41767abc61ef"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"0.012326622283452039`", ",", "\<\"NYSE:PFE\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.013009583788346003`", ",", "\<\"NASDAQ:CSCO\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.01310675310814799`", ",", "\<\"NASDAQ:INTC\"\>"}], "}"}], ",", 
+   
+   RowBox[{"{", 
+    RowBox[{"0.013670335162999514`", ",", "\<\"NYSE:KO\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.016177303613890776`", ",", "\<\"NYSE:VZ\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.020130706796691607`", ",", "\<\"NYSE:NKE\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.021249542107554482`", ",", "\<\"NYSE:XOM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.02149385354019948`", ",", "\<\"NYSE:MRK\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.02253217712894071`", ",", "\<\"NASDAQ:WBA\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.02582760520336809`", ",", "\<\"NYSE:PG\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.026080245434853253`", ",", "\<\"NYSE:WMT\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.028140235014655374`", ",", "\<\"NYSE:JPM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.029370120976720523`", ",", "\<\"NYSE:AXP\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.029869848907130743`", ",", "\<\"NASDAQ:MSFT\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.031055314608714978`", ",", "\<\"NYSE:DIS\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.03191040462297246`", ",", "\<\"NYSE:CVX\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.03315139565015784`", ",", "\<\"NYSE:UTX\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.0336289134503276`", ",", "\<\"NYSE:IBM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.03414807524469821`", ",", "\<\"NYSE:TRV\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.03425634962962043`", ",", "\<\"NYSE:CAT\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.03827915946942268`", ",", "\<\"NYSE:V\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.040328043984104577`", ",", "\<\"NYSE:JNJ\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.04708547610976275`", ",", "\<\"NASDAQ:AAPL\"\>"}], "}"}], ",", 
+   
+   RowBox[{"{", 
+    RowBox[{"0.04766571576229461`", ",", "\<\"NYSE:HD\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.05126375686124818`", ",", "\<\"NYSE:MCD\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.055058912866085774`", ",", "\<\"NYSE:MMM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.07399582516235297`", ",", "\<\"NYSE:UNH\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0.09060345004965255`", ",", "\<\"NYSE:BA\"\>"}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.753482079060103*^9, 3.7534821119469843`*^9, 
+  3.7534821645319915`*^9, 3.7534873290631533`*^9, 3.7534876201440644`*^9, 
+  3.753487762197914*^9, 3.753488106790921*^9, 3.753488139678779*^9, 
+  3.7534886353990784`*^9},ExpressionUUID->"c5b92bfb-1bfc-4121-9597-\
+500cb97ca1e6"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.5603833002429272`", ",", "0.000026043141343132522`"}], "}"}],
+      ",", "\<\"NYSE:MMM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.3913025506186478`", ",", "0.00003591161012919866`"}], "}"}], 
+     ",", "\<\"NYSE:AXP\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.24614669832531547`", ",", "0.0000460753677881553`"}], "}"}], 
+     ",", "\<\"NASDAQ:AAPL\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.37058767310224844`", ",", "0.000032349729713132446`"}], 
+      "}"}], ",", "\<\"NYSE:BA\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.340072359734765`", ",", "0.000033818669437248244`"}], "}"}], 
+     ",", "\<\"NYSE:CAT\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.3777309397454059`", ",", "0.0000361860232355177`"}], "}"}], 
+     ",", "\<\"NYSE:CVX\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.3513667656577921`", ",", "0.00003748898112945232`"}], "}"}], 
+     ",", "\<\"NASDAQ:CSCO\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.4557847403665783`", ",", "0.000043688982039533676`"}], "}"}],
+      ",", "\<\"NYSE:KO\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.42247156088241705`", ",", "0.00003562693647195551`"}], "}"}],
+      ",", "\<\"NYSE:DIS\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.3296251191509132`", ",", "0.000035532847781994994`"}], "}"}],
+      ",", "\<\"NYSE:DWDP\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.4538646927306097`", ",", "0.00003450099433363971`"}], "}"}], 
+     ",", "\<\"NYSE:XOM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.42253838837827024`", ",", "0.0000258183626351181`"}], "}"}], 
+     ",", "\<\"NYSE:GS\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.43973310683830286`", ",", "0.000035046600589882185`"}], 
+      "}"}], ",", "\<\"NYSE:HD\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.3001169078272564`", ",", "0.00003987877584595446`"}], "}"}], 
+     ",", "\<\"NASDAQ:INTC\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.39156282337826726`", ",", "0.00003694412530120136`"}], "}"}],
+      ",", "\<\"NYSE:IBM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.5488313482025536`", ",", "0.0000341069049034481`"}], "}"}], 
+     ",", "\<\"NYSE:JNJ\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.4556607490486331`", ",", "0.000025550077971400584`"}], "}"}],
+      ",", "\<\"NYSE:JPM\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.41203187384000184`", ",", "0.00004309316957790273`"}], "}"}],
+      ",", "\<\"NYSE:MCD\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.3391701744711777`", ",", "0.00004317909172826917`"}], "}"}], 
+     ",", "\<\"NYSE:MRK\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.32616838638363616`", ",", "0.000037568080414644924`"}], 
+      "}"}], ",", "\<\"NASDAQ:MSFT\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.2846410533695976`", ",", "0.00004363041355513449`"}], "}"}], 
+     ",", "\<\"NYSE:NKE\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.4194063481227253`", ",", "0.00003929453131916265`"}], "}"}], 
+     ",", "\<\"NYSE:PFE\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.4245447922481032`", ",", "0.00004389092836418535`"}], "}"}], 
+     ",", "\<\"NYSE:PG\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.5244274410079838`", ",", "0.00003280495791332229`"}], "}"}], 
+     ",", "\<\"NYSE:TRV\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.35930937748671266`", ",", "0.000038917464434612256`"}], 
+      "}"}], ",", "\<\"NYSE:UNH\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.5212732853919951`", ",", "0.00002874697727687348`"}], "}"}], 
+     ",", "\<\"NYSE:UTX\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.3457016431810842`", ",", "0.00004628447024615823`"}], "}"}], 
+     ",", "\<\"NYSE:VZ\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.40733445978695226`", ",", "0.00003201946866356826`"}], "}"}],
+      ",", "\<\"NYSE:V\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.23228978894564087`", ",", "0.000047275002304990526`"}], 
+      "}"}], ",", "\<\"NASDAQ:WBA\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.29723920946667737`", ",", "0.00004826658974731316`"}], "}"}],
+      ",", "\<\"NYSE:WMT\"\>"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.753482079060103*^9, 3.7534821119469843`*^9, 
+  3.7534821645319915`*^9, 3.7534873290631533`*^9, 3.7534876201440644`*^9, 
+  3.753487762197914*^9, 3.753488106790921*^9, 3.753488139678779*^9, 
+  3.7534886354302783`*^9},ExpressionUUID->"3728eb06-6387-4599-b2bd-\
+9d4ba447d100"]
+}, Open  ]],
+
+Cell["\<\
+DWDP and GS prices are returning \[OpenCurlyDoubleQuote]Missing[Not \
+Available]\[CloseCurlyDoubleQuote], so I am unable to make any comments about \
+them. I wrote the program to work around this problem. Also, if the prices \
+are returned in the future, no adjustment to the program should be needed to \
+run the program and see the plots for the allocations of all 30 stocks.
+
+The CAPM allocations are for the portfolio that maximizes the ratio of reward \
+(mean of daily returns) to risk (standard deviation of daily returns) . The \
+DJI allocations are proportional to the price of the stock.
+
+Based on how the CAPM allocations and DJI allocations are calculated, it wasn\
+\[CloseCurlyQuote]t obvious to me at first if there would be any relation \
+between their CAPM and DJI allocations. However, the plot in (5) shows a \
+linear trend with a few outliers. So in general, DJI allocation increases as \
+CAPM allocation increases. Now that I think more about it, I can see what \
+causes that trend. A stock with increasing prices (and all other stock prices \
+held equal) has an increasing proportion in the DJI by definition. Also, a \
+stock with increasing prices will have an increasing reward, which helps \
+increase the Sharpe ratio for that stock and in turn, its allocation in the \
+CAPM portfolio.
+
+BA, UNH and AAPL have much lower CAPM allocation than DJI allocation, shown \
+clearly in (6). They have the 1st, 2nd and 6th highest DJI allocations, but \
+have the 10th, 20th and 27th highest CAPM allocations. By definition, higher \
+priced stocks have higher allocations in the DJI. The CAPM allocation \
+increases as Beta increases, and increases as the volatility of the stock \
+decreases. AAPL has a relatively low Beta and high volatility, so I see why \
+it has a low CAPM allocation. The other 2 don\[CloseCurlyQuote]t have \
+outstanding values for either Beta or volatility, so I see why they have \
+their respective CAPM allocations. Since the DJI allocation is based solely \
+on the current price, the allocations calculated here could rapidly change. \
+However, the CAPM allocation is based on 1400+ daily returns, so it is more \
+difficult for the Beta and volatility to significantly change and in turn \
+cause a significant change in the allocation.\
+\>", "Text",
+ CellChangeTimes->{{3.7534658769043927`*^9, 3.7534658932833295`*^9}, {
+   3.7534776652886496`*^9, 3.753477776282998*^9}, {3.753477821225569*^9, 
+   3.7534778468730354`*^9}, {3.753481395998034*^9, 3.7534814525682697`*^9}, {
+   3.753481521127191*^9, 3.753481666592511*^9}, {3.7534818179641695`*^9, 
+   3.7534819464175167`*^9}, 3.7534819825615835`*^9, {3.753482267637889*^9, 
+   3.75348230577007*^9}, {3.753482355559918*^9, 3.7534823715808344`*^9}, {
+   3.7534824067988486`*^9, 3.753482435283478*^9}, {3.7534825707042236`*^9, 
+   3.753482618926982*^9}, {3.7534826782093725`*^9, 3.753482957103324*^9}, {
+   3.7534829940304365`*^9, 3.753483066520582*^9}, {3.7534832441937447`*^9, 
+   3.7534832773446407`*^9}, {3.7534833170789137`*^9, 3.75348332051011*^9}, {
+   3.753483351701894*^9, 3.753483360586402*^9}, {3.753483404137893*^9, 
+   3.753483409433196*^9}, {3.7534872058541365`*^9, 3.753487245337806*^9}, {
+   3.753487291201887*^9, 3.7534872958974953`*^9}, {3.753487399902878*^9, 
+   3.753487469182599*^9}, {3.753487509914271*^9, 3.753487598896827*^9}, {
+   3.753487638957698*^9, 3.753487712465027*^9}, {3.7534878272968283`*^9, 
+   3.75348793061581*^9}, {3.7534879650606704`*^9, 3.7534879706922803`*^9}, {
+   3.753488007695545*^9, 3.753488021376769*^9}, {3.753488159681816*^9, 
+   3.753488215771717*^9}, {3.7534882458201714`*^9, 3.7534882518437824`*^9}, {
+   3.7534883999192467`*^9, 3.753488433880907*^9}, {3.7534884748837795`*^9, 
+   3.7534884863226*^9}, {3.753488586236991*^9, 3.7534886225884557`*^9}, {
+   3.7534886978886023`*^9, 3.753489078546281*^9}, {3.75348912346376*^9, 
+   3.7534891847950716`*^9}},ExpressionUUID->"5ca34728-a3e9-4dad-8587-\
+4706f1099c31"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+AutoGeneratedPackage->None,
+WindowToolbars->{},
+WindowSize->{1904, 998},
+WindowMargins->{{-8, Automatic}, {Automatic, 0}},
+ShowSelection->True,
+Magnification:>1.25 Inherited,
+FrontEndVersion->"11.2 for Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"StonyBrook.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 656, 9, 121, "Title",ExpressionUUID->"67db5256-f2d4-419c-adfe-66cb56024799"],
+Cell[1226, 33, 655, 12, 66, "Subtitle",ExpressionUUID->"6a37688f-4360-4fd7-9b6c-c4f676fb4ba2"],
+Cell[1884, 47, 1071, 15, 66, "Subtitle",ExpressionUUID->"ef2da9ed-e663-4c23-bc77-1961fed400b9"],
+Cell[2958, 64, 359, 10, 143, "Subsubtitle",ExpressionUUID->"52f90e3c-06fc-4cb0-b186-c24b2345d649"],
+Cell[CellGroupData[{
+Cell[3342, 78, 165, 3, 83, "Section",ExpressionUUID->"8b897484-1157-4934-a778-90785cca49c7"],
+Cell[CellGroupData[{
+Cell[3532, 85, 181, 3, 67, "Subsection",ExpressionUUID->"02e7ee86-a394-4a94-aa3c-c5fb4fab989b"],
+Cell[3716, 90, 832, 18, 62, "Text",ExpressionUUID->"3effbb3d-0bc7-4e3c-9d3d-37160744e293"],
+Cell[4551, 110, 550, 18, 42, "Equation",ExpressionUUID->"e3a3b6f2-5378-486c-bd35-3b9989c8d351"],
+Cell[5104, 130, 514, 14, 38, "Text",ExpressionUUID->"407f26b8-06bd-4734-83c6-489ecc4ca8a3"],
+Cell[5621, 146, 364, 11, 61, "Equation",ExpressionUUID->"56f24882-c2d2-4ab3-8ca3-dc35b9a3c75e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6022, 162, 158, 3, 67, "Subsection",ExpressionUUID->"500fa8a4-1a88-4fd4-8431-4b3e6db86f57"],
+Cell[6183, 167, 785, 13, 62, "Text",ExpressionUUID->"d4956cf1-c790-4812-89bf-3febb30c64f6"],
+Cell[6971, 182, 461, 9, 36, "ItemNumbered",ExpressionUUID->"b2ffef64-43c0-4b61-b38d-9b0431858434"],
+Cell[7435, 193, 551, 13, 60, "Input",ExpressionUUID->"eaa710bd-7409-416e-a027-9d8b6a248456"],
+Cell[7989, 208, 532, 9, 29, "SubitemNumbered",ExpressionUUID->"dde48f60-6725-4e85-83f8-1911ba4ea1c6"],
+Cell[8524, 219, 275, 8, 35, "Input",ExpressionUUID->"553e97dc-fb08-48ef-b73e-b7083d825920"],
+Cell[8802, 229, 574, 10, 29, "SubitemNumbered",ExpressionUUID->"1487b952-1295-452e-a05c-4b802b771fd7"],
+Cell[9379, 241, 321, 9, 35, "Input",ExpressionUUID->"2b01eb1b-4628-4fbd-9612-819eb7dd41ef"],
+Cell[9703, 252, 609, 11, 29, "SubitemNumbered",ExpressionUUID->"64495be7-ac8d-4cc5-96a4-92a7be084c25"],
+Cell[10315, 265, 260, 8, 35, "Input",ExpressionUUID->"d1bc9966-924b-4134-8a3e-509975fe4feb"],
+Cell[10578, 275, 749, 12, 29, "SubitemNumbered",ExpressionUUID->"1bb92edf-677c-452d-9a74-3860100865cb"],
+Cell[11330, 289, 281, 8, 35, "Input",ExpressionUUID->"2a36052f-06d1-43ef-ae0a-4f77584bd224"],
+Cell[11614, 299, 476, 7, 29, "SubitemNumbered",ExpressionUUID->"f3d0b339-3f2b-486b-88ee-5e935c69e135"],
+Cell[12093, 308, 771, 21, 36, "ItemNumbered",ExpressionUUID->"9af40ae2-e134-40ab-9602-e05f1df3ee30"],
+Cell[12867, 331, 1768, 43, 113, "Input",ExpressionUUID->"8f125045-6384-4189-b67e-f7c0b775a2c3"],
+Cell[14638, 376, 495, 9, 36, "ItemNumbered",ExpressionUUID->"42aa6fab-4c95-46a6-bc7c-ff4eedf49b1c"],
+Cell[CellGroupData[{
+Cell[15158, 389, 1955, 38, 60, "Input",ExpressionUUID->"bde04a8b-418c-43e7-8554-6b5e68e9475c"],
+Cell[17116, 429, 1882, 31, 65, "Output",ExpressionUUID->"dfbc1f24-4434-4b7a-bd1c-955829f0398a"]
+}, Open  ]],
+Cell[19013, 463, 1654, 27, 103, "ItemNumbered",ExpressionUUID->"1c1ea4eb-ff92-44de-b21b-034de086929b"],
+Cell[CellGroupData[{
+Cell[20692, 494, 3765, 76, 252, "Input",ExpressionUUID->"1e951d28-4893-4783-ab5a-c8631bb5838d"],
+Cell[24460, 572, 2344, 35, 65, "Output",ExpressionUUID->"8bf46e85-1b26-426d-81eb-f0752b36cd9e"],
+Cell[26807, 609, 2639, 40, 65, "Output",ExpressionUUID->"1ff1d1f9-87ee-4743-86ab-04bcafc2c582"]
+}, Open  ]],
+Cell[29461, 652, 912, 18, 60, "ItemNumbered",ExpressionUUID->"da641e83-495d-4780-a316-aa56eb9f818a"],
+Cell[CellGroupData[{
+Cell[30398, 674, 2793, 53, 60, "Input",ExpressionUUID->"914179a9-aca9-4337-a38a-8e976f1bfb65"],
+Cell[33194, 729, 10605, 274, 582, "Output",ExpressionUUID->"5dc4514b-da5e-450c-8691-29eb97a184dd"]
+}, Open  ]],
+Cell[43814, 1006, 808, 13, 59, "ItemNumbered",ExpressionUUID->"93fb1970-099a-4860-917f-5e72b13f304f"],
+Cell[CellGroupData[{
+Cell[44647, 1023, 2149, 52, 108, "Input",ExpressionUUID->"9d6d94b5-219b-46f2-9e2c-04a90bbd174e"],
+Cell[46799, 1077, 20848, 533, 698, "Output",ExpressionUUID->"c5951b7c-0dd7-49be-998f-7c96ee9ae198"]
+}, Open  ]],
+Cell[67662, 1613, 352, 6, 36, "ItemNumbered",ExpressionUUID->"106b60db-5e8d-4ec5-902b-db9f2dd2f1e4"],
+Cell[CellGroupData[{
+Cell[68039, 1623, 1130, 30, 132, "Input",ExpressionUUID->"43cb498b-98ba-4e6e-b48f-9febc1e45761"],
+Cell[69172, 1655, 2575, 63, 89, "Output",ExpressionUUID->"80dcd477-2d55-427c-a375-febaaf95ceb3"],
+Cell[71750, 1720, 2984, 67, 113, "Output",ExpressionUUID->"9bd435ad-87a1-4e1f-b193-41767abc61ef"],
+Cell[74737, 1789, 2981, 66, 113, "Output",ExpressionUUID->"c5b92bfb-1bfc-4121-9597-500cb97ca1e6"],
+Cell[77721, 1857, 5566, 157, 161, "Output",ExpressionUUID->"3728eb06-6387-4599-b2bd-9d4ba447d100"]
+}, Open  ]],
+Cell[83302, 2017, 3956, 58, 323, "Text",ExpressionUUID->"5ca34728-a3e9-4dad-8587-4706f1099c31"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

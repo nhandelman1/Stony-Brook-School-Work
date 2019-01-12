@@ -1,0 +1,994 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     36976,        986]
+NotebookOptionsPosition[     32373,        912]
+NotebookOutlinePosition[     32931,        932]
+CellTagsIndexPosition[     32888,        929]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["AMS-511 Foundations of Quantitative Finance", "Title",
+ CellChangeTimes->{{3.410118002352737*^9, 3.4101180035512123`*^9}, {
+   3.4104512493187323`*^9, 3.410451249562763*^9}, {3.411070441580077*^9, 
+   3.411070441827072*^9}, {3.411127582523164*^9, 3.41112758277359*^9}, {
+   3.4111315188866587`*^9, 3.411131524894576*^9}, {3.411253224366561*^9, 
+   3.411253224912155*^9}, {3.4114345716329317`*^9, 3.4114345742149363`*^9}, {
+   3.411436143492992*^9, 3.411436148100697*^9}, {3.461105702626305*^9, 
+   3.461105709176071*^9}, 3.4611060748428698`*^9, 3.461106153130972*^9, 
+   3.461106185408854*^9},ExpressionUUID->"c072338d-52b5-42a3-9255-\
+925ed22d70b8"],
+
+Cell["Fall 2018 \[LongDash] Assignment 11", "Subtitle",
+ CellChangeTimes->CompressedData["
+1:eJwdxVkow3EcAPC/uY94U6t5IMR4oFytpX2V60E021qOLKPcZ5EXSkYkd8mZ
+JEy2yJHzQa4wYnM9YKY5/r+lRMk5/t//w6ePd3apOJdDURSPgYs1ypmEPBqm
+9sSz+LxKkW9hdvmYY//WhnVGFtAQcObXjcfZO1mXmOtUXGqZeWEiK1nHbBeh
+YX/bb1PgYvVYNi5IoR2a92jgT1c74Q3WPMA3+F3su5UKKV446J6OZ+wHZuGc
+gRAF7huTdIv7D28+4PNmcJbbErgTfbnhQ5rjEFxY/BuKF9w/yfBP7TO7j7G1
+SeVAYEVpbsYz9euNV8w7A4tNuGvqZaB8lYC52hqEj0tNpZPnBDg2HlV4RZjp
+5OiCwPqgowEvMvQ+tVwTWDusofGWlQ6vnhsCo9x+ds80KmrJSEDgGC7Aa7eF
+sUbm9i01u8dfe9IPs+h5i71ML9OYbgl0S3K0eIYkYqcr2gL1ibpdXH8aXxbz
+YoGDkfByvC84l/f4aoH39BL2f5FX8nw=
+  
+  "],ExpressionUUID->"25594ebe-853b-4282-ae70-02c846510863"],
+
+Cell["\<\
+Robert J. Frey, Research Professor
+Stony Brook University, Applied Mathematics and Statistics
+
+Robert.Frey@StonyBrook.edu
+http://www.ams.sunysb.edu/~frey\
+\>", "Subsubtitle",
+ CellChangeTimes->{{3.411439843209729*^9, 3.411439853156939*^9}, {
+  3.587883368607191*^9, 
+  3.587883390413391*^9}},ExpressionUUID->"3cc30da9-4417-4911-9159-\
+452054ce1002"],
+
+Cell[CellGroupData[{
+
+Cell["Asian Options", "Section",
+ CellChangeTimes->{{3.751393592660089*^9, 
+  3.751393599267256*^9}},ExpressionUUID->"86863d68-8ccf-4c46-bb2b-\
+30cded84ec25"],
+
+Cell[CellGroupData[{
+
+Cell["Overview", "Subsection",
+ CellChangeTimes->{{3.751396580195603*^9, 
+  3.7513965829064693`*^9}},ExpressionUUID->"a471b88d-3f86-4016-8043-\
+2dfe2f6c5af4"],
+
+Cell[TextData[{
+ "An Asian option is one whose value is based on the average price observed \
+rather than the price at expiry. Read the Wikipedia article ",
+ ButtonBox["https://en.wikipedia.org/wiki/Asian_option",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["https://en.wikipedia.org/wiki/Asian_option"], None},
+  ButtonNote->"https://en.wikipedia.org/wiki/Asian_option"],
+ " which describes this derivative in detail. "
+}], "Text",
+ CellChangeTimes->{{3.751393602550147*^9, 3.751393673028597*^9}, {
+  3.751393835362741*^9, 3.7513938952046328`*^9}, {3.751398934567897*^9, 
+  3.751398947630404*^9}},ExpressionUUID->"9101059d-049b-4046-a1bd-\
+bbdc48034189"],
+
+Cell[TextData[{
+ "Consider an Asian arithmetic European put option, its value at time 0 with \
+strike price ",
+ Cell[BoxData[
+  FormBox["K", TraditionalForm]],ExpressionUUID->
+  "9c65617f-9d7d-4f61-8d0d-f9727638f14a"],
+ " and expiry ",
+ Cell[BoxData[
+  FormBox["T", TraditionalForm]],ExpressionUUID->
+  "d9eeb761-56fe-40c1-a50e-7ca6b6d5c3c5"],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.75139369574259*^9, 3.751393773105482*^9}, {
+  3.7513942245430403`*^9, 
+  3.75139423399894*^9}},ExpressionUUID->"cde4770e-7b16-4d7e-9bf4-\
+28b6331bb474"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"C", "(", "T", ")"}], "=", 
+   RowBox[{"max", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"M", "[", 
+       RowBox[{"0", ",", "T"}], "]"}], "-", "K"}], ",", "0"}], "]"}]}], 
+  TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.751210417282201*^9, 3.7512104472428207`*^9}, {
+  3.752019290279709*^9, 3.752019297038521*^9}, {3.752025660014591*^9, 
+  3.7520256675660048`*^9}},ExpressionUUID->"0554e96e-b0a2-42dc-a037-\
+09771208169c"],
+
+Cell[TextData[{
+ "where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"M", "[", 
+    RowBox[{"0", ",", "T"}], "]"}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "407bbf67-5ef9-42a8-a1b3-fa0213ce9afc"],
+ " is the arithmetic average price over the interval ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"0", "\[LessEqual]", "t", "\[LessEqual]", "T"}], TraditionalForm]],
+  
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "a3e0178d-43a3-4fd8-be5a-97f9f0ab0352"],
+ " defined as"
+}], "Text",
+ CellChangeTimes->{{3.75139378754531*^9, 3.7513938244844646`*^9}, {
+  3.751393905338477*^9, 
+  3.751393917640913*^9}},ExpressionUUID->"1ae67256-4a19-4b8f-89ec-\
+c50bd9a029d2"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"M", "[", 
+    RowBox[{"0", ",", "T"}], "]"}], "=", 
+   RowBox[{
+    FractionBox["1", "T"], 
+    RowBox[{
+     SubsuperscriptBox["\[Integral]", "0", 
+      RowBox[{" ", "T"}]], 
+     RowBox[{
+      RowBox[{"S", "(", "t", ")"}], 
+      RowBox[{"\[DifferentialD]", "t"}]}]}]}]}], TraditionalForm]], "Equation",\
+
+ CellChangeTimes->{{3.751210194912384*^9, 
+  3.751210246358983*^9}},ExpressionUUID->"74782110-f590-4a47-bd35-\
+cca73316268a"],
+
+Cell["\<\
+Alternately, the option may define the arithmetic average as computed by \
+averaging the price at fixed intervals, \
+\>", "Text",
+ CellChangeTimes->{{3.751394575187853*^9, 3.751394714281897*^9}, 
+   3.751394887418798*^9, {3.7513949621274157`*^9, 
+   3.7513949834693193`*^9}},ExpressionUUID->"157ee01f-245e-42f9-99b8-\
+62acdad6ab5a"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"M", "[", 
+    RowBox[{"0", ",", "T"}], "]"}], "=", 
+   RowBox[{
+    FractionBox["1", "N"], 
+    RowBox[{
+     UnderoverscriptBox["\[Sum]", 
+      RowBox[{"i", "=", "0"}], 
+      RowBox[{"N", "-", "1"}]], 
+     RowBox[{"S", "(", 
+      SubscriptBox["t", "i"], ")"}]}]}]}], TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.751394899127306*^9, 
+  3.751394941965674*^9}},ExpressionUUID->"6c078d6b-c0c1-40cd-9e11-\
+0b51a59cedce"],
+
+Cell["\<\
+but here we will only consider the continuous definition above. \
+\>", "Text",
+ CellChangeTimes->{{3.751394575187853*^9, 3.751394714281897*^9}, 
+   3.75139495749265*^9, {3.751398972461087*^9, 
+   3.751398974836749*^9}},ExpressionUUID->"e2b65154-2072-48fd-bc22-\
+9c1c77266ff2"],
+
+Cell[TextData[{
+ "Other forms of the Asian option use a different averaging method of \
+computing ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"M", "[", 
+    RowBox[{"0", ",", "T"}], "]"}], TraditionalForm]],ExpressionUUID->
+  "74b936e6-9880-4a7c-bd59-fc9e9fc1b30d"],
+ ". For example, the geometric average is sometimes used:"
+}], "Text",
+ CellChangeTimes->{{3.751394575187853*^9, 3.751394714281897*^9}, {
+  3.751398983621662*^9, 
+  3.751398986349284*^9}},ExpressionUUID->"af370d4b-5e82-47f4-8cf0-\
+9500cf839da3"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"M", "[", 
+    RowBox[{"0", ",", "T"}], "]"}], "=", 
+   RowBox[{"Exp", "[", 
+    RowBox[{
+     SubsuperscriptBox["\[Integral]", "0", 
+      RowBox[{" ", "T"}]], 
+     RowBox[{
+      RowBox[{"Log", "[", 
+       RowBox[{"S", "(", "t", ")"}], "]"}], 
+      RowBox[{"\[DifferentialD]", "t"}]}]}], "]"}]}], 
+  TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.751394799634336*^9, 
+  3.751394867723357*^9}},ExpressionUUID->"c417066c-bc37-49fb-85f2-\
+fb2821d0fc9f"],
+
+Cell["\<\
+Some forms of Asian options have an analytical solution, but the arithmetic \
+case does not. A common means of estimation is Monte Carlo.\
+\>", "Text",
+ CellChangeTimes->{{3.751394194648244*^9, 
+  3.75139427440595*^9}},ExpressionUUID->"6ac44567-2957-4535-b16b-\
+9ece5a88722f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["FinancialDerivative[\[NonBreakingSpace]]", "Subsection",
+ CellChangeTimes->{{3.751397236410294*^9, 
+  3.7513972450425262`*^9}},ExpressionUUID->"5cdaf48d-933f-4e81-9459-\
+87c3dac0f0b4"],
+
+Cell[TextData[{
+ "Mathematica",
+ StyleBox["\[CloseCurlyQuote]s FinancialDerivative[\[NonBreakingSpace]] \
+function can be used to estimate the value of an Asian arithmetic European \
+put. Here we have ",
+  FontSlant->"Plain"],
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    RowBox[{
+     RowBox[{"S", "(", "0", ")"}], "=", "95.00"}],
+    FontSlant->"Plain"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "f868839b-d92d-4594-8f6c-6deee5d016f4"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"K", 
+    StyleBox["=",
+     FontSlant->"Plain"], 
+    StyleBox["100.00",
+     FontSlant->"Plain"]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "68e5151c-8915-44bb-980b-90c9c32470c7"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"T", 
+    StyleBox["=",
+     FontSlant->"Plain"], 
+    StyleBox["1",
+     FontSlant->"Plain"]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "3f8d46e6-170a-417d-99cd-1763d0fd5488"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["r", "f"], 
+    StyleBox["=",
+     FontSlant->"Plain"], 
+    StyleBox["0.02",
+     FontSlant->"Plain"]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "65ae5bc2-aae5-413e-bc65-49fe7a374f94"],
+ ",",
+ StyleBox[" and ",
+  FontSlant->"Plain"],
+ Cell[BoxData[
+  FormBox[
+   StyleBox[
+    RowBox[{"\[Sigma]", "=", "0.10"}],
+    FontSlant->"Plain"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "cd144508-0306-4326-a28f-939c503dbb5f"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.751397248808269*^9, 3.7513973351284227`*^9}, {
+   3.751398317215364*^9, 3.7513984632733717`*^9}, 3.751398523445347*^9},
+ FontSlant->"Italic",ExpressionUUID->"5460336f-c775-4150-9ff9-7009a90dbdbc"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FinancialDerivative", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "\"\<AsianArithmetic\>\"", ",", "\"\<European\>\"", ",", "\"\<Put\>\""}], 
+    "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"\"\<StrikePrice\>\"", "\[Rule]", "100."}], ",", 
+     RowBox[{"\"\<Expiration\>\"", "\[Rule]", "1."}], ",", 
+     RowBox[{"\"\<Inception\>\"", "\[Rule]", "0."}], ",", 
+     RowBox[{"\"\<AverageSoFar\>\"", "\[Rule]", "95."}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"\"\<CurrentPrice\>\"", "\[Rule]", "95."}], ",", 
+     RowBox[{"\"\<Volatility\>\"", "\[Rule]", "0.10"}], ",", 
+     RowBox[{"\"\<InterestRate\>\"", "\[Rule]", "0.02"}]}], "}"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.751199056701531*^9, 3.7511990901448812`*^9}, {
+  3.75119912563739*^9, 3.751199289638554*^9}, {3.7513112969992647`*^9, 
+  3.751311304110045*^9}, {3.752019425058015*^9, 3.7520194344804316`*^9}, {
+  3.7520195350324106`*^9, 
+  3.7520195567898493`*^9}},ExpressionUUID->"0562c2cb-81bb-4b62-a750-\
+e950336d387c"],
+
+Cell[BoxData["4.744956971724153`"], "Output",
+ CellChangeTimes->{{3.751199225865473*^9, 3.751199251746306*^9}, 
+   3.7511992911540833`*^9, {3.751311299455142*^9, 3.751311312968378*^9}, {
+   3.7520184960463076`*^9, 3.752018501974318*^9}, {3.7520195503002377`*^9, 
+   3.7520195604558554`*^9}, {3.7520264612596292`*^9, 
+   3.752026477137858*^9}},ExpressionUUID->"4f54b448-6535-4602-a4f4-\
+7b3f2dee944e"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Monte Carlo", "Subsection",
+ CellChangeTimes->{{3.751396588297843*^9, 
+  3.751396591586495*^9}},ExpressionUUID->"f69b663b-46af-435e-b4b3-\
+65516125beb2"],
+
+Cell[TextData[{
+ "In a Monte Carlo framework the integral above for the average price can be \
+approximated by a discrete sum. Note in the vanilla European case we were \
+able to exploit the solution to the constant coefficient It\[OHat] process ",
+ StyleBox["under the risk-neutral measure",
+  FontSlant->"Italic"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.751396602098003*^9, 3.751396663359419*^9}, {
+  3.751396713109116*^9, 3.751396766675688*^9}, {3.751397396102228*^9, 
+  3.7513974004839163`*^9}, {3.751397459713942*^9, 
+  3.751397468385455*^9}},ExpressionUUID->"31be0431-5677-4549-bea7-\
+fa1c60ab4902"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"S", "(", "t", ")"}], "=", 
+   RowBox[{
+    RowBox[{"S", "(", "0", ")"}], " ", 
+    SuperscriptBox["\[ExponentialE]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"r", " ", "-", " ", 
+         RowBox[{
+          SuperscriptBox["\[Sigma]", "2"], "/", "2"}]}], ")"}], "t"}], " ", 
+      "+", " ", 
+      RowBox[{"\[Sigma]", " ", 
+       RowBox[{"W", "(", "t", ")"}]}]}]]}]}], TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.607481904414323*^9, 3.6074819062701197`*^9}, {
+  3.7512096506060677`*^9, 3.751209669239049*^9}, {3.751209759732644*^9, 
+  3.7512097772677526`*^9}},
+ TextAlignment->Center,ExpressionUUID->"12854ee9-e21c-422c-bd4d-a89a14505a73"],
+
+Cell[TextData[{
+ "where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"W", "(", "t", ")"}], "\[Distributed]", 
+    RowBox[{"N", "[", 
+     RowBox[{"0", ",", 
+      SqrtBox["t"]}], "]"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "28ce6e8a-c8cd-46bb-aa12-17b3ffa20b73"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.751396937297461*^9, 
+  3.751396960048914*^9}},ExpressionUUID->"6b8bda4f-2254-4af9-b0f8-\
+e9e5582d008e"],
+
+Cell["\<\
+We can also use this solution to generate a path of prices in time increments \
+of \[CapitalDelta] by\
+\>", "Text",
+ CellChangeTimes->{{3.751396797439724*^9, 3.7513968297983227`*^9}, {
+  3.751397485937645*^9, 
+  3.751397491288207*^9}},ExpressionUUID->"963e9d82-c695-43e5-be3b-\
+5859960c8e27"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"S", "(", 
+    RowBox[{"t", "+", "\[CapitalDelta]"}], ")"}], "=", 
+   RowBox[{
+    RowBox[{"S", "(", "t", ")"}], " ", 
+    SuperscriptBox["\[ExponentialE]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"r", " ", "-", " ", 
+         RowBox[{
+          SuperscriptBox["\[Sigma]", "2"], "/", "2"}]}], ")"}], 
+       "\[CapitalDelta]"}], " ", "+", " ", 
+      RowBox[{"\[Sigma]", " ", 
+       RowBox[{"W", "(", "\[CapitalDelta]", ")"}]}]}]]}]}], 
+  TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.607481904414323*^9, 3.6074819062701197`*^9}, {
+  3.7512096506060677`*^9, 3.751209669239049*^9}, {3.751209759732644*^9, 
+  3.7512097772677526`*^9}, {3.7513968421922913`*^9, 3.751396911405919*^9}, {
+  3.751396980084424*^9, 3.751396985877563*^9}},
+ TextAlignment->Center,ExpressionUUID->"c2da3d8c-e27f-40b5-a588-73b348764b58"],
+
+Cell[TextData[{
+ "where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"W", "(", "\[CapitalDelta]", ")"}], "\[Distributed]", 
+    RowBox[{"N", "[", 
+     RowBox[{"0", ",", 
+      SqrtBox["\[CapitalDelta]"]}], "]"}]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "82c90c8f-decb-4c58-9a53-a56835db0777"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.751396937297461*^9, 3.751396960048914*^9}, {
+  3.751396996616578*^9, 
+  3.751397003135301*^9}},ExpressionUUID->"9172694f-e05e-417a-9ba3-\
+28c9ea118842"],
+
+Cell[TextData[{
+ "Using ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ "\[CloseCurlyQuote]s notation, the above is"
+}], "Text",
+ CellChangeTimes->{{3.751210810613855*^9, 3.751210845284341*^9}, {
+  3.7513797502839947`*^9, 3.751379750449991*^9}, {3.75138001902549*^9, 
+  3.751380123374159*^9}, {3.751397051956953*^9, 
+  3.7513970596514387`*^9}},ExpressionUUID->"b08111a2-9d88-4b6a-8bd4-\
+2db183049f29"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"S", "(", 
+    RowBox[{"t", "+", "\[CapitalDelta]"}], ")"}], "=", 
+   RowBox[{
+    RowBox[{"S", "(", "t", ")"}], " ", 
+    RowBox[{"Exp", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"r", " ", "-", " ", 
+         RowBox[{
+          SuperscriptBox["\[Sigma]", "2"], "/", "2"}]}], ")"}], 
+       "\[CapitalDelta]"}], " ", "+", " ", 
+      RowBox[{"\[Sigma]", " ", 
+       RowBox[{"RandomVariate", "[", 
+        RowBox[{"NormalDistribution", "[", 
+         RowBox[{"0.", ",", 
+          SqrtBox["\[CapitalDelta]"]}], "]"}], "]"}]}]}]}]}]}], 
+  TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.607481904414323*^9, 3.6074819062701197`*^9}, {
+  3.751209556119664*^9, 3.751209639410316*^9}, {3.7512096729017*^9, 
+  3.751209702324765*^9}, {3.7512097378226833`*^9, 3.751209748004986*^9}, {
+  3.7512102656862907`*^9, 3.751210272646647*^9}, {3.751210307150083*^9, 
+  3.751210311804327*^9}, {3.751229720610147*^9, 3.751229721794053*^9}, {
+  3.751379778470078*^9, 3.751379785278014*^9}, {3.751397427534886*^9, 
+  3.7513974331106997`*^9}},
+ TextAlignment->Center,ExpressionUUID->"863d75df-d621-44e8-9883-829cb17e9a31"],
+
+Cell[TextData[{
+ "and once we have generated a sample path ",
+ StyleBox["i",
+  FontSlant->"Italic"],
+ " we can compute one realization of the mean:"
+}], "Text",
+ CellChangeTimes->{{3.751397562391808*^9, 3.7513975996730833`*^9}, {
+  3.7513988879104233`*^9, 
+  3.751398894405036*^9}},ExpressionUUID->"1c74249a-6f6e-4098-9e4e-\
+2017f78bca0c"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SuperscriptBox["M", 
+     RowBox[{"(", "i", ")"}]], "[", 
+    RowBox[{"0", ",", "T"}], "]"}], "=", 
+   RowBox[{
+    FractionBox["1", 
+     RowBox[{
+      RowBox[{"T", "/", "\[CapitalDelta]"}], "+", "1"}]], 
+    RowBox[{
+     UnderoverscriptBox["\[Sum]", 
+      RowBox[{"i", "=", "0"}], 
+      RowBox[{"T", "/", "\[CapitalDelta]"}]], 
+     RowBox[{
+      SuperscriptBox["S", 
+       RowBox[{"(", "i", ")"}]], "(", 
+      RowBox[{"i", " ", "\[CapitalDelta]"}], ")"}]}]}]}], 
+  TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.7513976334184303`*^9, 3.751397709290354*^9}, {
+  3.751397840517223*^9, 
+  3.7513978691277857`*^9}},ExpressionUUID->"f5639bb7-aee4-4286-a45b-\
+cf707d9e45db"],
+
+Cell[TextData[{
+ "If we repeat this experiment ",
+ StyleBox["I",
+  FontSlant->"Italic"],
+ " times then to estimate the mean price"
+}], "Text",
+ CellChangeTimes->{{3.751397891211474*^9, 3.7513979136347837`*^9}, {
+  3.7513982607275248`*^9, 
+  3.751398269141224*^9}},ExpressionUUID->"473ac40f-8447-4ed7-821f-\
+37314332dd89"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"M", "[", 
+    RowBox[{"0", ",", "T"}], "]"}], "=", 
+   RowBox[{
+    FractionBox["1", "I"], 
+    RowBox[{
+     UnderoverscriptBox["\[Sum]", 
+      RowBox[{"i", "=", "1"}], "I"], 
+     RowBox[{
+      SuperscriptBox["M", 
+       RowBox[{"(", "i", ")"}]], "[", 
+      RowBox[{"0", ",", "T"}], "]"}]}]}]}], TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.7513976334184303`*^9, 3.751397709290354*^9}, {
+  3.751397840517223*^9, 3.7513978691277857`*^9}, {3.751397922156946*^9, 
+  3.751397960027128*^9}, {3.75139823796691*^9, 
+  3.7513982494953814`*^9}},ExpressionUUID->"0cfec396-7bde-42c3-8c16-\
+45111857bff7"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Assignment", "Section",
+ CellChangeTimes->{{3.751398550303185*^9, 
+  3.751398552303624*^9}},ExpressionUUID->"417b7e76-9a66-474d-b30b-\
+972b268d09ef"],
+
+Cell["\<\
+Create a function that uses Monte Carlo to estimate the value of an Asian \
+arithmetic European put using the same parameters as those in the \
+FinancialDerivative[\[NonBreakingSpace]] above. You can use the code \
+developed in Class 10 to help you get started.\
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.7513985589616947`*^9, 3.751398631069887*^9}, {
+  3.751398680903616*^9, 3.751398704279036*^9}, {3.751399954574728*^9, 
+  3.751399954575279*^9}, {3.7520187482363396`*^9, 
+  3.7520187482363396`*^9}},ExpressionUUID->"9a999798-6b14-42eb-bf11-\
+3aac8520a638"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"xGeneratePrice", "[", 
+   RowBox[{
+   "nNowPrice_", ",", "nVolatility_", ",", "nRiskFree_", ",", "nTimeStep_"}], 
+   "]"}], ":=", 
+  RowBox[{"nNowPrice", " ", 
+   RowBox[{"Exp", "[", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"nRiskFree", "-", 
+       RowBox[{
+        SuperscriptBox["nVolatility", "2"], "/", "2."}]}], ")"}], 
+     "nTimeStep"}], "]"}], 
+   RowBox[{"Exp", "[", " ", 
+    RowBox[{"nVolatility", " ", 
+     RowBox[{"RandomVariate", "[", 
+      RowBox[{"NormalDistribution", "[", 
+       RowBox[{"0", ",", 
+        SqrtBox["nTimeStep"]}], "]"}], "]"}]}], 
+    "]"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"xAsianArithmeticEuroPutOptMonteCarlo", "[", 
+    RowBox[{
+    "nNowPrice_", ",", "nVolatility_", ",", "nStrikePrice_", ",", "nExpiry_", 
+     ",", "nInception_", ",", "nRiskFree_", ",", "iSamples_", ",", 
+     "iTimeSteps_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Mean", "[", "#", "]"}], ",", 
+       RowBox[{
+        RowBox[{"StandardDeviation", "[", "#", "]"}], "/", 
+        SqrtBox["iSamples"]}]}], "}"}], "&"}], "[", " ", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Exp", "[", 
+      RowBox[{
+       RowBox[{"-", "nRiskFree"}], " ", "nExpiry"}], "]"}], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Max", "[", 
+         RowBox[{
+          RowBox[{"nStrikePrice", "-", "#"}], ",", "0"}], "]"}], "&"}], "/@", 
+       
+       RowBox[{"(", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"Mean", "[", 
+           RowBox[{"NestList", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"xGeneratePrice", "[", 
+               RowBox[{
+               "#", ",", " ", "nVolatility", ",", " ", "nRiskFree", ",", 
+                RowBox[{"nExpiry", "/", "iTimeSteps"}]}], "]"}], "&"}], ",", 
+             "nNowPrice", ",", "iTimeSteps"}], "]"}], "]"}], ",", 
+          "iSamples"}], "]"}], ")"}]}], ")"}]}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7520250816930857`*^9, 3.752025100251519*^9}, {
+  3.7520251315691795`*^9, 3.75202513181878*^9}, {3.752025335450942*^9, 
+  3.7520253464841614`*^9}, {3.7520253924554462`*^9, 3.7520253937190485`*^9}, {
+  3.752025542358577*^9, 3.7520255601018085`*^9}, {3.752025674024416*^9, 
+  3.7520256782384233`*^9}},ExpressionUUID->"8c412c98-ae8a-4ec5-bc52-\
+ebad6c650bc6"],
+
+Cell[TextData[{
+ "Plot the values of the Monte Carlo simulation for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"S", "(", "0", ")"}], "=", 
+    RowBox[{
+    "80", " ", "to", " ", "120", " ", "in", " ", "steps", " ", "of", " ", 
+     "5"}]}], TraditionalForm]],ExpressionUUID->
+  "36c2681d-2524-48db-8120-c38b5702d34c"],
+ " using the other parameter settings above. Compare these estimates to the \
+same using FinancialDerivative[\[NonBreakingSpace]]."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.7513985589616947`*^9, 3.751398631069887*^9}, {
+  3.751398680903616*^9, 3.751398704279036*^9}, {3.7513999603398743`*^9, 
+  3.751400105952552*^9}, {3.751400149521628*^9, 
+  3.751400205906206*^9}},ExpressionUUID->"30a9cc62-5929-4d32-b062-\
+abb286865ab5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"DiscretePlot", "[", 
+  RowBox[{
+   RowBox[{"First", "[", 
+    RowBox[{"xAsianArithmeticEuroPutOptMonteCarlo", "[", 
+     RowBox[{
+     "s", ",", "0.1", ",", "100", ",", "1", ",", "0", ",", "0.02", ",", "100",
+       ",", "100"}], "]"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"s", ",", "80", ",", "120", ",", "5"}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"DiscretePlot", "[", 
+  RowBox[{
+   RowBox[{"FinancialDerivative", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<AsianArithmetic\>\"", ",", "\"\<European\>\"", ",", 
+       "\"\<Put\>\""}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\"\<StrikePrice\>\"", "\[Rule]", "100."}], ",", 
+       RowBox[{"\"\<Expiration\>\"", "\[Rule]", "1."}], ",", 
+       RowBox[{"\"\<Inception\>\"", "\[Rule]", "0."}], ",", 
+       RowBox[{"\"\<AverageSoFar\>\"", "\[Rule]", "95."}]}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\"\<CurrentPrice\>\"", "\[Rule]", "s"}], ",", 
+       RowBox[{"\"\<Volatility\>\"", "\[Rule]", "0.10"}], ",", 
+       RowBox[{"\"\<InterestRate\>\"", "\[Rule]", "0.02"}]}], "}"}]}], "]"}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{"s", ",", "80", ",", "120", ",", "5"}], "}"}]}], "]"}]}], "Input",\
+
+ CellChangeTimes->{
+  3.752024289681921*^9, {3.7520253970926547`*^9, 3.7520254014294624`*^9}, {
+   3.7520258863281975`*^9, 3.752025889448203*^9}, {3.752026454021217*^9, 
+   3.752026454208417*^9}, {3.752026499749699*^9, 3.7520265426985874`*^9}, {
+   3.752026611078683*^9, 3.7520266171656933`*^9}, {3.752026687727908*^9, 
+   3.7520266993715286`*^9}, {3.7520267459978867`*^9, 3.752026751678297*^9}, {
+   3.752026886262671*^9, 3.752026899545295*^9}, {3.7520269838931475`*^9, 
+   3.7520269872783537`*^9}, {3.752027053446273*^9, 
+   3.752027059437683*^9}},ExpressionUUID->"7a39be90-e8fc-42bf-ba87-\
+3445f357ea63"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.012833333333333334`], 
+    AbsoluteThickness[1.6], {
+     {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+      0.012833333333333334`], AbsoluteThickness[1.6], Opacity[0.2], 
+      LineBox[{{{120., 0.}, {120., 0}}},
+       VertexColors->None]}, 
+     {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+      0.012833333333333334`], AbsoluteThickness[1.6], Opacity[0.2], 
+      LineBox[{{{80., 18.607374496386544`}, {80., 0}}, {{85., 
+         14.404335929471422`}, {85., 0}}, {{90., 9.102853497853769}, {
+         90., 0}}, {{95., 5.227015639932663}, {95., 0}}, {{100., 
+         2.1641502069997642`}, {100., 0}}, {{105., 0.31874423522859724`}, {
+         105., 0}}, {{110., 0.08675648172627076}, {110., 0}}, {{115., 
+         0.04644679588321047}, {115., 0}}},
+       VertexColors->None]}}}, 
+   {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.012833333333333334`], 
+    AbsoluteThickness[1.6], {}, 
+    PointBox[{{80., 18.607374496386544`}, {85., 14.404335929471422`}, {90., 
+     9.102853497853769}, {95., 5.227015639932663}, {100., 
+     2.1641502069997642`}, {105., 0.31874423522859724`}, {110., 
+     0.08675648172627076}, {115., 0.04644679588321047}, {120., 0.}}], {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->True,
+  AxesOrigin->{80, 0},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  Method->{
+   "MessagesHead" -> DiscretePlot, "AxisPadding" -> Scaled[0.02], 
+    "DefaultBoundaryStyle" -> Automatic, "DefaultMeshStyle" -> 
+    AbsolutePointSize[6], "DefaultPlotStyle" -> {
+      Directive[
+       RGBColor[0.368417, 0.506779, 0.709798], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.880722, 0.611041, 0.142051], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.560181, 0.691569, 0.194885], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.922526, 0.385626, 0.209179], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.528488, 0.470624, 0.701351], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.772079, 0.431554, 0.102387], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.363898, 0.618501, 0.782349], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[1, 0.75, 0], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.647624, 0.37816, 0.614037], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.571589, 0.586483, 0.], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.915, 0.3325, 0.2125], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+       AbsoluteThickness[1.6]]}, "DomainPadding" -> Scaled[0.02], 
+    "PointSizeFunction" -> "SmallPointSize", "RangePadding" -> Scaled[0.05]},
+  PlotRange->{{80, 120}, {0, 18.607374496386544`}},
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.02]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{3.752026756254105*^9, 3.752026903897702*^9, 
+  3.752026992909963*^9, 
+  3.752027063620491*^9},ExpressionUUID->"2a79d99b-088f-4b90-b369-\
+a615ba697421"],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.012833333333333334`], 
+    AbsoluteThickness[1.6], {
+     {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+      0.012833333333333334`], AbsoluteThickness[1.6], Opacity[0.2], LineBox[{},
+       VertexColors->None]}, 
+     {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+      0.012833333333333334`], AbsoluteThickness[1.6], Opacity[0.2], 
+      LineBox[{{{80., 18.760777915144907`}, {80., 0}}, {{85., 
+         13.821494814730116`}, {85., 0}}, {{90., 8.995997389052858}, {
+         90., 0}}, {{95., 4.758149585562902}, {95., 0}}, {{100., 
+         1.8274645573260924`}, {100., 0}}, {{105., 0.4622049300345217}, {
+         105., 0}}, {{110., 0.0734456164493323}, {110., 0}}, {{115., 
+         0.01006302314806757}, {115., 0}}, {{120., 0.00039265965325326323`}, {
+         120., 0}}},
+       VertexColors->None]}}}, 
+   {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.012833333333333334`], 
+    AbsoluteThickness[1.6], {}, 
+    PointBox[{{80., 18.760777915144907`}, {85., 13.821494814730116`}, {90., 
+     8.995997389052858}, {95., 4.758149585562902}, {100., 
+     1.8274645573260924`}, {105., 0.4622049300345217}, {110., 
+     0.0734456164493323}, {115., 0.01006302314806757}, {120., 
+     0.00039265965325326323`}}], {}}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->True,
+  AxesOrigin->{80, 0},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  Method->{
+   "MessagesHead" -> DiscretePlot, "AxisPadding" -> Scaled[0.02], 
+    "DefaultBoundaryStyle" -> Automatic, "DefaultMeshStyle" -> 
+    AbsolutePointSize[6], "DefaultPlotStyle" -> {
+      Directive[
+       RGBColor[0.368417, 0.506779, 0.709798], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.880722, 0.611041, 0.142051], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.560181, 0.691569, 0.194885], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.922526, 0.385626, 0.209179], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.528488, 0.470624, 0.701351], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.772079, 0.431554, 0.102387], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.363898, 0.618501, 0.782349], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[1, 0.75, 0], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.647624, 0.37816, 0.614037], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.571589, 0.586483, 0.], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.915, 0.3325, 0.2125], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.40082222609352647`, 0.5220066643438841, 0.85], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.9728288904374106, 0.621644452187053, 0.07336199581899142], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.736782672705901, 0.358, 0.5030266573755369], 
+       AbsoluteThickness[1.6]], 
+      Directive[
+       RGBColor[0.28026441037696703`, 0.715, 0.4292089322474965], 
+       AbsoluteThickness[1.6]]}, "DomainPadding" -> Scaled[0.02], 
+    "PointSizeFunction" -> "SmallPointSize", "RangePadding" -> Scaled[0.05]},
+  PlotRange->{{80, 120}, {0, 18.760777915144907`}},
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.02]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{3.752026756254105*^9, 3.752026903897702*^9, 
+  3.752026992909963*^9, 
+  3.752027070562503*^9},ExpressionUUID->"ac1deab8-0713-40f4-af5e-\
+8493b22b5b15"]
+}, Open  ]],
+
+Cell["\<\
+Both plots have similar trends and the values at each price step are close. \
+\>", "Text",
+ CellChangeTimes->{{3.7520270859873304`*^9, 
+  3.75202713607482*^9}},ExpressionUUID->"95a72cf6-fc90-4e1f-942f-\
+242904be55ab"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowToolbars->{},
+WindowSize->{1920, 998},
+WindowMargins->{{-8, Automatic}, {Automatic, -8}},
+SpellingDictionaries->{"CorrectWords"->{
+ "buc", "Swaptions", "Memetics", "\[Beta]s", "Jefferys", "Jeffreys", "zeroa", 
+  "swaption", "lim", "It\[OHat]"}},
+Magnification:>1.25 Inherited,
+FrontEndVersion->"11.2 for Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"StonyBrook.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 656, 9, 121, "Title",ExpressionUUID->"c072338d-52b5-42a3-9255-925ed22d70b8"],
+Cell[1239, 33, 677, 12, 66, "Subtitle",ExpressionUUID->"25594ebe-853b-4282-ae70-02c846510863"],
+Cell[1919, 47, 359, 10, 143, "Subsubtitle",ExpressionUUID->"3cc30da9-4417-4911-9159-452054ce1002"],
+Cell[CellGroupData[{
+Cell[2303, 61, 158, 3, 83, "Section",ExpressionUUID->"86863d68-8ccf-4c46-bb2b-30cded84ec25"],
+Cell[CellGroupData[{
+Cell[2486, 68, 158, 3, 67, "Subsection",ExpressionUUID->"a471b88d-3f86-4016-8043-2dfe2f6c5af4"],
+Cell[2647, 73, 661, 13, 38, "Text",ExpressionUUID->"9101059d-049b-4046-a1bd-bbdc48034189"],
+Cell[3311, 88, 537, 15, 38, "Text",ExpressionUUID->"cde4770e-7b16-4d7e-9bf4-28b6331bb474"],
+Cell[3851, 105, 480, 13, 38, "Equation",ExpressionUUID->"0554e96e-b0a2-42dc-a037-09771208169c"],
+Cell[4334, 120, 680, 20, 38, "Text",ExpressionUUID->"1ae67256-4a19-4b8f-89ec-c50bd9a029d2"],
+Cell[5017, 142, 482, 16, 62, "Equation",ExpressionUUID->"74782110-f590-4a47-bd35-cca73316268a"],
+Cell[5502, 160, 342, 7, 38, "Text",ExpressionUUID->"157ee01f-245e-42f9-99b8-62acdad6ab5a"],
+Cell[5847, 169, 475, 15, 76, "Equation",ExpressionUUID->"6c078d6b-c0c1-40cd-9e11-0b51a59cedce"],
+Cell[6325, 186, 286, 6, 38, "Text",ExpressionUUID->"e2b65154-2072-48fd-bc22-9c1c77266ff2"],
+Cell[6614, 194, 508, 13, 38, "Text",ExpressionUUID->"af370d4b-5e82-47f4-8cf0-9500cf839da3"],
+Cell[7125, 209, 507, 16, 62, "Equation",ExpressionUUID->"c417066c-bc37-49fb-85f2-fb2821d0fc9f"],
+Cell[7635, 227, 286, 6, 38, "Text",ExpressionUUID->"6ac44567-2957-4535-b16b-9ece5a88722f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7958, 238, 190, 3, 67, "Subsection",ExpressionUUID->"5cdaf48d-933f-4e81-9459-87c3dac0f0b4"],
+Cell[8151, 243, 1751, 59, 41, "Text",ExpressionUUID->"5460336f-c775-4150-9ff9-7009a90dbdbc"],
+Cell[CellGroupData[{
+Cell[9927, 306, 1071, 25, 60, "Input",ExpressionUUID->"0562c2cb-81bb-4b62-a750-e950336d387c"],
+Cell[11001, 333, 400, 6, 40, "Output",ExpressionUUID->"4f54b448-6535-4602-a4f4-7b3f2dee944e"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11450, 345, 159, 3, 67, "Subsection",ExpressionUUID->"f69b663b-46af-435e-b4b3-65516125beb2"],
+Cell[11612, 350, 605, 12, 62, "Text",ExpressionUUID->"31be0431-5677-4549-bea7-fa1c60ab4902"],
+Cell[12220, 364, 721, 19, 44, "Equation",ExpressionUUID->"12854ee9-e21c-422c-bd4d-a89a14505a73"],
+Cell[12944, 385, 449, 15, 45, "Text",ExpressionUUID->"6b8bda4f-2254-4af9-b0f8-e9e5582d008e"],
+Cell[13396, 402, 302, 7, 38, "Text",ExpressionUUID->"963e9d82-c695-43e5-be3b-5859960c8e27"],
+Cell[13701, 411, 889, 22, 44, "Equation",ExpressionUUID->"c2da3d8c-e27f-40b5-a588-73b348764b58"],
+Cell[14593, 435, 526, 16, 45, "Text",ExpressionUUID->"9172694f-e05e-417a-9ba3-28c9ea118842"],
+Cell[15122, 453, 406, 10, 38, "Text",ExpressionUUID->"b08111a2-9d88-4b6a-8bd4-2db183049f29"],
+Cell[15531, 465, 1181, 28, 45, "Equation",ExpressionUUID->"863d75df-d621-44e8-9883-829cb17e9a31"],
+Cell[16715, 495, 339, 9, 38, "Text",ExpressionUUID->"1c74249a-6f6e-4098-9e4e-2017f78bca0c"],
+Cell[17057, 506, 735, 23, 76, "Equation",ExpressionUUID->"f5639bb7-aee4-4286-a45b-cf707d9e45db"],
+Cell[17795, 531, 321, 9, 38, "Text",ExpressionUUID->"473ac40f-8447-4ed7-821f-37314332dd89"],
+Cell[18119, 542, 654, 18, 76, "Equation",ExpressionUUID->"0cfec396-7bde-42c3-8c16-45111857bff7"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18822, 566, 155, 3, 83, "Section",ExpressionUUID->"417b7e76-9a66-474d-b30b-972b268d09ef"],
+Cell[18980, 571, 569, 10, 59, "ItemNumbered",ExpressionUUID->"9a999798-6b14-42eb-bf11-3aac8520a638"],
+Cell[19552, 583, 2442, 67, 127, "Input",ExpressionUUID->"8c412c98-ae8a-4ec5-bc52-ebad6c650bc6"],
+Cell[21997, 652, 754, 17, 36, "ItemNumbered",ExpressionUUID->"30a9cc62-5929-4d32-b062-abb286865ab5"],
+Cell[CellGroupData[{
+Cell[22776, 673, 1896, 44, 84, "Input",ExpressionUUID->"7a39be90-e8fc-42bf-ba87-3445f357ea63"],
+Cell[24675, 719, 3689, 89, 308, "Output",ExpressionUUID->"2a79d99b-088f-4b90-b369-a615ba697421"],
+Cell[28367, 810, 3736, 90, 308, "Output",ExpressionUUID->"ac1deab8-0713-40f4-af5e-8493b22b5b15"]
+}, Open  ]],
+Cell[32118, 903, 227, 5, 38, "Text",ExpressionUUID->"95a72cf6-fc90-4e1f-942f-242904be55ab"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

@@ -1,0 +1,3394 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[    143934,       3386]
+NotebookOptionsPosition[    125803,       3104]
+NotebookOutlinePosition[    126205,       3121]
+CellTagsIndexPosition[    126162,       3118]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["AMS-511 Foundations of Quantitative Finance", "Title",
+ CellChangeTimes->{{3.410118002352737*^9, 3.4101180035512123`*^9}, {
+   3.4104512493187323`*^9, 3.410451249562763*^9}, {3.411070441580077*^9, 
+   3.411070441827072*^9}, {3.411127582523164*^9, 3.41112758277359*^9}, {
+   3.4111315188866587`*^9, 3.411131524894576*^9}, {3.411253224366561*^9, 
+   3.411253224912155*^9}, {3.4114345716329317`*^9, 3.4114345742149363`*^9}, {
+   3.411436143492992*^9, 3.411436148100697*^9}, {3.461105702626305*^9, 
+   3.461105709176071*^9}, 3.4611060748428698`*^9, 3.461106153130972*^9, 
+   3.461106185408854*^9},ExpressionUUID->"90760aba-34d5-4763-bf77-\
+c0c84de4f858"],
+
+Cell["Fall 2018 \[LongDash] Assignment 01", "Subtitle",
+ CellChangeTimes->{{3.4101180191149073`*^9, 3.410118026587117*^9}, {
+   3.410451275016321*^9, 3.410451277624028*^9}, {3.41113152964636*^9, 
+   3.41113154518227*^9}, {3.4113965922506437`*^9, 3.411396608797546*^9}, {
+   3.411436154989222*^9, 3.4114361574128437`*^9}, {3.411436292462274*^9, 
+   3.411436309145669*^9}, {3.4611057192910433`*^9, 3.461105731739766*^9}, {
+   3.461106187281069*^9, 3.461106188567719*^9}, {3.461106347014133*^9, 
+   3.461106392456594*^9}, {3.461106425305952*^9, 3.461106433518922*^9}, {
+   3.461107458414324*^9, 3.461107510113055*^9}, {3.491414090059168*^9, 
+   3.4914141198204203`*^9}, {3.491414406521193*^9, 3.4914144159195843`*^9}, {
+   3.4914147112780046`*^9, 3.491414711427609*^9}, {3.555082975519517*^9, 
+   3.555082980676901*^9}, {3.555083477712988*^9, 3.555083478687748*^9}, {
+   3.585766164931189*^9, 3.585766165724255*^9}, {3.5858640317953672`*^9, 
+   3.58586403231535*^9}, {3.585980273287774*^9, 3.5859802812381983`*^9}, {
+   3.5864711538486023`*^9, 3.586471154459456*^9}, {3.599790496221098*^9, 
+   3.599790537399109*^9}, {3.617917652767757*^9, 3.6179176619292107`*^9}, {
+   3.617917919337837*^9, 3.617917919855098*^9}, {3.64938928036769*^9, 
+   3.649389302000416*^9}, 3.652198735751018*^9, {3.683054219247025*^9, 
+   3.6830542228671417`*^9}, {3.683054259780175*^9, 3.68305426284271*^9}, {
+   3.683054301458186*^9, 3.683054301657826*^9}, {3.7137069380036087`*^9, 
+   3.713706950755329*^9}, {3.745089018615395*^9, 
+   3.745089019200886*^9}},ExpressionUUID->"593a6220-5a3f-4969-ad72-\
+09d30caad2c7"],
+
+Cell["\<\
+Robert J. Frey, Research Professor
+Stony Brook University, Applied Mathematics and Statistics
+
+Robert.Frey@StonyBrook.edu
+http://www.ams.sunysb.edu/~frey\[AliasDelimiter]\
+\>", "Subsubtitle",
+ CellChangeTimes->{{3.411439843209729*^9, 3.411439853156939*^9}, 
+   3.5853679457875834`*^9, {3.587183885529838*^9, 3.587183898552814*^9}, {
+   3.7455965721857553`*^9, 
+   3.745596578226966*^9}},ExpressionUUID->"db008c75-0c1d-41e1-9381-\
+8b2e6d4f8488"],
+
+Cell[CellGroupData[{
+
+Cell["Question 1", "Section",
+ CellChangeTimes->{{3.58658333961707*^9, 
+  3.586583344097002*^9}},ExpressionUUID->"29e36953-4361-4d80-8866-\
+177f7372c361"],
+
+Cell["\<\
+Suppose $1 was invested in 1776 at 3.3% interest compounded annually.\
+\>", "Text",
+ CellChangeTimes->{{3.586714878777614*^9, 
+  3.5867149279082527`*^9}},ExpressionUUID->"4643bf28-d517-4fa3-b723-\
+b5880f591b96"],
+
+Cell["\<\
+Approximately how much would that investment be worth today? \
+\>", "Item",
+ CellChangeTimes->{{3.5867150110131207`*^9, 3.586715044803763*^9}, {
+  3.7455954904352765`*^9, 3.7455954904352765`*^9}, {3.7455955878225727`*^9, 
+  3.7455955878225727`*^9}, {3.745595684408097*^9, 3.745595696753719*^9}, {
+  3.745595795226226*^9, 3.7455957968642282`*^9}, {3.745595846721317*^9, 
+  3.745595853479129*^9}, {3.7455966755516095`*^9, 
+  3.7455966760976105`*^9}},ExpressionUUID->"187141fb-bd96-458f-97dd-\
+78de922b0577"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TimeValue", "[", 
+  RowBox[{"1", ",", "0.033", ",", " ", 
+   RowBox[{"2018", "-", "1776"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7455959435609827`*^9, 3.7455959916044674`*^9}, {
+  3.745596044176361*^9, 3.7455960450655627`*^9}, {3.7455960824200287`*^9, 
+  3.7455960975838594`*^9}, {3.7455961454401436`*^9, 3.7455963415006933`*^9}, {
+  3.745596411938427*^9, 3.745596412297228*^9}, {3.745596469798188*^9, 
+  3.74559648319246*^9}, {3.7455965243680677`*^9, 3.7455965248048687`*^9}, {
+  3.7455966455749564`*^9, 
+  3.745596648197761*^9}},ExpressionUUID->"2394b740-1f14-4241-87b4-\
+537974e2ae06"],
+
+Cell[BoxData["2583.9125288759683`"], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{
+  3.7455962514863324`*^9, 3.7455963464771023`*^9, 3.7455964866314754`*^9, 
+   3.7455965279580746`*^9, {3.7455966514113665`*^9, 
+   3.745596669185798*^9}},ExpressionUUID->"fc33df48-62da-4073-9298-\
+a9a67338c952"]
+}, Open  ]],
+
+Cell["What if the interest rate were 6.6%?", "Item",
+ CellChangeTimes->{{3.5867150110131207`*^9, 
+  3.5867150597604523`*^9}},ExpressionUUID->"dd73d0c9-c1f9-410f-82fa-\
+ed8e4c705f05"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TimeValue", "[", 
+  RowBox[{"1", ",", "0.066", ",", " ", 
+   RowBox[{"2018", "-", "1776"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.745595867148753*^9, 3.7455959402069764`*^9}, {
+  3.745596741686527*^9, 
+  3.745596754211952*^9}},ExpressionUUID->"df0d3105-b950-434b-aaaa-\
+05ff18936efd"],
+
+Cell[BoxData["5.214870583803299`*^6"], "Output",
+ CellChangeTimes->{{3.745596747505337*^9, 
+  3.7455967574119577`*^9}},ExpressionUUID->"fa027d9a-b23f-4a62-8dc6-\
+71d86557bbb7"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 2", "Section",
+ CellChangeTimes->{{3.58658333961707*^9, 3.586583350760694*^9}, {
+  3.713707144608219*^9, 
+  3.713707144791791*^9}},ExpressionUUID->"dbd53e70-7280-4844-ba38-\
+605610b8c0d2"],
+
+Cell["\<\
+(Effective rates) Find the corresponding effective rates for:\
+\>", "Text",
+ CellChangeTimes->{{3.5867150694559927`*^9, 
+  3.586715094885391*^9}},ExpressionUUID->"752f3b7b-0964-4a12-b288-\
+0e60212962b5"],
+
+Cell["3% compounded monthly,", "Item",
+ CellChangeTimes->{{3.586715111956017*^9, 3.586715118196789*^9}, 
+   3.586715150499468*^9},ExpressionUUID->"78905f55-a1e5-4a34-9208-\
+7caef66e439f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"EffectiveInterest", "[", 
+  RowBox[{"0.03", ",", " ", 
+   RowBox[{"1", "/", "12"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.745596919235823*^9, 3.7455969512564807`*^9}, {
+  3.74559699036915*^9, 
+  3.7455969917107525`*^9}},ExpressionUUID->"25b162a5-a3c4-44df-8bda-\
+e7617b3a4a7d"],
+
+Cell[BoxData["0.030415956913506514`"], "Output",
+ CellChangeTimes->{3.7455969558020887`*^9, 
+  3.7455969956107597`*^9},ExpressionUUID->"aa0b0319-86a8-4c6e-b4e3-\
+1cb29f350f03"]
+}, Open  ]],
+
+Cell["18% compounded monthly,", "Item",
+ CellChangeTimes->{{3.586715111956017*^9, 
+  3.586715152971181*^9}},ExpressionUUID->"d1c35f9f-35ff-4764-84be-\
+a1ea11a2947c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"EffectiveInterest", "[", 
+  RowBox[{"0.18", ",", " ", 
+   RowBox[{"1", "/", "12"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.745597021836009*^9, 
+  3.745597025658016*^9}},ExpressionUUID->"a078b6e3-3803-4aa0-8385-\
+23e7d9fa07fd"],
+
+Cell[BoxData["0.1956181714615337`"], "Output",
+ CellChangeTimes->{
+  3.745597029823223*^9},ExpressionUUID->"ee2684cb-c581-43f8-b592-\
+04e74877ec67"]
+}, Open  ]],
+
+Cell["18% compounded quarterly", "Item",
+ CellChangeTimes->{{3.586715111956017*^9, 3.5867151460756893`*^9}, {
+  3.7455954538544106`*^9, 
+  3.745595454197611*^9}},ExpressionUUID->"a24e05fa-e70a-469c-ad1d-\
+66d93d5251f0"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"EffectiveInterest", "[", 
+  RowBox[{"0.18", ",", " ", 
+   RowBox[{"1", "/", "4"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7455970376876373`*^9, 
+  3.7455970427844496`*^9}},ExpressionUUID->"296248cc-a58c-4da8-b52e-\
+f458aeb52d1f"],
+
+Cell[BoxData["0.19251860062499948`"], "Output",
+ CellChangeTimes->{
+  3.745597045565254*^9},ExpressionUUID->"0ebc1958-39a5-4b0b-a479-\
+29f847c38cac"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 3", "Section",
+ CellChangeTimes->{{3.58658333961707*^9, 3.5865833553431*^9}, 
+   3.713707148695581*^9},ExpressionUUID->"c2be1b5f-6763-4d3a-82fa-\
+57727e0d1724"],
+
+Cell["\<\
+Two copy machines are available. Both have useful lives of 5 years. One \
+machine can be either leased or purchased outright, the other must be \
+purchased. Below is a description of the three options with the first year\
+\[CloseCurlyQuote]s maintenance included in the initial cost. There are then \
+four additional yearly payments occurring at the beginning of each year, \
+followed by the revenues from any resale. According to a PV analysis the \
+least cost option is B:\
+\>", "Text",
+ CellChangeTimes->{{3.586715467240136*^9, 
+  3.5867156936359243`*^9}},ExpressionUUID->"02f19394-7de6-4c26-8ff0-\
+cd19653c4dbd"],
+
+Cell[TextData[Cell[BoxData[
+ TagBox[
+  TagBox[GridBox[{
+     {
+      StyleBox["\[Null]",
+       ShowStringCharacters->False], 
+      TagBox["A",
+       HoldForm], 
+      TagBox["B",
+       HoldForm], 
+      TagBox["C",
+       HoldForm]},
+     {
+      TagBox[
+       RowBox[{"Initial", " ", "outlay"}],
+       HoldForm], "6000", "30000", "35000"},
+     {
+      TagBox[
+       RowBox[{"Yearly", " ", "expense"}],
+       HoldForm], "8000", "2000", "1600"},
+     {
+      TagBox[
+       RowBox[{"Resale", " ", "value"}],
+       HoldForm], "0", "10000", "12000"},
+     {
+      TagBox[
+       RowBox[{"PV", " ", "at", " ", "10", "%"}],
+       HoldForm], "31559", "30131", "32621"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxDividers->{
+     "Columns" -> {False, True, {False}, False}, "ColumnsIndexed" -> {}, 
+      "Rows" -> {False, True, {False}, False}, "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[2.0999999999999996`]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}],
+   {OutputFormsDump`HeadedRows, OutputFormsDump`HeadedColumns}],
+  Function[BoxForm`e$, 
+   TableForm[
+   BoxForm`e$, 
+    TableHeadings -> {{
+      "Initial outlay", "Yearly expense", "Resale value", "PV at 10%"}, {
+      "A", "B", "C"}}]]]],
+ CellChangeTimes->{3.58671531306956*^9, 
+  3.586715393353644*^9},ExpressionUUID->"103c871f-436c-445b-81a8-\
+94202deaf8ab"]], "Text",
+ CellChangeTimes->{{3.5867153291234713`*^9, 3.586715360819935*^9}, {
+  3.586715399253296*^9, 3.586715450575552*^9}},
+ TextAlignment->Center,
+ TextJustification->0.,ExpressionUUID->"8aeca668-b5b3-4cc2-92fc-59459ccff667"],
+
+Cell["\<\
+It is not possible to compute an IRR on these options since the cashflows are \
+all negative, except for the resale value. It is possible, however, to \
+calculate the IRR on an incremental basis. Find the IRR on a change from A to \
+B. Is this change justified on an IRR basis?\
+\>", "Text",
+ CellChangeTimes->{{3.58671571553939*^9, 3.5867158270842047`*^9}, 
+   3.5867180424514427`*^9},ExpressionUUID->"645030b0-66eb-413a-b53b-\
+a36f4a01ff09"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FindRoot", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"TimeValue", "[", 
+     RowBox[{
+      RowBox[{"Cashflow", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "24000"}], ",", " ", "6000", ",", " ", "6000", ",", " ",
+          "6000", ",", " ", "6000", ",", " ", "10000"}], "}"}], "]"}], ",", 
+      "\[FormalR]", ",", "0"}], "]"}], "\[Equal]", "0"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[FormalR]", ",", ".05"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.745597497972062*^9, 3.745597545802147*^9}, {
+   3.745597619049078*^9, 3.7455976699431696`*^9}, {3.7455979213601036`*^9, 
+   3.7455979324873285`*^9}, 3.7455980492925615`*^9, {3.7455982495874662`*^9, 
+   3.745598302334163*^9}, {3.7455983415452347`*^9, 3.7455984799858875`*^9}, 
+   3.74570339628238*^9, 3.745704012173277*^9, {3.74570410433004*^9, 
+   3.745704130776087*^9}, {3.745704270589136*^9, 3.7457043266182356`*^9}, {
+   3.7459518112854223`*^9, 3.745951897147577*^9}, {3.745951928951433*^9, 
+   3.7459520301208134`*^9}},ExpressionUUID->"b2888260-27fd-44ab-bf53-\
+7db149ec7a0a"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\[FormalR]", "\[Rule]", "0.11841015700240455`"}], "}"}]], "Output",\
+
+ CellChangeTimes->{
+  3.7455982537888737`*^9, {3.745598449851432*^9, 3.745598497096518*^9}, 
+   3.745703409263603*^9, 3.7457040353523183`*^9, 3.7457041393717017`*^9, 
+   3.745704346588073*^9, 3.7459518140310273`*^9, 3.7459519665599008`*^9, 
+   3.745951997770956*^9, 
+   3.745952042964037*^9},ExpressionUUID->"e15481d9-a279-4265-9adc-\
+f366d1e461ec"]
+}, Open  ]],
+
+Cell["Do not make the change from A to B.", "Text",
+ CellChangeTimes->{{3.745703279682974*^9, 
+  3.7457032893861904`*^9}},ExpressionUUID->"b9ff6c92-3858-4c56-9844-\
+4a996e3b6090"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 4", "Section",
+ CellChangeTimes->{{3.5865833831106977`*^9, 3.586583402788156*^9}, {
+  3.713707153527738*^9, 
+  3.713707153959467*^9}},ExpressionUUID->"18a09e30-04b1-47c7-b0b3-\
+8d0e5a9a5502"],
+
+Cell["\<\
+Gavin\[CloseCurlyQuote]s father, Mr. Jones, has just turned 90 years-old and \
+is applying for a lifetime annuity that will pay $10,000 per year, starting 1 \
+year from now, until he dies. He asks Gavin to analyze it for him. Gavin \
+finds that according to statistical summaries, the probability of that Mr. \
+Jones will die at a particular age is:\
+\>", "Text",
+ CellChangeTimes->{{3.586718163418612*^9, 3.5867183099776697`*^9}, {
+  3.5867185128811274`*^9, 3.586718513302661*^9}, {3.713707119561646*^9, 
+  3.7137071236812477`*^9}},ExpressionUUID->"3724db6c-d5c3-4bf1-a7c7-\
+a9fda4004048"],
+
+Cell[TextData[Cell[BoxData[
+ TagBox[
+  TagBox[GridBox[{
+     {
+      TagBox["age",
+       HoldForm], "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", 
+      "100", "101"},
+     {
+      TagBox[
+       RowBox[{"prob", "."}],
+       HoldForm], "0.07`", "0.08`", "0.09`", "0.1`", "0.1`", "0.1`", "0.1`", 
+      "0.1`", "0.1`", "0.07`", "0.05`", "0.04`"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxDividers->{
+     "Columns" -> {False, True, {False}, False}, "ColumnsIndexed" -> {}, 
+      "Rows" -> {{False}}, "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[2.0999999999999996`]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}],
+   {OutputFormsDump`HeadedRows, None}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$, TableHeadings -> {{"age", "prob."}, None}]]]],
+ CellChangeTimes->{
+  3.586718464874793*^9},ExpressionUUID->"b9283405-9c80-42b7-8dfb-\
+50cc277ecbce"]], "Text",
+ CellChangeTimes->{{3.586718479719442*^9, 3.586718494164054*^9}},
+ TextAlignment->Center,
+ TextJustification->0.,ExpressionUUID->"5c1b7248-d770-4ca5-975e-d5a51c7ab3d8"],
+
+Cell["What would Gavin\[CloseCurlyQuote]s answers be to the following \
+questions:", "Text",
+ CellChangeTimes->{{3.586718525780909*^9, 
+  3.586718554079723*^9}},ExpressionUUID->"8070bb32-902d-4934-8808-\
+378870d73fa2"],
+
+Cell["What is Mr. Jones\[CloseCurlyQuote]s (Gavin\[CloseCurlyQuote]s father\
+\[CloseCurlyQuote]s) life expectancy?", "Item",
+ CellChangeTimes->{{3.5867185992347927`*^9, 3.5867186470397177`*^9}, 
+   3.713707129825233*^9, {3.745598557161826*^9, 
+   3.745598557161826*^9}},ExpressionUUID->"9df89691-06c1-4710-9fbe-\
+779d88af7ee2"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"agedata", "=", " ", 
+  RowBox[{"Range", "[", 
+   RowBox[{"90", ",", "101"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"ageweights", " ", "=", " ", 
+  RowBox[{"{", 
+   RowBox[{
+   "0.07", ",", "0.08", ",", "0.09", ",", "0.1", ",", "0.1", ",", "0.1", ",", 
+    "0.1", ",", "0.1", ",", "0.1", ",", "0.07", ",", "0.05", ",", "0.04"}], 
+   "}"}]}], "\[IndentingNewLine]", 
+ RowBox[{"agedataweights", " ", "=", " ", 
+  RowBox[{"WeightedData", "[", 
+   RowBox[{"agedata", ",", " ", "ageweights"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Mean", "[", "agedataweights", "]"}]}], "Input",
+ CellChangeTimes->{{3.7455987668023963`*^9, 3.745598782140668*^9}, {
+  3.745598823335721*^9, 3.745598967065969*^9}, {3.745600241938016*^9, 
+  3.745600262283452*^9}, {3.745600299553926*^9, 3.7456003032199326`*^9}, {
+  3.7456003382890096`*^9, 
+  3.7456003403668137`*^9}},ExpressionUUID->"07a2352d-5f79-4cca-968c-\
+857fe60a0b0e"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "90", ",", "91", ",", "92", ",", "93", ",", "94", ",", "95", ",", "96", ",",
+    "97", ",", "98", ",", "99", ",", "100", ",", "101"}], "}"}]], "Output",
+ CellChangeTimes->{3.745600352098034*^9, 
+  3.7457044864629364`*^9},ExpressionUUID->"5f52c3d6-20cb-409d-af48-\
+c5e5d237e75a"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.07`", ",", "0.08`", ",", "0.09`", ",", "0.1`", ",", "0.1`", ",", "0.1`", 
+   ",", "0.1`", ",", "0.1`", ",", "0.1`", ",", "0.07`", ",", "0.05`", ",", 
+   "0.04`"}], "}"}]], "Output",
+ CellChangeTimes->{3.745600352098034*^9, 
+  3.7457044864629364`*^9},ExpressionUUID->"7b6d330c-982e-4475-a8b5-\
+1c12ead1e23f"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["WeightedData",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource[
+               "FEBitmaps", "SquarePlusIconMedium"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              Evaluator -> Automatic, Method -> "Preemptive"], 
+             Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{{{}, 
+               
+               GraphicsComplexBox[{{-3.1, 1.}, {-0.5, 1.}, {1.25, 1.}, {3.25, 
+                1.}, {-3.1, 0.}, {-0.5, 0.}, {1.25, 0.}, {3.25, 0.}, {-3.1, 
+                1.}, {-0.5, 1.}, {1.25, 1.}, {3.25, 1.}}, {{{}, {}, {}, {}, {
+                   GrayLevel[0.5], 
+                   PointSize[0.125], 
+                   AbsoluteThickness[1.6], 
+                   Opacity[0.5], 
+                   LineBox[{5, 1}], 
+                   LineBox[{6, 2}], 
+                   LineBox[{7, 3}], 
+                   LineBox[{8, 4}]}}, {{}, {
+                   GrayLevel[0.5], 
+                   PointSize[0.125], 
+                   AbsoluteThickness[1.6], 
+                   PointBox[{9, 10, 11, 12}]}, {}}}], {}}, 
+              GraphicsComplexBox[CompressedData["
+1:eJw1k31Qy3Ecx7e16VGcSrg8VEMTy6EH5D5fKpqHEtGycNVZpFN6IDqa9Hgk
+T+eq9XBajpSHVkkP+v6StFbpQU0PaDWnqbC1mrpp4U7vu/e973Xvv1+WAaEH
+TlBIJNKmv/23TFg4PDMzjxhuSuvUhJdApZ7/maAaYwIp6WS/2xUQ2yIZqfWf
+SyxgM5bxpwn49mCxuaOFEbGdFuNy62s9rOl315/3yYDwcUgwkouaIN9EMN4T
+p0+ExZ+bP/9NO9RxxKkY9Ah3O3737kUSsMi1WJE+MIfws2P8BkEf7HHhXHif
+QiOWHfSuK5uRwnINl8dgUQkTfpRYGvgF1j3N5oV/pxBeN7lBO5LlII28z5Q8
+IhMtQlb3RPsonMq6JcgKJhE1AhNGTLEC2Jd9rYustFgdHxTAZavAZoTB8c7R
+YOea2xmRYxNw2mN/wqBsEvdusKqK6J2EIxGe2xwc1NjPrq26pVIDd7B8P36h
+wsWlbdMBx7QAlO7DTLISs41C1jWmklBw9+uwB6pR/G6X3yVNNRk5Z1xZVBk9
+hMeemqUsGaCgk5+Ufb7mg3hjZnFyaLsO8pSufSKi92JTN2+nLB4VOWD+h+H4
+d7gjt+zAVQoNbVYcDfwcWIqr6g0VjkBDtld/GhBRJXByY+PE17/8rOFHQSy7
+Faa/FbwRaanoFUvstOV1DwxH38zdl0hFI4/zTnmwB0Fpwzzu2qCDsp8w+eNl
+Q3DJrs/evYuCqv0TzdaXj4Jh/zafEDEZXTTN6PJcoIQbQ4dkQQkk1NzW6dqR
+qQJhsJckIEYLZ5scV6UtVENRxPrxvI8ayG91NeOKJkFRI26e+jUJ14vKH+nu
+1YA3Pa7AiaUG8p1OVh1NC4v1dX49j1KBeUFhQ747CR0tPW5wZEwBkoc8a1oy
+GR32vBwauvM7cArXJIYPUtA1ceR0Y6EcnPm6W+tXUtHoStk5pvgLyNIq1PR4
+Gsp9KLRdazwApdaxI5Yf5yB7c06XS1UfSAXnN1CX6qGkpJKxvEwJdNi48VTR
++kjeke3jIWuH5ZluK0SvDJB9DpyIC2mGe499pzb/NkT9H9hewrC38B7v6Hl5
+aC6itgr3xq6uhdO1xwyXphujlmL63e3cSvjvA5r1YdYP0v/M/rP8BxJlmIA=
+
+               "], {{{}, {
+                  GrayLevel[0.5], 
+                  AbsoluteThickness[1.6], 
+                  Opacity[0.2], 
+                  EdgeForm[None], 
+                  GraphicsGroupBox[
+                   
+                   PolygonBox[{{1, 51, 52, 50, 49, 48, 47, 46, 45, 44, 43, 42,
+                     41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 
+                    27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 
+                    13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 
+                    2}}]]}, {}, {}}, {{}, {}, {
+                  GrayLevel[0.5], 
+                  AbsoluteThickness[1.6], 
+                  Opacity[0.5], 
+                  
+                  LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 
+                   16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                    31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 
+                   45, 46, 47, 48, 49, 50}]}}}]}, AspectRatio -> 1, Axes -> 
+             False, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
+             Background -> GrayLevel[0.93], DisplayFunction -> Identity, 
+             Frame -> True, FrameLabel -> {{None, None}, {None, None}}, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.7]], FrameTicks -> None, GridLines -> {None, None},
+              GridLinesStyle -> Directive[
+               GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 
+               Dynamic[
+               3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])]}, 
+             Method -> {
+              "DefaultBoundaryStyle" -> Automatic, "DefaultPlotStyle" -> {{
+                  Directive[
+                   AbsoluteThickness[1.6], 
+                   RGBColor[0.368417, 0.506779, 0.709798]]}, 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.880722, 0.611041, 0.142051]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.560181, 0.691569, 0.194885]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.922526, 0.385626, 0.209179]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.528488, 0.470624, 0.701351]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.772079, 0.431554, 0.102387]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.363898, 0.618501, 0.782349]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[1, 0.75, 0]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.647624, 0.37816, 0.614037]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.571589, 0.586483, 0.]]}, "RangePadding" -> 
+               Scaled[0.1]}, PlotRange -> All, PlotRangeClipping -> True, 
+             PlotRangePadding -> {{0, 0}, {0, 0.5}}, 
+             Ticks -> {Automatic, Automatic}], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Data points: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["12", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Data dimension: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource[
+               "FEBitmaps", "SquareMinusIconMedium"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              Evaluator -> Automatic, Method -> "Preemptive"], 
+             Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{{{}, 
+               
+               GraphicsComplexBox[{{-3.1, 1.}, {-0.5, 1.}, {1.25, 1.}, {3.25, 
+                1.}, {-3.1, 0.}, {-0.5, 0.}, {1.25, 0.}, {3.25, 0.}, {-3.1, 
+                1.}, {-0.5, 1.}, {1.25, 1.}, {3.25, 1.}}, {{{}, {}, {}, {}, {
+                   GrayLevel[0.5], 
+                   PointSize[0.125], 
+                   AbsoluteThickness[1.6], 
+                   Opacity[0.5], 
+                   LineBox[{5, 1}], 
+                   LineBox[{6, 2}], 
+                   LineBox[{7, 3}], 
+                   LineBox[{8, 4}]}}, {{}, {
+                   GrayLevel[0.5], 
+                   PointSize[0.125], 
+                   AbsoluteThickness[1.6], 
+                   PointBox[{9, 10, 11, 12}]}, {}}}], {}}, 
+              GraphicsComplexBox[CompressedData["
+1:eJw1k31Qy3Ecx7e16VGcSrg8VEMTy6EH5D5fKpqHEtGycNVZpFN6IDqa9Hgk
+T+eq9XBajpSHVkkP+v6StFbpQU0PaDWnqbC1mrpp4U7vu/e973Xvv1+WAaEH
+TlBIJNKmv/23TFg4PDMzjxhuSuvUhJdApZ7/maAaYwIp6WS/2xUQ2yIZqfWf
+SyxgM5bxpwn49mCxuaOFEbGdFuNy62s9rOl315/3yYDwcUgwkouaIN9EMN4T
+p0+ExZ+bP/9NO9RxxKkY9Ah3O3737kUSsMi1WJE+MIfws2P8BkEf7HHhXHif
+QiOWHfSuK5uRwnINl8dgUQkTfpRYGvgF1j3N5oV/pxBeN7lBO5LlII28z5Q8
+IhMtQlb3RPsonMq6JcgKJhE1AhNGTLEC2Jd9rYustFgdHxTAZavAZoTB8c7R
+YOea2xmRYxNw2mN/wqBsEvdusKqK6J2EIxGe2xwc1NjPrq26pVIDd7B8P36h
+wsWlbdMBx7QAlO7DTLISs41C1jWmklBw9+uwB6pR/G6X3yVNNRk5Z1xZVBk9
+hMeemqUsGaCgk5+Ufb7mg3hjZnFyaLsO8pSufSKi92JTN2+nLB4VOWD+h+H4
+d7gjt+zAVQoNbVYcDfwcWIqr6g0VjkBDtld/GhBRJXByY+PE17/8rOFHQSy7
+Faa/FbwRaanoFUvstOV1DwxH38zdl0hFI4/zTnmwB0Fpwzzu2qCDsp8w+eNl
+Q3DJrs/evYuCqv0TzdaXj4Jh/zafEDEZXTTN6PJcoIQbQ4dkQQkk1NzW6dqR
+qQJhsJckIEYLZ5scV6UtVENRxPrxvI8ayG91NeOKJkFRI26e+jUJ14vKH+nu
+1YA3Pa7AiaUG8p1OVh1NC4v1dX49j1KBeUFhQ747CR0tPW5wZEwBkoc8a1oy
+GR32vBwauvM7cArXJIYPUtA1ceR0Y6EcnPm6W+tXUtHoStk5pvgLyNIq1PR4
+Gsp9KLRdazwApdaxI5Yf5yB7c06XS1UfSAXnN1CX6qGkpJKxvEwJdNi48VTR
++kjeke3jIWuH5ZluK0SvDJB9DpyIC2mGe499pzb/NkT9H9hewrC38B7v6Hl5
+aC6itgr3xq6uhdO1xwyXphujlmL63e3cSvjvA5r1YdYP0v/M/rP8BxJlmIA=
+
+               "], {{{}, {
+                  GrayLevel[0.5], 
+                  AbsoluteThickness[1.6], 
+                  Opacity[0.2], 
+                  EdgeForm[None], 
+                  GraphicsGroupBox[
+                   
+                   PolygonBox[{{1, 51, 52, 50, 49, 48, 47, 46, 45, 44, 43, 42,
+                     41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 
+                    27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 
+                    13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 
+                    2}}]]}, {}, {}}, {{}, {}, {
+                  GrayLevel[0.5], 
+                  AbsoluteThickness[1.6], 
+                  Opacity[0.5], 
+                  
+                  LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 
+                   16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                    31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 
+                   45, 46, 47, 48, 49, 50}]}}}]}, AspectRatio -> 1, Axes -> 
+             False, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
+             Background -> GrayLevel[0.93], DisplayFunction -> Identity, 
+             Frame -> True, FrameLabel -> {{None, None}, {None, None}}, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.7]], FrameTicks -> None, GridLines -> {None, None},
+              GridLinesStyle -> Directive[
+               GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 
+               Dynamic[
+               3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])]}, 
+             Method -> {
+              "DefaultBoundaryStyle" -> Automatic, "DefaultPlotStyle" -> {{
+                  Directive[
+                   AbsoluteThickness[1.6], 
+                   RGBColor[0.368417, 0.506779, 0.709798]]}, 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.880722, 0.611041, 0.142051]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.560181, 0.691569, 0.194885]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.922526, 0.385626, 0.209179]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.528488, 0.470624, 0.701351]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.772079, 0.431554, 0.102387]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.363898, 0.618501, 0.782349]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[1, 0.75, 0]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.647624, 0.37816, 0.614037]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.571589, 0.586483, 0.]]}, "RangePadding" -> 
+               Scaled[0.1]}, PlotRange -> All, PlotRangeClipping -> True, 
+             PlotRangePadding -> {{0, 0}, {0, 0.5}}, 
+             Ticks -> {Automatic, Automatic}], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Data points: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["12", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Data dimension: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Weight type: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"numeric list\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel",
+     DisplayFunction->(
+      ButtonBox[#, Active -> False, Alignment -> Left, 
+       Appearance -> {
+        "Default" -> 
+         FrontEnd`FileName[{"Typeset", "SummaryBox"}, "Panel.9.png"]}, 
+       FrameMargins -> 7, BaseStyle -> {}, 
+       DefaultBaseStyle -> {"Panel", Background -> None}, BaselinePosition -> 
+       Baseline]& )],
+    DynamicModuleValues:>{}], "]"}],
+  WeightedData[
+  Automatic, {{90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101}, {0.07, 0.08,
+     0.09, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.07, 0.05, 0.04}}],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.745600352098034*^9, 
+  3.7457044865409365`*^9},ExpressionUUID->"fe55311e-6c41-48d2-b3a8-\
+050ae3245347"],
+
+Cell[BoxData["95.13000000000001`"], "Output",
+ CellChangeTimes->{3.745600352098034*^9, 
+  3.7457044865409365`*^9},ExpressionUUID->"e826bc2a-2c5e-4fa1-8642-\
+5a49bd3fa210"]
+}, Open  ]],
+
+Cell["\<\
+What is the PV of an annuity at 8% interest that has a lifetime equal to Mr. \
+Jones\[CloseCurlyQuote]s life expectancy? (For an annuity equal to a \
+non-integral number of years use an averaging method.)\
+\>", "Item",
+ CellChangeTimes->{{3.5867185992347927`*^9, 3.586718763238986*^9}, 
+   3.7137071344727907`*^9},ExpressionUUID->"761bcf8f-ec44-4792-b712-\
+8ab2de6cfd57"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"pvdata", " ", "=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"TimeValue", "[", 
+     RowBox[{
+      RowBox[{"Annuity", "[", 
+       RowBox[{"10000", ",", "5"}], "]"}], ",", "0.08", ",", "0"}], "]"}], 
+    ",", " ", 
+    RowBox[{"TimeValue", "[", 
+     RowBox[{
+      RowBox[{"Annuity", "[", 
+       RowBox[{"10000", ",", "6"}], "]"}], ",", "0.08", ",", "0"}], "]"}]}], 
+   "}"}]}], "\[IndentingNewLine]", 
+ RowBox[{"pvweights", " ", "=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"1", "-", ".13"}], ",", ".13"}], "}"}]}], "\[IndentingNewLine]", 
+ RowBox[{"pvdataweights", "=", 
+  RowBox[{"WeightedData", "[", 
+   RowBox[{"pvdata", ",", "pvweights"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Mean", "[", "pvdataweights", "]"}]}], "Input",
+ CellChangeTimes->{{3.7455991635001693`*^9, 3.7455992170448647`*^9}, {
+  3.745599300995617*^9, 3.7455993019472184`*^9}, {3.7455994206059475`*^9, 
+  3.7455994216355495`*^9}, {3.7455995053306494`*^9, 3.745599506531852*^9}, {
+  3.745599660554763*^9, 3.7455996829510055`*^9}, {3.745599788620229*^9, 
+  3.7455998698381824`*^9}, {3.745600289169299*^9, 3.7456002949277096`*^9}, {
+  3.745600325173171*^9, 3.7456003273883753`*^9}, {3.7456003580768447`*^9, 
+  3.74560036076005*^9}},ExpressionUUID->"52d3a58b-70f7-4502-8e6d-\
+d5fb477dae8a"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"39927.10037078085`", ",", "46228.7966396119`"}], "}"}]], "Output",
+ CellChangeTimes->{3.7456003730482717`*^9, 
+  3.745704492533347*^9},ExpressionUUID->"9005e138-8397-436a-b6da-\
+ddd470375c92"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.87`", ",", "0.13`"}], "}"}]], "Output",
+ CellChangeTimes->{3.7456003730482717`*^9, 
+  3.745704492533347*^9},ExpressionUUID->"0ed1058b-fa78-4687-bc98-\
+d06bcf4bde41"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["WeightedData",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource[
+               "FEBitmaps", "SquarePlusIconMedium"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              Evaluator -> Automatic, Method -> "Preemptive"], 
+             Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{{{}, 
+               
+               GraphicsComplexBox[{{-3.1, 1.}, {-0.5, 1.}, {1.25, 1.}, {3.25, 
+                1.}, {-3.1, 0.}, {-0.5, 0.}, {1.25, 0.}, {3.25, 0.}, {-3.1, 
+                1.}, {-0.5, 1.}, {1.25, 1.}, {3.25, 1.}}, {{{}, {}, {}, {}, {
+                   GrayLevel[0.5], 
+                   PointSize[0.125], 
+                   AbsoluteThickness[1.6], 
+                   Opacity[0.5], 
+                   LineBox[{5, 1}], 
+                   LineBox[{6, 2}], 
+                   LineBox[{7, 3}], 
+                   LineBox[{8, 4}]}}, {{}, {
+                   GrayLevel[0.5], 
+                   PointSize[0.125], 
+                   AbsoluteThickness[1.6], 
+                   PointBox[{9, 10, 11, 12}]}, {}}}], {}}, 
+              GraphicsComplexBox[CompressedData["
+1:eJw1k31Qy3Ecx7e16VGcSrg8VEMTy6EH5D5fKpqHEtGycNVZpFN6IDqa9Hgk
+T+eq9XBajpSHVkkP+v6StFbpQU0PaDWnqbC1mrpp4U7vu/e973Xvv1+WAaEH
+TlBIJNKmv/23TFg4PDMzjxhuSuvUhJdApZ7/maAaYwIp6WS/2xUQ2yIZqfWf
+SyxgM5bxpwn49mCxuaOFEbGdFuNy62s9rOl315/3yYDwcUgwkouaIN9EMN4T
+p0+ExZ+bP/9NO9RxxKkY9Ah3O3737kUSsMi1WJE+MIfws2P8BkEf7HHhXHif
+QiOWHfSuK5uRwnINl8dgUQkTfpRYGvgF1j3N5oV/pxBeN7lBO5LlII28z5Q8
+IhMtQlb3RPsonMq6JcgKJhE1AhNGTLEC2Jd9rYustFgdHxTAZavAZoTB8c7R
+YOea2xmRYxNw2mN/wqBsEvdusKqK6J2EIxGe2xwc1NjPrq26pVIDd7B8P36h
+wsWlbdMBx7QAlO7DTLISs41C1jWmklBw9+uwB6pR/G6X3yVNNRk5Z1xZVBk9
+hMeemqUsGaCgk5+Ufb7mg3hjZnFyaLsO8pSufSKi92JTN2+nLB4VOWD+h+H4
+d7gjt+zAVQoNbVYcDfwcWIqr6g0VjkBDtld/GhBRJXByY+PE17/8rOFHQSy7
+Faa/FbwRaanoFUvstOV1DwxH38zdl0hFI4/zTnmwB0Fpwzzu2qCDsp8w+eNl
+Q3DJrs/evYuCqv0TzdaXj4Jh/zafEDEZXTTN6PJcoIQbQ4dkQQkk1NzW6dqR
+qQJhsJckIEYLZ5scV6UtVENRxPrxvI8ayG91NeOKJkFRI26e+jUJ14vKH+nu
+1YA3Pa7AiaUG8p1OVh1NC4v1dX49j1KBeUFhQ747CR0tPW5wZEwBkoc8a1oy
+GR32vBwauvM7cArXJIYPUtA1ceR0Y6EcnPm6W+tXUtHoStk5pvgLyNIq1PR4
+Gsp9KLRdazwApdaxI5Yf5yB7c06XS1UfSAXnN1CX6qGkpJKxvEwJdNi48VTR
++kjeke3jIWuH5ZluK0SvDJB9DpyIC2mGe499pzb/NkT9H9hewrC38B7v6Hl5
+aC6itgr3xq6uhdO1xwyXphujlmL63e3cSvjvA5r1YdYP0v/M/rP8BxJlmIA=
+
+               "], {{{}, {
+                  GrayLevel[0.5], 
+                  AbsoluteThickness[1.6], 
+                  Opacity[0.2], 
+                  EdgeForm[None], 
+                  GraphicsGroupBox[
+                   
+                   PolygonBox[{{1, 51, 52, 50, 49, 48, 47, 46, 45, 44, 43, 42,
+                     41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 
+                    27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 
+                    13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 
+                    2}}]]}, {}, {}}, {{}, {}, {
+                  GrayLevel[0.5], 
+                  AbsoluteThickness[1.6], 
+                  Opacity[0.5], 
+                  
+                  LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 
+                   16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                    31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 
+                   45, 46, 47, 48, 49, 50}]}}}]}, AspectRatio -> 1, Axes -> 
+             False, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
+             Background -> GrayLevel[0.93], DisplayFunction -> Identity, 
+             Frame -> True, FrameLabel -> {{None, None}, {None, None}}, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.7]], FrameTicks -> None, GridLines -> {None, None},
+              GridLinesStyle -> Directive[
+               GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 
+               Dynamic[
+               3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])]}, 
+             Method -> {
+              "DefaultBoundaryStyle" -> Automatic, "DefaultPlotStyle" -> {{
+                  Directive[
+                   AbsoluteThickness[1.6], 
+                   RGBColor[0.368417, 0.506779, 0.709798]]}, 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.880722, 0.611041, 0.142051]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.560181, 0.691569, 0.194885]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.922526, 0.385626, 0.209179]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.528488, 0.470624, 0.701351]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.772079, 0.431554, 0.102387]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.363898, 0.618501, 0.782349]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[1, 0.75, 0]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.647624, 0.37816, 0.614037]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.571589, 0.586483, 0.]]}, "RangePadding" -> 
+               Scaled[0.1]}, PlotRange -> All, PlotRangeClipping -> True, 
+             PlotRangePadding -> {{0, 0}, {0, 0.5}}, 
+             Ticks -> {Automatic, Automatic}], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Data points: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["2", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Data dimension: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource[
+               "FEBitmaps", "SquareMinusIconMedium"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              Evaluator -> Automatic, Method -> "Preemptive"], 
+             Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{{{}, 
+               
+               GraphicsComplexBox[{{-3.1, 1.}, {-0.5, 1.}, {1.25, 1.}, {3.25, 
+                1.}, {-3.1, 0.}, {-0.5, 0.}, {1.25, 0.}, {3.25, 0.}, {-3.1, 
+                1.}, {-0.5, 1.}, {1.25, 1.}, {3.25, 1.}}, {{{}, {}, {}, {}, {
+                   GrayLevel[0.5], 
+                   PointSize[0.125], 
+                   AbsoluteThickness[1.6], 
+                   Opacity[0.5], 
+                   LineBox[{5, 1}], 
+                   LineBox[{6, 2}], 
+                   LineBox[{7, 3}], 
+                   LineBox[{8, 4}]}}, {{}, {
+                   GrayLevel[0.5], 
+                   PointSize[0.125], 
+                   AbsoluteThickness[1.6], 
+                   PointBox[{9, 10, 11, 12}]}, {}}}], {}}, 
+              GraphicsComplexBox[CompressedData["
+1:eJw1k31Qy3Ecx7e16VGcSrg8VEMTy6EH5D5fKpqHEtGycNVZpFN6IDqa9Hgk
+T+eq9XBajpSHVkkP+v6StFbpQU0PaDWnqbC1mrpp4U7vu/e973Xvv1+WAaEH
+TlBIJNKmv/23TFg4PDMzjxhuSuvUhJdApZ7/maAaYwIp6WS/2xUQ2yIZqfWf
+SyxgM5bxpwn49mCxuaOFEbGdFuNy62s9rOl315/3yYDwcUgwkouaIN9EMN4T
+p0+ExZ+bP/9NO9RxxKkY9Ah3O3737kUSsMi1WJE+MIfws2P8BkEf7HHhXHif
+QiOWHfSuK5uRwnINl8dgUQkTfpRYGvgF1j3N5oV/pxBeN7lBO5LlII28z5Q8
+IhMtQlb3RPsonMq6JcgKJhE1AhNGTLEC2Jd9rYustFgdHxTAZavAZoTB8c7R
+YOea2xmRYxNw2mN/wqBsEvdusKqK6J2EIxGe2xwc1NjPrq26pVIDd7B8P36h
+wsWlbdMBx7QAlO7DTLISs41C1jWmklBw9+uwB6pR/G6X3yVNNRk5Z1xZVBk9
+hMeemqUsGaCgk5+Ufb7mg3hjZnFyaLsO8pSufSKi92JTN2+nLB4VOWD+h+H4
+d7gjt+zAVQoNbVYcDfwcWIqr6g0VjkBDtld/GhBRJXByY+PE17/8rOFHQSy7
+Faa/FbwRaanoFUvstOV1DwxH38zdl0hFI4/zTnmwB0Fpwzzu2qCDsp8w+eNl
+Q3DJrs/evYuCqv0TzdaXj4Jh/zafEDEZXTTN6PJcoIQbQ4dkQQkk1NzW6dqR
+qQJhsJckIEYLZ5scV6UtVENRxPrxvI8ayG91NeOKJkFRI26e+jUJ14vKH+nu
+1YA3Pa7AiaUG8p1OVh1NC4v1dX49j1KBeUFhQ747CR0tPW5wZEwBkoc8a1oy
+GR32vBwauvM7cArXJIYPUtA1ceR0Y6EcnPm6W+tXUtHoStk5pvgLyNIq1PR4
+Gsp9KLRdazwApdaxI5Yf5yB7c06XS1UfSAXnN1CX6qGkpJKxvEwJdNi48VTR
++kjeke3jIWuH5ZluK0SvDJB9DpyIC2mGe499pzb/NkT9H9hewrC38B7v6Hl5
+aC6itgr3xq6uhdO1xwyXphujlmL63e3cSvjvA5r1YdYP0v/M/rP8BxJlmIA=
+
+               "], {{{}, {
+                  GrayLevel[0.5], 
+                  AbsoluteThickness[1.6], 
+                  Opacity[0.2], 
+                  EdgeForm[None], 
+                  GraphicsGroupBox[
+                   
+                   PolygonBox[{{1, 51, 52, 50, 49, 48, 47, 46, 45, 44, 43, 42,
+                     41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 
+                    27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 
+                    13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 
+                    2}}]]}, {}, {}}, {{}, {}, {
+                  GrayLevel[0.5], 
+                  AbsoluteThickness[1.6], 
+                  Opacity[0.5], 
+                  
+                  LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 
+                   16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                    31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 
+                   45, 46, 47, 48, 49, 50}]}}}]}, AspectRatio -> 1, Axes -> 
+             False, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
+             Background -> GrayLevel[0.93], DisplayFunction -> Identity, 
+             Frame -> True, FrameLabel -> {{None, None}, {None, None}}, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.7]], FrameTicks -> None, GridLines -> {None, None},
+              GridLinesStyle -> Directive[
+               GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 
+               Dynamic[
+               3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])]}, 
+             Method -> {
+              "DefaultBoundaryStyle" -> Automatic, "DefaultPlotStyle" -> {{
+                  Directive[
+                   AbsoluteThickness[1.6], 
+                   RGBColor[0.368417, 0.506779, 0.709798]]}, 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.880722, 0.611041, 0.142051]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.560181, 0.691569, 0.194885]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.922526, 0.385626, 0.209179]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.528488, 0.470624, 0.701351]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.772079, 0.431554, 0.102387]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.363898, 0.618501, 0.782349]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[1, 0.75, 0]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.647624, 0.37816, 0.614037]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.571589, 0.586483, 0.]]}, "RangePadding" -> 
+               Scaled[0.1]}, PlotRange -> All, PlotRangeClipping -> True, 
+             PlotRangePadding -> {{0, 0}, {0, 0.5}}, 
+             Ticks -> {Automatic, Automatic}], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Data points: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["2", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Data dimension: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Weight type: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"numeric list\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel",
+     DisplayFunction->(
+      ButtonBox[#, Active -> False, Alignment -> Left, 
+       Appearance -> {
+        "Default" -> 
+         FrontEnd`FileName[{"Typeset", "SummaryBox"}, "Panel.9.png"]}, 
+       FrameMargins -> 7, BaseStyle -> {}, 
+       DefaultBaseStyle -> {"Panel", Background -> None}, BaselinePosition -> 
+       Baseline]& )],
+    DynamicModuleValues:>{}], "]"}],
+  WeightedData[
+  Automatic, {{39927.10037078085, 46228.7966396119}, {0.87, 0.13}}],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.7456003730482717`*^9, 
+  3.7457044925801473`*^9},ExpressionUUID->"d89495a4-caf0-4b60-9fc8-\
+1c4fafd6fea2"],
+
+Cell[BoxData["40746.320885728885`"], "Output",
+ CellChangeTimes->{3.7456003730482717`*^9, 
+  3.7457044925801473`*^9},ExpressionUUID->"0228b33e-dc4e-464d-93d9-\
+c56a4dede580"]
+}, Open  ]],
+
+Cell["What is the expected PV of the annuity?", "Item",
+ CellChangeTimes->{{3.5867185992347927`*^9, 
+  3.586718796240286*^9}},ExpressionUUID->"9f8e5b6e-c643-4902-ac9e-\
+8de3dea14c9c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"pvdata", "=", 
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"TimeValue", "[", 
+     RowBox[{
+      RowBox[{"Annuity", "[", 
+       RowBox[{"10000", ",", "i"}], "]"}], ",", "0.08", ",", "0"}], "]"}], 
+    ",", " ", 
+    RowBox[{"{", 
+     RowBox[{"i", ",", " ", 
+      RowBox[{"Range", "[", 
+       RowBox[{"0", ",", "11"}], "]"}]}], "}"}]}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"pvdataweights", "=", 
+  RowBox[{"WeightedData", "[", 
+   RowBox[{"pvdata", ",", " ", "ageweights"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Mean", "[", "pvdataweights", "]"}]}], "Input",
+ CellChangeTimes->{{3.7456000217375984`*^9, 3.745600128282794*^9}, {
+  3.7456001658086796`*^9, 3.7456002142335653`*^9}, {3.745600380709885*^9, 
+  3.745600401885123*^9}},ExpressionUUID->"6a1e33b5-e77a-4b97-9f28-\
+334abb66efc6"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.`", ",", "9259.25925925926`", ",", "17832.64746227709`", ",", 
+   "25770.96987247879`", ",", "33121.268400443325`", ",", 
+   "39927.10037078085`", ",", "46228.7966396119`", ",", "52063.70059223325`", 
+   ",", "57466.389437253005`", ",", "62468.87910856759`", ",", 
+   "67100.81398941444`", ",", "71389.64258279114`"}], "}"}]], "Output",
+ CellChangeTimes->{3.7456004238935633`*^9, 
+  3.7457045025329647`*^9},ExpressionUUID->"694de4f9-c45c-491f-9464-\
+baeb9f1d5053"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["WeightedData",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource[
+               "FEBitmaps", "SquarePlusIconMedium"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              Evaluator -> Automatic, Method -> "Preemptive"], 
+             Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 3.5 CurrentValue["FontCapHeight"]/
+                AbsoluteCurrentValue[Magnification]}]], 
+            GraphicsBox[{{{}, 
+               
+               GraphicsComplexBox[{{-3.1, 1.}, {-0.5, 1.}, {1.25, 1.}, {3.25, 
+                1.}, {-3.1, 0.}, {-0.5, 0.}, {1.25, 0.}, {3.25, 0.}, {-3.1, 
+                1.}, {-0.5, 1.}, {1.25, 1.}, {3.25, 1.}}, {{{}, {}, {}, {}, {
+                   GrayLevel[0.5], 
+                   PointSize[0.125], 
+                   AbsoluteThickness[1.6], 
+                   Opacity[0.5], 
+                   LineBox[{5, 1}], 
+                   LineBox[{6, 2}], 
+                   LineBox[{7, 3}], 
+                   LineBox[{8, 4}]}}, {{}, {
+                   GrayLevel[0.5], 
+                   PointSize[0.125], 
+                   AbsoluteThickness[1.6], 
+                   PointBox[{9, 10, 11, 12}]}, {}}}], {}}, 
+              GraphicsComplexBox[CompressedData["
+1:eJw1k31Qy3Ecx7e16VGcSrg8VEMTy6EH5D5fKpqHEtGycNVZpFN6IDqa9Hgk
+T+eq9XBajpSHVkkP+v6StFbpQU0PaDWnqbC1mrpp4U7vu/e973Xvv1+WAaEH
+TlBIJNKmv/23TFg4PDMzjxhuSuvUhJdApZ7/maAaYwIp6WS/2xUQ2yIZqfWf
+SyxgM5bxpwn49mCxuaOFEbGdFuNy62s9rOl315/3yYDwcUgwkouaIN9EMN4T
+p0+ExZ+bP/9NO9RxxKkY9Ah3O3737kUSsMi1WJE+MIfws2P8BkEf7HHhXHif
+QiOWHfSuK5uRwnINl8dgUQkTfpRYGvgF1j3N5oV/pxBeN7lBO5LlII28z5Q8
+IhMtQlb3RPsonMq6JcgKJhE1AhNGTLEC2Jd9rYustFgdHxTAZavAZoTB8c7R
+YOea2xmRYxNw2mN/wqBsEvdusKqK6J2EIxGe2xwc1NjPrq26pVIDd7B8P36h
+wsWlbdMBx7QAlO7DTLISs41C1jWmklBw9+uwB6pR/G6X3yVNNRk5Z1xZVBk9
+hMeemqUsGaCgk5+Ufb7mg3hjZnFyaLsO8pSufSKi92JTN2+nLB4VOWD+h+H4
+d7gjt+zAVQoNbVYcDfwcWIqr6g0VjkBDtld/GhBRJXByY+PE17/8rOFHQSy7
+Faa/FbwRaanoFUvstOV1DwxH38zdl0hFI4/zTnmwB0Fpwzzu2qCDsp8w+eNl
+Q3DJrs/evYuCqv0TzdaXj4Jh/zafEDEZXTTN6PJcoIQbQ4dkQQkk1NzW6dqR
+qQJhsJckIEYLZ5scV6UtVENRxPrxvI8ayG91NeOKJkFRI26e+jUJ14vKH+nu
+1YA3Pa7AiaUG8p1OVh1NC4v1dX49j1KBeUFhQ747CR0tPW5wZEwBkoc8a1oy
+GR32vBwauvM7cArXJIYPUtA1ceR0Y6EcnPm6W+tXUtHoStk5pvgLyNIq1PR4
+Gsp9KLRdazwApdaxI5Yf5yB7c06XS1UfSAXnN1CX6qGkpJKxvEwJdNi48VTR
++kjeke3jIWuH5ZluK0SvDJB9DpyIC2mGe499pzb/NkT9H9hewrC38B7v6Hl5
+aC6itgr3xq6uhdO1xwyXphujlmL63e3cSvjvA5r1YdYP0v/M/rP8BxJlmIA=
+
+               "], {{{}, {
+                  GrayLevel[0.5], 
+                  AbsoluteThickness[1.6], 
+                  Opacity[0.2], 
+                  EdgeForm[None], 
+                  GraphicsGroupBox[
+                   
+                   PolygonBox[{{1, 51, 52, 50, 49, 48, 47, 46, 45, 44, 43, 42,
+                     41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 
+                    27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 
+                    13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 
+                    2}}]]}, {}, {}}, {{}, {}, {
+                  GrayLevel[0.5], 
+                  AbsoluteThickness[1.6], 
+                  Opacity[0.5], 
+                  
+                  LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 
+                   16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                    31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 
+                   45, 46, 47, 48, 49, 50}]}}}]}, AspectRatio -> 1, Axes -> 
+             False, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
+             Background -> GrayLevel[0.93], DisplayFunction -> Identity, 
+             Frame -> True, FrameLabel -> {{None, None}, {None, None}}, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.7]], FrameTicks -> None, GridLines -> {None, None},
+              GridLinesStyle -> Directive[
+               GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 
+               Dynamic[
+               3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])]}, 
+             Method -> {
+              "DefaultBoundaryStyle" -> Automatic, "DefaultPlotStyle" -> {{
+                  Directive[
+                   AbsoluteThickness[1.6], 
+                   RGBColor[0.368417, 0.506779, 0.709798]]}, 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.880722, 0.611041, 0.142051]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.560181, 0.691569, 0.194885]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.922526, 0.385626, 0.209179]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.528488, 0.470624, 0.701351]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.772079, 0.431554, 0.102387]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.363898, 0.618501, 0.782349]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[1, 0.75, 0]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.647624, 0.37816, 0.614037]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.571589, 0.586483, 0.]]}, "RangePadding" -> 
+               Scaled[0.1]}, PlotRange -> All, PlotRangeClipping -> True, 
+             PlotRangePadding -> {{0, 0}, {0, 0.5}}, 
+             Ticks -> {Automatic, Automatic}], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Data points: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["12", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Data dimension: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource[
+               "FEBitmaps", "SquareMinusIconMedium"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              Evaluator -> Automatic, Method -> "Preemptive"], 
+             Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 3.5 CurrentValue["FontCapHeight"]/
+                AbsoluteCurrentValue[Magnification]}]], 
+            GraphicsBox[{{{}, 
+               
+               GraphicsComplexBox[{{-3.1, 1.}, {-0.5, 1.}, {1.25, 1.}, {3.25, 
+                1.}, {-3.1, 0.}, {-0.5, 0.}, {1.25, 0.}, {3.25, 0.}, {-3.1, 
+                1.}, {-0.5, 1.}, {1.25, 1.}, {3.25, 1.}}, {{{}, {}, {}, {}, {
+                   GrayLevel[0.5], 
+                   PointSize[0.125], 
+                   AbsoluteThickness[1.6], 
+                   Opacity[0.5], 
+                   LineBox[{5, 1}], 
+                   LineBox[{6, 2}], 
+                   LineBox[{7, 3}], 
+                   LineBox[{8, 4}]}}, {{}, {
+                   GrayLevel[0.5], 
+                   PointSize[0.125], 
+                   AbsoluteThickness[1.6], 
+                   PointBox[{9, 10, 11, 12}]}, {}}}], {}}, 
+              GraphicsComplexBox[CompressedData["
+1:eJw1k31Qy3Ecx7e16VGcSrg8VEMTy6EH5D5fKpqHEtGycNVZpFN6IDqa9Hgk
+T+eq9XBajpSHVkkP+v6StFbpQU0PaDWnqbC1mrpp4U7vu/e973Xvv1+WAaEH
+TlBIJNKmv/23TFg4PDMzjxhuSuvUhJdApZ7/maAaYwIp6WS/2xUQ2yIZqfWf
+SyxgM5bxpwn49mCxuaOFEbGdFuNy62s9rOl315/3yYDwcUgwkouaIN9EMN4T
+p0+ExZ+bP/9NO9RxxKkY9Ah3O3737kUSsMi1WJE+MIfws2P8BkEf7HHhXHif
+QiOWHfSuK5uRwnINl8dgUQkTfpRYGvgF1j3N5oV/pxBeN7lBO5LlII28z5Q8
+IhMtQlb3RPsonMq6JcgKJhE1AhNGTLEC2Jd9rYustFgdHxTAZavAZoTB8c7R
+YOea2xmRYxNw2mN/wqBsEvdusKqK6J2EIxGe2xwc1NjPrq26pVIDd7B8P36h
+wsWlbdMBx7QAlO7DTLISs41C1jWmklBw9+uwB6pR/G6X3yVNNRk5Z1xZVBk9
+hMeemqUsGaCgk5+Ufb7mg3hjZnFyaLsO8pSufSKi92JTN2+nLB4VOWD+h+H4
+d7gjt+zAVQoNbVYcDfwcWIqr6g0VjkBDtld/GhBRJXByY+PE17/8rOFHQSy7
+Faa/FbwRaanoFUvstOV1DwxH38zdl0hFI4/zTnmwB0Fpwzzu2qCDsp8w+eNl
+Q3DJrs/evYuCqv0TzdaXj4Jh/zafEDEZXTTN6PJcoIQbQ4dkQQkk1NzW6dqR
+qQJhsJckIEYLZ5scV6UtVENRxPrxvI8ayG91NeOKJkFRI26e+jUJ14vKH+nu
+1YA3Pa7AiaUG8p1OVh1NC4v1dX49j1KBeUFhQ747CR0tPW5wZEwBkoc8a1oy
+GR32vBwauvM7cArXJIYPUtA1ceR0Y6EcnPm6W+tXUtHoStk5pvgLyNIq1PR4
+Gsp9KLRdazwApdaxI5Yf5yB7c06XS1UfSAXnN1CX6qGkpJKxvEwJdNi48VTR
++kjeke3jIWuH5ZluK0SvDJB9DpyIC2mGe499pzb/NkT9H9hewrC38B7v6Hl5
+aC6itgr3xq6uhdO1xwyXphujlmL63e3cSvjvA5r1YdYP0v/M/rP8BxJlmIA=
+
+               "], {{{}, {
+                  GrayLevel[0.5], 
+                  AbsoluteThickness[1.6], 
+                  Opacity[0.2], 
+                  EdgeForm[None], 
+                  GraphicsGroupBox[
+                   
+                   PolygonBox[{{1, 51, 52, 50, 49, 48, 47, 46, 45, 44, 43, 42,
+                     41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 
+                    27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 
+                    13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 
+                    2}}]]}, {}, {}}, {{}, {}, {
+                  GrayLevel[0.5], 
+                  AbsoluteThickness[1.6], 
+                  Opacity[0.5], 
+                  
+                  LineBox[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 
+                   16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                    31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 
+                   45, 46, 47, 48, 49, 50}]}}}]}, AspectRatio -> 1, Axes -> 
+             False, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
+             Background -> GrayLevel[0.93], DisplayFunction -> Identity, 
+             Frame -> True, FrameLabel -> {{None, None}, {None, None}}, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.7]], FrameTicks -> None, GridLines -> {None, None},
+              GridLinesStyle -> Directive[
+               GrayLevel[0.5, 0.4]], ImageSize -> {Automatic, 
+               Dynamic[
+               3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])]}, 
+             Method -> {
+              "DefaultBoundaryStyle" -> Automatic, "DefaultPlotStyle" -> {{
+                  Directive[
+                   AbsoluteThickness[1.6], 
+                   RGBColor[0.368417, 0.506779, 0.709798]]}, 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.880722, 0.611041, 0.142051]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.560181, 0.691569, 0.194885]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.922526, 0.385626, 0.209179]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.528488, 0.470624, 0.701351]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.772079, 0.431554, 0.102387]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.363898, 0.618501, 0.782349]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[1, 0.75, 0]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.647624, 0.37816, 0.614037]], 
+                 Directive[
+                  AbsoluteThickness[1.6], 
+                  RGBColor[0.571589, 0.586483, 0.]]}, "RangePadding" -> 
+               Scaled[0.1]}, PlotRange -> All, PlotRangeClipping -> True, 
+             PlotRangePadding -> {{0, 0}, {0, 0.5}}, 
+             Ticks -> {Automatic, Automatic}], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Data points: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["12", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Data dimension: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Weight type: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"numeric list\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel",
+     DisplayFunction->(
+      ButtonBox[#, Active -> False, Alignment -> Left, 
+       Appearance -> {
+        "Default" -> 
+         FrontEnd`FileName[{"Typeset", "SummaryBox"}, "Panel.9.png"]}, 
+       FrameMargins -> 7, BaseStyle -> {}, 
+       DefaultBaseStyle -> {"Panel", Background -> None}, BaselinePosition -> 
+       Baseline]& )],
+    DynamicModuleValues:>{}], "]"}],
+  WeightedData[
+  Automatic, {{0., 9259.25925925926, 17832.64746227709, 25770.96987247879, 
+   33121.268400443325`, 39927.10037078085, 46228.7966396119, 
+   52063.70059223325, 57466.389437253005`, 62468.87910856759, 
+   67100.81398941444, 71389.64258279114}, {0.07, 0.08, 0.09, 0.1, 0.1, 0.1, 
+   0.1, 0.1, 0.1, 0.07, 0.05, 0.04}}],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.7456004238935633`*^9, 
+  3.7457045025641646`*^9},ExpressionUUID->"bc1d0532-0010-4a1a-9cb0-\
+0d7b241e8351"],
+
+Cell[BoxData["38386.94948400789`"], "Output",
+ CellChangeTimes->{3.7456004238935633`*^9, 
+  3.7457045025641646`*^9},ExpressionUUID->"bc669d26-5149-4193-815c-\
+00f1a234290f"]
+}, Open  ]],
+
+Cell["What is the standard deviation of the annuity?", "Item",
+ CellChangeTimes->{{3.5867185992347927`*^9, 
+  3.58671881579718*^9}},ExpressionUUID->"e5cf220a-902b-4c77-b6b4-\
+ed1642987d88"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"StandardDeviation", "[", "pvdataweights", "]"}]], "Input",
+ CellChangeTimes->{{3.7456004972353015`*^9, 
+  3.745600503662513*^9}},ExpressionUUID->"ee5054c8-be29-488e-b1a6-\
+bf1508af6f05"],
+
+Cell[BoxData["21326.58091165636`"], "Output",
+ CellChangeTimes->{
+  3.745600509389723*^9},ExpressionUUID->"28a4425a-70c4-434d-9d15-\
+fc58662349e6"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 5", "Section",
+ CellChangeTimes->{{3.586583406196086*^9, 3.586583410955902*^9}, 
+   3.7137071582153177`*^9},ExpressionUUID->"da852475-7c95-4f9b-8202-\
+56249fe657a2"],
+
+Cell["\<\
+The Smith family just took out a variable-rate mortgage on their new home. \
+The mortgage value is $100,000, the term is 30 years, and the initial \
+interest rate is 8%. This rate is guaranteed for 5 years, after which it will \
+be adjusted to the prevailing rates. The mortgage will be adjusted by either \
+modifying the payment amount or the length of the remaining loan.\
+\>", "Text",
+ CellChangeTimes->{{3.586718878387846*^9, 3.5867189276945133`*^9}, {
+  3.586718983721599*^9, 3.5867189996309767`*^9}, {3.586722974445868*^9, 
+  3.5867230563209677`*^9}},ExpressionUUID->"c895a168-7512-427c-84fd-\
+b761db0d963d"],
+
+Cell["\<\
+In the text you are instructed to use yearly payment amounts, but for this \
+assignment assume that the mortgage requires monthly payment,\
+\>", "Text",
+ CellChangeTimes->{{3.586723086096375*^9, 
+  3.586723119509444*^9}},ExpressionUUID->"90b5c57c-d132-4052-b1b1-\
+524968d22be5"],
+
+Cell["What is the monthly payment at the start of the mortgage?", "Item",
+ CellChangeTimes->{{3.586723134363727*^9, 3.586723148196012*^9}, {
+  3.74568601120645*^9, 
+  3.7456860159020576`*^9}},ExpressionUUID->"ae8a82fb-2cb9-46b7-a339-\
+401c80d78378"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"pmt", " ", "=", " ", 
+  RowBox[{"\[FormalP]", "/.", 
+   RowBox[{"FindRoot", "[", 
+    RowBox[{
+     RowBox[{"100000", "\[Equal]", 
+      RowBox[{"TimeValue", "[", 
+       RowBox[{
+        RowBox[{"Annuity", "[", 
+         RowBox[{"\[FormalP]", ",", "30", ",", 
+          RowBox[{"1", "/", "12"}]}], "]"}], ",", 
+        RowBox[{"EffectiveInterest", "[", 
+         RowBox[{"0.08", ",", 
+          RowBox[{"1", "/", "12"}]}], "]"}], ",", "0"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[FormalP]", ",", 
+       RowBox[{"100000", " ", "*", " ", 
+        RowBox[{"0.08", "/", "12"}]}]}], "}"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.7456861557875037`*^9, 3.7456861657559214`*^9}, {
+   3.745686350148801*^9, 3.745686350897602*^9}, {3.745686429771341*^9, 
+   3.7456864315497437`*^9}, {3.7456865446499424`*^9, 
+   3.7456865461163454`*^9}, {3.7456865782368016`*^9, 
+   3.7456865809044065`*^9}, {3.7456866272364874`*^9, 3.745686630949294*^9}, {
+   3.745686697396626*^9, 3.7456867003918314`*^9}, {3.745686826876853*^9, 
+   3.7456868321808624`*^9}, {3.745687030644411*^9, 3.745687039021626*^9}, {
+   3.7456871038241396`*^9, 3.7456871053061423`*^9}, 
+   3.745687171138258*^9},ExpressionUUID->"0b32d0f2-8f95-4501-ac1c-\
+155516f1c6bf"],
+
+Cell[BoxData["733.7645738795155`"], "Output",
+ CellChangeTimes->{{3.7456866861958065`*^9, 3.7456867039330373`*^9}, 
+   3.745686836782871*^9, 3.7456870718752837`*^9, 3.745687112482155*^9, 
+   3.7456871758494663`*^9, 
+   3.7456880388207927`*^9},ExpressionUUID->"1ac43249-b116-4aa5-b48d-\
+679c8c7c2e2b"]
+}, Open  ]],
+
+Cell["What is the mortgage balance after 5 years?", "Item",
+ CellChangeTimes->{{3.586723134363727*^9, 3.586723163152297*^9}, {
+  3.745686720859067*^9, 
+  3.745686720859067*^9}},ExpressionUUID->"2a01d5de-88bd-46e9-8c58-\
+d80ad30346be"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"balance5yr", "=", 
+  RowBox[{"TimeValue", "[", 
+   RowBox[{
+    RowBox[{"Annuity", "[", 
+     RowBox[{"pmt", ",", "25", ",", 
+      RowBox[{"1", "/", "12"}]}], "]"}], ",", 
+    RowBox[{"EffectiveInterest", "[", 
+     RowBox[{"0.08", ",", 
+      RowBox[{"1", "/", "12"}]}], "]"}], ",", "0"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.7456869764811163`*^9, 3.7456870029855623`*^9}, {
+  3.745687045136837*^9, 3.745687046291239*^9}, {3.745687116085761*^9, 
+  3.7456871230433736`*^9}, {3.7456872111835284`*^9, 3.7456872129463315`*^9}, {
+  3.745687453729152*^9, 
+  3.74568747474479*^9}},ExpressionUUID->"b3f725cc-49b7-4cb5-8efb-\
+1ccf5692aea1"],
+
+Cell[BoxData["95069.85671739993539369057294567606501745315`15.\
+509200176149498"], "Output",
+ CellChangeTimes->{3.7456870747300887`*^9, 3.7456871297201853`*^9, 
+  3.7456871827290783`*^9, 3.7456872214327464`*^9, 3.745687478206397*^9, 
+  3.7456880438752017`*^9},ExpressionUUID->"38a69d70-d620-4172-bbe5-\
+22ea0af51136"]
+}, Open  ]],
+
+Cell["\<\
+If the prevailing rate is 9% at the readjustment point and the mortgage \
+termination date is kept constant, then what is the new monthly payment?\
+\>", "Item",
+ CellChangeTimes->{{3.586723134363727*^9, 
+  3.586723232368928*^9}},ExpressionUUID->"59d343e3-5ea1-4aa1-8a9e-\
+52ca2e2bd973"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FindRoot", "[", 
+  RowBox[{
+   RowBox[{"balance5yr", "\[Equal]", 
+    RowBox[{"TimeValue", "[", 
+     RowBox[{
+      RowBox[{"Annuity", "[", 
+       RowBox[{"\[FormalP]", ",", "25", ",", 
+        RowBox[{"1", "/", "12"}]}], "]"}], ",", 
+      RowBox[{"EffectiveInterest", "[", 
+       RowBox[{"0.09", ",", 
+        RowBox[{"1", "/", "12"}]}], "]"}], ",", "0"}], "]"}]}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[FormalP]", ",", 
+     RowBox[{"balance5yr", "*", " ", 
+      RowBox[{"0.09", "/", "12"}]}]}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.7456874379691243`*^9, {3.7456874870204124`*^9, 3.7456875397549067`*^9}, {
+   3.7456877128976145`*^9, 3.7456877205124283`*^9}, {3.7456877932365575`*^9, 
+   3.745687797557765*^9}},ExpressionUUID->"23008a2a-e2d5-48ef-a185-\
+b3f3607e86f1"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\[FormalP]", "\[Rule]", "797.8227804853823`"}], "}"}]], "Output",
+ CellChangeTimes->{3.745687521429474*^9, 
+  3.745688048180809*^9},ExpressionUUID->"b73ad4a1-36f1-4cca-ab93-\
+0f0a41a9fecf"]
+}, Open  ]],
+
+Cell["\<\
+Under the same conditions immediately above, if the monthly payment is kept \
+constant, then what it the new term (i.e., years and months remaining) of the \
+mortgage?\
+\>", "Item",
+ CellChangeTimes->{{3.586723134363727*^9, 3.586723319243435*^9}, {
+  3.7456876561877127`*^9, 
+  3.7456876561877127`*^9}},ExpressionUUID->"f9e00bde-1ba0-484d-90cb-\
+7e2f37aa9ab5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FindRoot", "[", 
+  RowBox[{
+   RowBox[{"balance5yr", "\[Equal]", 
+    RowBox[{"TimeValue", "[", 
+     RowBox[{
+      RowBox[{"Annuity", "[", 
+       RowBox[{"pmt", ",", "\[FormalT]", ",", 
+        RowBox[{"1", "/", "12"}]}], "]"}], ",", 
+      RowBox[{"EffectiveInterest", "[", 
+       RowBox[{"0.09", ",", 
+        RowBox[{"1", "/", "12"}]}], "]"}], ",", "0"}], "]"}]}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[FormalT]", ",", "25"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.745687754729288*^9, 3.74568778319014*^9}, {
+  3.745687822490609*^9, 3.745687822709009*^9}, {3.7456879111493664`*^9, 
+  3.7456879174361773`*^9}, {3.745688014044949*^9, 3.7456880302407775`*^9}, {
+  3.745688115340328*^9, 3.745688123095542*^9}, {3.7456882128893394`*^9, 
+  3.745688225930962*^9}},ExpressionUUID->"1a10994f-69c5-4662-b8bb-\
+611c805081ff"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\[FormalT]", "\[Rule]", "39.771655077503745`"}], "}"}]], "Output",
+ CellChangeTimes->{{3.7456880215193624`*^9, 3.745688050872014*^9}, 
+   3.745688263856629*^9},ExpressionUUID->"6cdd75cb-a168-4bbe-9391-\
+dc3b551ae4d7"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 6", "Section",
+ CellChangeTimes->{{3.586583414827262*^9, 3.5865834186671953`*^9}, 
+   3.713707161999464*^9},ExpressionUUID->"f095590b-3e2d-44f9-a03d-\
+c203999992b7"],
+
+Cell[TextData[{
+ "Find the duration and convexity of a zero-coupon bond maturing at time ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ " under continuous compounding, i.e., ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"k", "\[Rule]", 
+    RowBox[{
+     RowBox[{"\[Infinity]", " ", "or", " ", "q"}], "\[Rule]", "0"}]}], 
+   TraditionalForm]],ExpressionUUID->"5ca33937-fbb6-4cc2-8810-5a500c7123e2"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.586723337800434*^9, 3.586723442234304*^9}, 
+   3.745704562401072*^9, {3.745706081640473*^9, 3.7457060931780963`*^9}, {
+   3.745706173549244*^9, 3.745706192924878*^9}, {3.7457064375665126`*^9, 
+   3.7457064432947226`*^9}, {3.7457069282338257`*^9, 
+   3.7457069948403435`*^9}, {3.7457070497154427`*^9, 
+   3.7457070659404707`*^9}, {3.7457071205665684`*^9, 3.7457072331186533`*^9}, 
+   3.7457076543745327`*^9, {3.745707858678095*^9, 
+   3.745707869057514*^9}},ExpressionUUID->"b461cfcc-94c0-4eaa-bd87-\
+dfb28f0e1a2c"],
+
+Cell[BoxData[{
+ FormBox[
+  RowBox[{
+   RowBox[{"Price", ":", "P"}], ",", " ", 
+   RowBox[{"Maturity", ":", "n"}], ",", " ", 
+   RowBox[{"Face", " ", 
+    RowBox[{"Value", ":", "F"}]}], ",", " ", 
+   RowBox[{"Interest", " ", 
+    RowBox[{"Rate", ":", "r"}]}], ",", " ", 
+   RowBox[{"Modified", " ", 
+    RowBox[{"Duration", ":", "modD"}]}], ",", " ", 
+   RowBox[{"Convexity", ":", "C"}]}], TraditionalForm], "\[IndentingNewLine]", 
+ FormBox[
+  RowBox[{
+   RowBox[{"P", "=", 
+    SuperscriptBox["Fe", 
+     RowBox[{"-", "nr"}]]}], "   ", ",", "   ", 
+   RowBox[{
+    FractionBox["dP", "dr"], "=", 
+    RowBox[{"-", 
+     SuperscriptBox["nFe", 
+      RowBox[{"-", "nr"}]]}]}], "   ", ",", "   ", 
+   RowBox[{
+    FractionBox[
+     RowBox[{
+      SuperscriptBox["d", "2"], "P"}], 
+     SuperscriptBox["dr", "2"]], "=", 
+    RowBox[{
+     SuperscriptBox["n", "2"], 
+     SuperscriptBox["Fe", 
+      RowBox[{"-", "nr"}]]}]}]}], TraditionalForm], "\[IndentingNewLine]", 
+ FormBox[
+  RowBox[{"modD", " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"-", 
+      FractionBox["1", "P"]}], 
+     FractionBox["dP", "dr"]}], "=", "n"}]}], 
+  TraditionalForm], "\[IndentingNewLine]", 
+ FormBox[
+  RowBox[{"C", " ", "=", 
+   RowBox[{
+    RowBox[{
+     FractionBox["1", "P"], " ", 
+     FractionBox[
+      RowBox[{
+       SuperscriptBox["d", "2"], "P"}], 
+      SuperscriptBox["dr", "2"]]}], "=", 
+    SuperscriptBox["n", "2"]}]}], TraditionalForm]}], "Equation",
+ CellChangeTimes->{{3.7457072896782246`*^9, 3.7457073032220488`*^9}, {
+  3.745707375632491*^9, 3.745707395118925*^9}, {3.7457074538575106`*^9, 
+  3.745707569601715*^9}, {3.7457076060840464`*^9, 
+  3.7457078461980734`*^9}},ExpressionUUID->"1d175a51-9ce5-43ef-b689-\
+04a0a58daa9c"],
+
+Cell[TextData[{
+ "n = T so modD = T and C = ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["T", "2"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "c10faeab-255f-4a9b-8816-4d177d6b3985"]
+}], "Text",
+ CellChangeTimes->{{3.745707886039345*^9, 3.74570791172299*^9}, {
+  3.7457080630071177`*^9, 
+  3.7457080641001196`*^9}},ExpressionUUID->"d7906761-c2fb-40ba-b5c3-\
+2908e1eb42ff"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 7", "Section",
+ CellChangeTimes->{{3.585977947441392*^9, 3.585977960914722*^9}, {
+  3.585978237745386*^9, 3.585978243824821*^9}, {3.585978425640176*^9, 
+  3.585978425864415*^9}, {3.586471177811248*^9, 3.586471202134551*^9}, {
+  3.5867235955051203`*^9, 3.586723596625432*^9}, {3.684352047142557*^9, 
+  3.684352047324297*^9}, {3.713707172067889*^9, 
+  3.7137071739678383`*^9}},ExpressionUUID->"d20ba98d-beaf-4f53-b197-\
+506713de68fd"],
+
+Cell["\<\
+A firm wishes to purchase a building for $10,000,000. Origination fees and \
+other costs will total $25,000. The firm has $2,000,000 to cover the initial \
+costs and down payment on the building. The mortgage terms available are a \
+5-year term with monthly payments computed at 7.5% with an amortization of 20 \
+years. \
+\>", "Text",
+ CellChangeTimes->{{3.585977966242429*^9, 3.5859781784238234`*^9}, 
+   3.745690103876737*^9},ExpressionUUID->"15ff6273-7b7d-4a81-b744-\
+3814929c5baf"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nAnnualRate", "=", "0.075"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"iTerm", "=", "20"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"iFrequency", "=", "12"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.745690114235155*^9, 
+  3.7456901315355854`*^9}},ExpressionUUID->"8998668e-aad2-4772-a871-\
+0646f72881dd"],
+
+Cell["What is the amount of the mortgage?", "Item",
+ CellChangeTimes->{{3.585977966242429*^9, 3.5859781784238234`*^9}, {
+  3.585978266374593*^9, 3.5859782788856373`*^9}, {3.585978357766221*^9, 
+  3.5859783577672586`*^9}, {3.7456884739216237`*^9, 
+  3.7456884739216237`*^9}},ExpressionUUID->"31f97de9-81f6-47f9-8fc8-\
+f572533f1c9e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"nLoanAmount", "=", 
+  RowBox[{"10000000", "+", "25000", "-", "2000000"}]}]], "Input",
+ CellChangeTimes->{{3.745688543973747*^9, 3.7456885456117496`*^9}, {
+  3.745688577311005*^9, 3.745688595422637*^9}, {3.7456886434707212`*^9, 
+  3.7456886457015257`*^9}, {3.7456890534082413`*^9, 3.745689060553054*^9}, {
+  3.7456900060333652`*^9, 
+  3.7456900072813673`*^9}},ExpressionUUID->"3907264b-3280-4bc4-acac-\
+dd64071644f8"],
+
+Cell[BoxData["8025000"], "Output",
+ CellChangeTimes->{{3.745688593004633*^9, 3.7456885977314415`*^9}, 
+   3.7456886483847303`*^9, 3.7456890642034607`*^9, 3.74569003152381*^9, 
+   3.7456902279593554`*^9},ExpressionUUID->"4a93edf0-3484-4d91-96fa-\
+0713c0cb50fe"]
+}, Open  ]],
+
+Cell["What are the monthly payments and final balloon payment?", "Item",
+ CellChangeTimes->{{3.585977966242429*^9, 3.5859781784238234`*^9}, 
+   3.585978266374593*^9, {3.5859783630459642`*^9, 
+   3.585978365646696*^9}},ExpressionUUID->"9acd4fcf-e53f-45a1-a95d-\
+042ede027c00"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"nPayment", "=", 
+  RowBox[{"\[FormalP]", "/.", 
+   RowBox[{"FindRoot", "[", 
+    RowBox[{
+     RowBox[{"nLoanAmount", "\[Equal]", 
+      RowBox[{"TimeValue", "[", 
+       RowBox[{
+        RowBox[{"Annuity", "[", 
+         RowBox[{"\[FormalP]", ",", "iTerm", ",", 
+          RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", 
+        RowBox[{"EffectiveInterest", "[", 
+         RowBox[{"nAnnualRate", ",", 
+          RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", "0"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[FormalP]", ",", 
+       RowBox[{"nLoanAmount", "*", 
+        RowBox[{"nAnnualRate", "/", "iFrequency"}]}]}], "}"}]}], 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.7456890409906197`*^9, 3.745689071831874*^9}, {
+  3.74568910367153*^9, 3.745689161664832*^9}, {3.745690027109002*^9, 
+  3.7456900473266377`*^9}, {3.745690144670809*^9, 
+  3.745690181065673*^9}},ExpressionUUID->"e43733b6-78c2-47ba-b699-\
+557569e01ab6"],
+
+Cell[BoxData["64648.85378254214`"], "Output",
+ CellChangeTimes->{
+  3.7456891669844413`*^9, {3.7456900347374153`*^9, 3.7456900595726595`*^9}, 
+   3.745690233013764*^9},ExpressionUUID->"08ac9974-ab1b-41ed-8ebd-\
+072879fae98a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"balloon", "=", 
+  RowBox[{"TimeValue", "[", 
+   RowBox[{
+    RowBox[{"Annuity", "[", 
+     RowBox[{"nPayment", ",", 
+      RowBox[{"iTerm", "-", "5"}], ",", 
+      RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", 
+    RowBox[{"EffectiveInterest", "[", 
+     RowBox[{"nAnnualRate", ",", 
+      RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", "0"}], "]"}]}]], "Input",\
+
+ CellChangeTimes->{{3.745689220164934*^9, 3.745689241427772*^9}, 
+   3.745690053317048*^9, {3.7456901940604954`*^9, 
+   3.7456902155417333`*^9}},ExpressionUUID->"cf524894-4b0f-4259-89e4-\
+bee1d34efee0"],
+
+Cell[BoxData["6.9738933990424124461734195`15.482354267170836*^6"], "Output",
+ CellChangeTimes->{3.745689247246582*^9, 3.7456900630358653`*^9, 
+  3.745690252373398*^9},ExpressionUUID->"96c9485f-aabf-49a1-9a9e-\
+e1d429f5fa57"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"balloon", "+", "nPayment"}]], "Input",
+ CellChangeTimes->{{3.7456894178484817`*^9, 3.7456894209372873`*^9}, 
+   3.7456900568270545`*^9},ExpressionUUID->"c4e6d6ba-bf9b-4fdd-9da1-\
+abfebdaa3407"],
+
+Cell[BoxData["7.038542252824955`*^6"], "Output",
+ CellChangeTimes->{3.7456894237920923`*^9, 3.745690066077871*^9, 
+  3.7456902572562065`*^9},ExpressionUUID->"3f4551f0-0497-486c-b283-\
+c7de88243766"]
+}, Open  ]],
+
+Cell["\<\
+How much interest did the firm pay over the 5 years of the mortgage?\
+\>", "Item",
+ CellChangeTimes->{{3.585977966242429*^9, 3.5859781784238234`*^9}, 
+   3.585978266374593*^9, {3.5859783630459642`*^9, 
+   3.585978387835586*^9}},ExpressionUUID->"164f7f99-7474-4ac7-9ac4-\
+66b8fedbee59"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"xAmortizationRecursion", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "nTime_", ",", "nInterestPaid_", ",", "nPrincipalPaid_", ",", 
+       "nBalance_", ",", "nTotalInterest_"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+      "nPayment_", ",", "nAnnualRate_", ",", "iTerm_", ",", "iFrequency_"}], 
+      "}"}]}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "thisTime", ",", "thisBal", ",", " ", "thisInt", ",", "thisPrin", ",", 
+       " ", "thisTotalInterest"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"thisTime", "=", 
+       RowBox[{"nTime", "+", " ", 
+        RowBox[{"1.", "/", "iFrequency"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"thisInt", "=", 
+       RowBox[{"nBalance", " ", 
+        RowBox[{"nAnnualRate", "/", "iFrequency"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"thisPrin", "=", 
+       RowBox[{"nPayment", "-", "thisInt"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"thisBal", "=", 
+       RowBox[{"nBalance", "-", "thisPrin"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"thisTotalInterest", "=", 
+       RowBox[{"nTotalInterest", "+", "thisInt"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+       "thisTime", ",", "thisInt", ",", "thisPrin", ",", "thisBal", ",", 
+        "thisTotalInterest"}], "}"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"mnAmortization", "=", 
+   RowBox[{"NestList", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"xAmortizationRecursion", "[", 
+       RowBox[{"#", ",", 
+        RowBox[{"{", 
+         RowBox[{
+         "nPayment", ",", "nAnnualRate", ",", "iTerm", ",", "iFrequency"}], 
+         "}"}]}], "]"}], "&"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "nLoanAmount", ",", "0"}], "}"}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{"iTerm", " ", "iFrequency"}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{
+  3.745690077855891*^9, 3.7456901119887514`*^9, {3.7456902992358804`*^9, 
+   3.7456903013418837`*^9}, 3.7456903318555374`*^9, {3.7456903826804266`*^9, 
+   3.745690391572442*^9}, {3.745691033351803*^9, 3.745691035130206*^9}, {
+   3.74569113677906*^9, 3.745691211769995*^9}, {3.7456913700724783`*^9, 
+   3.7456913753452873`*^9}, {3.7456919530022264`*^9, 3.7456919580566354`*^9}, 
+   3.7456919943930993`*^9, {3.745692052948003*^9, 3.745692056598409*^9}, {
+   3.745692098463612*^9, 3.7456921462050967`*^9}, {3.745692362253046*^9, 
+   3.745692407962847*^9}, 3.7456924429336653`*^9, {3.745692495243958*^9, 
+   3.7456925609600754`*^9}, {3.7456925954577365`*^9, 3.745692595722937*^9}, {
+   3.7456926538710413`*^9, 3.745692667101865*^9}, {3.745692757380931*^9, 
+   3.745692759518135*^9}, {3.7456933678462167`*^9, 3.745693418537508*^9}, {
+   3.7456934942309327`*^9, 3.7456935130327682`*^9}, {3.745693551043355*^9, 
+   3.7456935837248135`*^9}, {3.7456936504191217`*^9, 
+   3.7456936708323593`*^9}},ExpressionUUID->"bdeaaec4-d7a4-4c54-9675-\
+d72350286177"],
+
+Cell["\<\
+The total interest paid is the fifth element of the following output. The \
+first element of mnAmortization is the initial value {0,0,0,nLoanAmount,0}. \
+The first payment occurs at the second element. The 60th payment (5 years) \
+occurs at he 61st element.\
+\>", "Text",
+ CellChangeTimes->{{3.7456936802179766`*^9, 3.745693700881814*^9}, {
+  3.745693755094116*^9, 3.7456937563109183`*^9}, {3.7456966032725325`*^9, 
+  3.745696676358661*^9}},ExpressionUUID->"f10b448e-1afb-4b63-a9c3-\
+60b28b9ef35f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Part", "[", 
+   RowBox[{"mnAmortization", ",", " ", 
+    RowBox[{"{", "61", "}"}]}], "]"}], " "}]], "Input",
+ CellChangeTimes->{{3.7456937117922335`*^9, 3.745693714711439*^9}, {
+  3.745696506115562*^9, 
+  3.7456965831328974`*^9}},ExpressionUUID->"04240a0d-38fc-446b-897c-\
+d733882dd131"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+   "4.999999999999999`", ",", "43717.6537442462`", ",", "20931.200038295938`",
+     ",", "6.973893399041097`*^6", ",", "2.827824625993627`*^6"}], "}"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{
+  3.745693717490244*^9, {3.745696509672368*^9, 
+   3.745696586252903*^9}},ExpressionUUID->"707851d7-1a79-4cff-9519-\
+3beab9bcb6c0"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 8", "Section",
+ CellChangeTimes->{{3.5859784311836977`*^9, 3.5859784353034897`*^9}, {
+  3.586471186703974*^9, 3.586471206574418*^9}, {3.586723600329323*^9, 
+  3.5867236018808403`*^9}, {3.684352052180361*^9, 3.684352052388199*^9}, {
+  3.713707177915824*^9, 
+  3.7137071797991123`*^9}},ExpressionUUID->"e8440834-4ab5-47b9-bd7b-\
+6580638c6914"],
+
+Cell["\<\
+Arthur is planning on buying a house and needs to take out a mortgage for \
+$200,000. He has two choices a 30-year with monthly payments of $1,468 and a \
+15-year with monthly payments of 1,854. Arthur wants to pay the lowest \
+interest rate possible. \
+\>", "Text",
+ CellChangeTimes->{{3.5859788683196087`*^9, 3.585978901204608*^9}, {
+   3.5859789493610277`*^9, 3.585979060614146*^9}, 3.5860409476987886`*^9, 
+   3.713707104817396*^9, {3.7456957244961815`*^9, 
+   3.745695727678587*^9}},ExpressionUUID->"0ea8d83e-6cbb-49fb-b41d-\
+0dd0a82dc8df"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nLoanAmount", "=", "200000"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"iFrequency", "=", "12"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.745695732514596*^9, 
+  3.7456958216843524`*^9}},ExpressionUUID->"422043b2-37a6-4a68-8998-\
+a5f3eff938e4"],
+
+Cell["\<\
+What is the interest rate on each mortgage and which mortgage should he pick?\
+\
+\>", "Item",
+ CellChangeTimes->{{3.5859788683196087`*^9, 3.585978901204608*^9}, {
+  3.5859789493610277`*^9, 3.585979060614146*^9}, {3.5860409476987886`*^9, 
+  3.586040972225569*^9}, {3.586045926347825*^9, 
+  3.5860459304095163`*^9}},ExpressionUUID->"75322b36-005f-42e9-a692-\
+8c70de347792"],
+
+Cell["Mortgage 1", "Text",
+ CellChangeTimes->{{3.7456959184825225`*^9, 
+  3.745695923224931*^9}},ExpressionUUID->"3c6580d5-1867-4a56-91ca-\
+3f415286089f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"iTerm1", "=", "30"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nPayment1", "=", "1468"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"nAnnualRate1", " ", "=", 
+  RowBox[{"\[FormalI]", "/.", " ", 
+   RowBox[{"FindRoot", "[", 
+    RowBox[{
+     RowBox[{"nLoanAmount", "\[Equal]", 
+      RowBox[{"TimeValue", "[", 
+       RowBox[{
+        RowBox[{"Annuity", "[", 
+         RowBox[{"nPayment1", ",", "iTerm1", ",", 
+          RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", 
+        RowBox[{"EffectiveInterest", "[", 
+         RowBox[{"\[FormalI]", ",", 
+          RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", "0"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[FormalI]", ",", "0.1"}], "}"}]}], "]"}]}]}]}], "Input",
+ CellChangeTimes->{
+  3.745695715026965*^9, {3.745695801841118*^9, 3.7456958149451404`*^9}, {
+   3.7456958654268293`*^9, 3.745695887017267*^9}, {3.7456959453145695`*^9, 
+   3.745695972006216*^9}, {3.7456960268247128`*^9, 3.745696086167217*^9}, {
+   3.74569612207848*^9, 3.7456961925750036`*^9}, {3.745696321489238*^9, 
+   3.7456963218948383`*^9}, {3.7456968348705397`*^9, 3.745696850205366*^9}, {
+   3.745696888285033*^9, 3.7456968987370515`*^9}, {3.745698100266762*^9, 
+   3.7456981106719804`*^9}, {3.7456981426676364`*^9, 
+   3.745698163400073*^9}},ExpressionUUID->"b89584bb-c2cc-4f5b-b82a-\
+2d49190de486"],
+
+Cell[BoxData["0.0800337693054641`"], "Output",
+ CellChangeTimes->{{3.745696307230813*^9, 3.745696327994449*^9}, 
+   3.7456968610785856`*^9, 3.745696907457467*^9, {3.745698158782465*^9, 
+   3.7456981690472827`*^9}, {3.7456982369542017`*^9, 
+   3.7456982432254133`*^9}},ExpressionUUID->"e811aa42-45f9-40ae-aaa1-\
+ed533e7cf1a3"]
+}, Open  ]],
+
+Cell["Mortgage 2", "Text",
+ CellChangeTimes->{{3.745695928903341*^9, 
+  3.7456959304009433`*^9}},ExpressionUUID->"c77b5494-1dd9-4cbb-bffe-\
+e1627e7ca34b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"iTerm2", "=", "15"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nPayment2", "=", "1854"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"nAnnualRate2", " ", "=", 
+  RowBox[{"\[FormalI]", "/.", 
+   RowBox[{"FindRoot", "[", 
+    RowBox[{
+     RowBox[{"nLoanAmount", "\[Equal]", 
+      RowBox[{"TimeValue", "[", 
+       RowBox[{
+        RowBox[{"Annuity", "[", 
+         RowBox[{"nPayment2", ",", "iTerm2", ",", 
+          RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", 
+        RowBox[{"EffectiveInterest", "[", 
+         RowBox[{"\[FormalI]", ",", 
+          RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", "0"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[FormalI]", ",", "0.1"}], "}"}]}], "]"}]}]}]}], "Input",
+ CellChangeTimes->{{3.745696342190474*^9, 3.7456963555284977`*^9}, {
+  3.7456968696274004`*^9, 3.745696872092205*^9}, {3.7456969103590717`*^9, 
+  3.7456969177222853`*^9}, {3.7456981741172915`*^9, 
+  3.745698187767316*^9}},ExpressionUUID->"c25ac8b5-2e0c-409f-96f8-\
+6bce7d4fb5a1"],
+
+Cell[BoxData["0.07499782494606264`"], "Output",
+ CellChangeTimes->{
+  3.745696381908144*^9, 3.7456969206706905`*^9, {3.7456981956609297`*^9, 
+   3.745698253256231*^9}},ExpressionUUID->"83d6976b-766c-4e77-bbcb-\
+03ff7398cf9a"]
+}, Open  ]],
+
+Cell["He should choose Mortgage 2.", "Text",
+ CellChangeTimes->{{3.745696388070155*^9, 
+  3.745696394965367*^9}},ExpressionUUID->"ecff766c-085d-427b-84c2-\
+3348110ed745"],
+
+Cell["\<\
+He changes his mind and wants to pay the smallest amount of total interest. \
+What are the total interest charges for each mortgage and which mortgage \
+should he now pick?\
+\>", "Item",
+ CellChangeTimes->{{3.5859788683196087`*^9, 3.585978901204608*^9}, {
+  3.5859789493610277`*^9, 3.585979060614146*^9}, {3.5860409476987886`*^9, 
+  3.586041070457426*^9}},ExpressionUUID->"17680627-9bae-489c-beef-\
+6cb0eca46a35"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"xAmortizationRecursion", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "nTime_", ",", "nInterestPaid_", ",", "nPrincipalPaid_", ",", 
+       "nBalance_", ",", "nTotalInterest_"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+      "nPayment_", ",", "nAnnualRate_", ",", "iTerm_", ",", "iFrequency_"}], 
+      "}"}]}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "thisTime", ",", "thisBal", ",", " ", "thisInt", ",", "thisPrin", ",", 
+       " ", "thisTotalInterest"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"thisTime", "=", 
+       RowBox[{"nTime", "+", " ", 
+        RowBox[{"1.", "/", "iFrequency"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"thisInt", "=", 
+       RowBox[{"nBalance", " ", 
+        RowBox[{"nAnnualRate", "/", "iFrequency"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"thisPrin", "=", 
+       RowBox[{"nPayment", "-", "thisInt"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"thisBal", "=", 
+       RowBox[{"nBalance", "-", "thisPrin"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"thisTotalInterest", "=", 
+       RowBox[{"nTotalInterest", "+", "thisInt"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+       "thisTime", ",", "thisInt", ",", "thisPrin", ",", "thisBal", ",", 
+        "thisTotalInterest"}], "}"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{
+  3.7456967165443316`*^9},ExpressionUUID->"a648daad-58d7-4c79-80bd-\
+e622de83d6f3"],
+
+Cell["Mortgage 1", "Text",
+ CellChangeTimes->{{3.745696696669897*^9, 
+  3.745696697902299*^9}},ExpressionUUID->"f6736191-f00c-47d9-b0d4-\
+793156d1b4c3"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"mnAmortization", "=", 
+   RowBox[{"NestList", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"xAmortizationRecursion", "[", 
+       RowBox[{"#", ",", 
+        RowBox[{"{", 
+         RowBox[{
+         "nPayment1", ",", "nAnnualRate1", ",", "iTerm1", ",", "iFrequency"}],
+          "}"}]}], "]"}], "&"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "nLoanAmount", ",", "0"}], "}"}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{"iTerm1", " ", "iFrequency"}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Part", "[", 
+   RowBox[{"mnAmortization", ",", " ", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"iTerm1", "*", "iFrequency"}], "+", "1"}], "}"}]}], "]"}], 
+  " "}]}], "Input",
+ CellChangeTimes->{{3.7456967693348246`*^9, 3.7456967866040545`*^9}, {
+  3.7456969345547147`*^9, 3.7456969654115686`*^9}, {3.745697800527836*^9, 
+  3.7456978008554363`*^9}, {3.745698263817449*^9, 3.745698266360254*^9}, {
+  3.7456983624408226`*^9, 3.745698371130038*^9}, {3.745698450050576*^9, 
+  3.7456984568677883`*^9}},ExpressionUUID->"99ba0353-26b1-4ce7-93ab-\
+a9d50f863bb1"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+   "29.999999999999844`", ",", "9.725930869656548`", ",", 
+    "1458.2740691303434`", ",", "3.698778527905233`*^-8", ",", 
+    "328480.00000003714`"}], "}"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.745698390708072*^9, {3.745698453342182*^9, 
+   3.745698459675793*^9}},ExpressionUUID->"d942c7a7-9ebb-4d25-a5de-\
+22c4ac4b2b8c"]
+}, Open  ]],
+
+Cell["Mortgage 2", "Text",
+ CellChangeTimes->{{3.745696979217593*^9, 
+  3.745696980449995*^9}},ExpressionUUID->"90f11059-16e0-4005-9269-\
+76401b155506"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"mnAmortization", "=", 
+   RowBox[{"NestList", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"xAmortizationRecursion", "[", 
+       RowBox[{"#", ",", 
+        RowBox[{"{", 
+         RowBox[{
+         "nPayment2", ",", "nAnnualRate2", ",", "iTerm2", ",", "iFrequency"}],
+          "}"}]}], "]"}], "&"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "nLoanAmount", ",", "0"}], "}"}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{"iTerm2", " ", "iFrequency"}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Part", "[", 
+   RowBox[{"mnAmortization", ",", " ", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"iTerm2", "*", "iFrequency"}], "+", "1"}], "}"}]}], "]"}], 
+  " "}]}], "Input",
+ CellChangeTimes->{{3.7456969900128117`*^9, 3.7456970024616337`*^9}, {
+  3.7456978028366394`*^9, 3.74569780307064*^9}, {3.7456982715706625`*^9, 
+  3.745698272709465*^9}, {3.745698374702444*^9, 
+  3.7456983807396545`*^9}},ExpressionUUID->"21ea38f7-bea5-4d1e-88f1-\
+a5fc1ee69e78"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+   "15.000000000000037`", ",", "11.51519606607852`", ",", 
+    "1842.4848039339215`", ",", "2.3006805349723436`*^-8", ",", 
+    "133720.00000002293`"}], "}"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.745698483887036*^9},ExpressionUUID->"989e193b-283f-44d8-a83a-\
+8d3c92aef0ac"]
+}, Open  ]],
+
+Cell["\<\
+328480 total interest paid on mortgage 1. 133720 total interest paid on \
+mortgage 2. He should choose mortgage 2.\
+\>", "Text",
+ CellChangeTimes->{{3.745698497037859*^9, 
+  3.745698524852708*^9}},ExpressionUUID->"12782040-a59e-421d-9700-\
+d500b1af895a"],
+
+Cell[BoxData[""], "Input",ExpressionUUID->"dc45d837-69d5-44a2-ab04-55da2f3c6299"],
+
+Cell[BoxData[""], "Input",ExpressionUUID->"3e28e0dd-d76e-4ba8-aef3-389339a55d94"],
+
+Cell[BoxData[""], "Input",ExpressionUUID->"6ecdf058-ad56-4cc9-baa1-45968c77ba3b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 9", "Section",
+ CellChangeTimes->{{3.5859790655175133`*^9, 3.585979070968327*^9}, {
+  3.586471213181615*^9, 3.5864712141257343`*^9}, {3.586723585283887*^9, 
+  3.586723606008223*^9}, {3.6843520555644073`*^9, 3.684352055772204*^9}, {
+  3.713707184146028*^9, 
+  3.7137071857355547`*^9}},ExpressionUUID->"e7946cf1-59eb-433c-b13f-\
+5610f4b9264e"],
+
+Cell["\<\
+Meg has the opportunity to purchase bond A at origination for $98,930. The \
+bond\[CloseCurlyQuote]s term is 10 years and pays semi-annual interest based \
+on a nominal rate of 3.5%. She needs to invest the money for 5 years after \
+which she wants to sell the bonds and put the funds towards the purchase of a \
+house. She chose a 10-year bond to secure a higher interest rate.\
+\>", "Text",
+ CellChangeTimes->{{3.585979181491673*^9, 3.585979280857985*^9}, {
+  3.58597933207726*^9, 3.58597933563678*^9}, {3.58597955320887*^9, 
+  3.585979557544586*^9}, {3.5859799777711163`*^9, 3.585979979202032*^9}, {
+  3.586040770542799*^9, 3.586040914029759*^9}, {3.586041192545724*^9, 
+  3.586041208864834*^9}, {3.713707099080557*^9, 
+  3.7137070993045473`*^9}},ExpressionUUID->"67c2fece-a3fd-4291-9b7e-\
+50add6cc093d"],
+
+Cell["What is bond A\[CloseCurlyQuote]s yield?", "Item",
+ CellChangeTimes->{{3.585979353291295*^9, 3.5859793669311123`*^9}, {
+  3.585979459929224*^9, 3.5859794599298983`*^9}, {3.585979562783865*^9, 
+  3.585979564815619*^9}, {3.586041259526226*^9, 
+  3.586041260126252*^9}},ExpressionUUID->"b23a3c57-35b3-4b11-aaab-\
+89b74802012e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"nInterestRate", " ", "=", " ", 
+  RowBox[{"\[FormalY]", "/.", 
+   RowBox[{"FindRoot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"FinancialBond", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"\"\<Coupon\>\"", "\[Rule]", "0.035"}], ",", 
+          RowBox[{"\"\<FaceValue\>\"", "\[Rule]", "100000"}], ",", 
+          RowBox[{"\"\<Maturity\>\"", "\[Rule]", "10"}], ",", 
+          RowBox[{"\"\<CouponInterval\>\"", "\[Rule]", 
+           FractionBox["1", "2"]}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"\"\<InterestRate\>\"", "\[Rule]", "\[FormalY]"}], ",", 
+          RowBox[{"\"\<Settlement\>\"", "\[Rule]", "0"}]}], "}"}]}], "]"}], 
+      "\[Equal]", "98930"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[FormalY]", ",", ".05"}], "}"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.745698987892721*^9, 3.745699007330355*^9}, {
+  3.745699211631034*^9, 3.745699212208235*^9}, {3.7456992824087367`*^9, 
+  3.745699282611537*^9}, {3.745699355759466*^9, 3.7456994195374093`*^9}, {
+  3.74569949322974*^9, 3.7456994940721416`*^9}, {3.74569990693055*^9, 
+  3.745699907476551*^9}, {3.7456999657413044`*^9, 
+  3.7456999663653054`*^9}},ExpressionUUID->"1b796ef7-7bb4-4499-b186-\
+d170129563ca"],
+
+Cell[BoxData["0.03628541396334627`"], "Output",
+ CellChangeTimes->{{3.745699902903743*^9, 3.7456999098477554`*^9}, 
+   3.7457000850839148`*^9},ExpressionUUID->"c6b3d007-8751-4e2e-8bde-\
+e6551c752acc"]
+}, Open  ]],
+
+Cell["\<\
+Another bond B is offered for sale with the same characteristics except the \
+coupon rate is 3.75%. How would the market price bond B?\
+\>", "Item",
+ CellChangeTimes->{{3.585979353291295*^9, 3.5859793669311123`*^9}, {
+   3.585979459929224*^9, 3.5859795268675127`*^9}, {3.585979568687635*^9, 
+   3.585979579758504*^9}, 
+   3.713707086906725*^9},ExpressionUUID->"8362c81a-317a-4cfa-9c70-\
+26fa310c2182"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FinancialBond", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"\"\<Coupon\>\"", "\[Rule]", "0.0375"}], ",", 
+     RowBox[{"\"\<FaceValue\>\"", "\[Rule]", "100000"}], ",", 
+     RowBox[{"\"\<Maturity\>\"", "\[Rule]", "10"}], ",", 
+     RowBox[{"\"\<CouponInterval\>\"", "\[Rule]", 
+      FractionBox["1", "2"]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"\"\<InterestRate\>\"", "\[Rule]", "nInterestRate"}], ",", 
+     RowBox[{"\"\<Settlement\>\"", "\[Rule]", "0"}]}], "}"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7456993082131824`*^9, 3.7456993349158297`*^9}, {
+  3.7457000163205934`*^9, 3.7457000241382074`*^9}, {3.745700101850345*^9, 
+  3.745700102271546*^9}},ExpressionUUID->"101e5ec4-691d-4233-ac9f-\
+ffaa51de1415"],
+
+Cell[BoxData["101011.04165372245`"], "Output",
+ CellChangeTimes->{
+  3.7457001168127713`*^9},ExpressionUUID->"a1d137ad-d2b4-491f-9e1a-\
+9ddc3eb920bf"]
+}, Open  ]],
+
+Cell["\<\
+Meg is concerned that yields are at all time lows and is concerned that they \
+will rise in the future. If the long term average yield for 5-year bonds is \
+4.75%, then how would the prices of bonds A and B be affected when Meg is \
+ready to sell them?\
+\>", "Item",
+ CellChangeTimes->{{3.585979353291295*^9, 3.585979419453251*^9}, {
+  3.585979586741778*^9, 3.5859796389212093`*^9}, {3.5860412742705936`*^9, 
+  3.586041306906507*^9}, {3.7137070896810703`*^9, 
+  3.713707094464631*^9}},ExpressionUUID->"5e802c26-5e15-449f-a35f-\
+d76f026dec05"],
+
+Cell[BoxData[""], "Input",ExpressionUUID->"712b0e11-2f41-4ada-9759-871e744d8e45"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 10", "Section",
+ CellChangeTimes->{{3.5859798394147778`*^9, 3.5859798475526133`*^9}, {
+  3.586471217253264*^9, 3.586471218197472*^9}, {3.586723588042036*^9, 
+  3.586723609924955*^9}, {3.6843520589562674`*^9, 3.684352059108173*^9}, {
+  3.7137071902016363`*^9, 
+  3.713707191686944*^9}},ExpressionUUID->"cc7d95ea-667b-4396-b1a0-\
+e7bcccfc9d8b"],
+
+Cell["\<\
+Ten years ago Sarah purchased her house and took out a mortgage for $150,000. \
+The term of the mortgage was 30-years with monthly payments at an interest \
+rate of 5.6%. She is selling the house and will use a portion of her proceeds \
+to pay off the mortgage.\
+\>", "Text",
+ CellChangeTimes->{{3.585979862997444*^9, 3.585979964107278*^9}, {
+   3.585979996376313*^9, 3.5859800553309917`*^9}, 3.5860406864105988`*^9, 
+   3.713707082049761*^9},ExpressionUUID->"01e39aff-9a40-4953-b960-\
+4fd1587f74a5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nLoanAmount", "=", "150000"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"iFrequency", "=", "12"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"iTerm", "=", "30"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nAnnualRate", "=", "0.056"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"nPayment", "=", 
+  RowBox[{"\[FormalP]", "/.", 
+   RowBox[{"FindRoot", "[", 
+    RowBox[{
+     RowBox[{"nLoanAmount", "\[Equal]", 
+      RowBox[{"TimeValue", "[", 
+       RowBox[{
+        RowBox[{"Annuity", "[", 
+         RowBox[{"\[FormalP]", ",", "iTerm", ",", 
+          RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", 
+        RowBox[{"EffectiveInterest", "[", 
+         RowBox[{"nAnnualRate", ",", 
+          RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", "0"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[FormalP]", ",", 
+       RowBox[{"nLoanAmount", "*", 
+        RowBox[{"nAnnualRate", "/", "iFrequency"}]}]}], "}"}]}], 
+    "]"}]}]}]}], "Input",
+ CellChangeTimes->{{3.7457006929134293`*^9, 3.745700745095521*^9}, {
+  3.7457008136732416`*^9, 3.7457008598025227`*^9}, {3.745701415085498*^9, 
+  3.7457014153038983`*^9}, {3.7457014928984346`*^9, 
+  3.745701494396037*^9}},ExpressionUUID->"2e92e7a2-91a4-4f44-8765-\
+f4481df8cbbf"],
+
+Cell[BoxData["861.1184709619622`"], "Output",
+ CellChangeTimes->{
+  3.7457015018996506`*^9},ExpressionUUID->"18b4dea0-ad12-4b15-a9b4-\
+6f904465349f"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"xAmortizationRecursion", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "nTime_", ",", "nInterestPaid_", ",", "nPrincipalPaid_", ",", 
+       "nBalance_", ",", "nTotalInterest_"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+      "nPayment_", ",", "nAnnualRate_", ",", "iTerm_", ",", "iFrequency_"}], 
+      "}"}]}], "\[IndentingNewLine]", "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "thisTime", ",", "thisBal", ",", " ", "thisInt", ",", "thisPrin", ",", 
+       " ", "thisTotalInterest"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"thisTime", "=", 
+       RowBox[{"nTime", "+", " ", 
+        RowBox[{"1.", "/", "iFrequency"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"thisInt", "=", 
+       RowBox[{"nBalance", " ", 
+        RowBox[{"nAnnualRate", "/", "iFrequency"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"thisPrin", "=", 
+       RowBox[{"nPayment", "-", "thisInt"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"thisBal", "=", 
+       RowBox[{"nBalance", "-", "thisPrin"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"thisTotalInterest", "=", 
+       RowBox[{"nTotalInterest", "+", "thisInt"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{
+       "thisTime", ",", "thisInt", ",", "thisPrin", ",", "thisBal", ",", 
+        "thisTotalInterest"}], "}"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"mnAmortization", "=", 
+   RowBox[{"NestList", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"xAmortizationRecursion", "[", 
+       RowBox[{"#", ",", 
+        RowBox[{"{", 
+         RowBox[{
+         "nPayment", ",", "nAnnualRate", ",", "iTerm", ",", "iFrequency"}], 
+         "}"}]}], "]"}], "&"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "nLoanAmount", ",", "0"}], "}"}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{"iTerm1", " ", "iFrequency"}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{3.745701504988456*^9, 
+  3.7457015580441494`*^9},ExpressionUUID->"78a0845a-6a12-425c-a000-\
+4164bb5a315d"],
+
+Cell["\<\
+What is the principal balance on the mortgage that must be paid off?\
+\>", "Item",
+ CellChangeTimes->{{3.585980069441759*^9, 
+  3.585980090272653*^9}},ExpressionUUID->"57630e36-4e7e-45d6-b964-\
+9fceca417a53"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Part", "[", 
+  RowBox[{"mnAmortization", ",", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"10", "*", "iFrequency"}], "+", "1"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.745701576982582*^9, 
+  3.745701589197404*^9}},ExpressionUUID->"4215ded4-6f82-4329-b2f9-\
+9286ebde8e96"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+   "10.000000000000002`", ",", "580.728465217169`", ",", 
+    "280.39000574479326`", ",", "124161.42396936286`", ",", 
+    "77495.64048479829`"}], "}"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.7457016003046236`*^9},ExpressionUUID->"3981d9f7-8263-49f1-a6a3-\
+086c3590c967"]
+}, Open  ]],
+
+Cell["The remaining principal balance is 124161.", "Text",
+ CellChangeTimes->{{3.7457016390082912`*^9, 
+  3.7457016465431046`*^9}},ExpressionUUID->"6c714835-ace2-4741-9b51-\
+91988b54db25"],
+
+Cell["\<\
+How much total interest has been paid by Sarah over the past 10 years?\
+\>", "Item",
+ CellChangeTimes->{{3.585980069441759*^9, 
+  3.585980115941477*^9}},ExpressionUUID->"9ffb86fe-cbc6-4c84-aadb-\
+0cb2ccae7980"],
+
+Cell["The total interest paid over the past 10 years is 77495.6.", "Text",
+ CellChangeTimes->{{3.7457016703175464`*^9, 
+  3.7457016852779727`*^9}},ExpressionUUID->"235fa50a-c0f5-4a09-84ab-\
+0e2544cc2f94"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 11", "Section",
+ CellChangeTimes->{{3.586041393100911*^9, 3.586041396941029*^9}, {
+  3.586471222005102*^9, 3.586471222796914*^9}, {3.586723591673661*^9, 
+  3.586723613904097*^9}, {3.684352061732089*^9, 3.684352061908176*^9}, {
+  3.713707197273486*^9, 
+  3.713707198951021*^9}},ExpressionUUID->"e2bb8b50-27a2-42e6-b052-\
+0cbe4240edd5"],
+
+Cell["\<\
+Joe purchases a new car every 4 years, paying $25,000 (assume there is no \
+inflation). He can put away money each month into a saving account which pays \
+interest at the rate of 4% compounded monthly and needs to know what his \
+monthly savings payment must be so that he has $25,000 in the account after 4 \
+years. Alternately, he can fund the purchase price of $25,000 with a loan \
+with a term of 4 years with monthly payments based on an interest rate of 6%.\
+\
+\>", "Text",
+ CellChangeTimes->{{3.586041400299851*^9, 3.586041481548451*^9}, {
+   3.586041519065197*^9, 3.586041757677496*^9}, {3.58604188309416*^9, 
+   3.586041883941867*^9}, 3.586046060676221*^9, {3.7137070621312447`*^9, 
+   3.713707062945518*^9}},ExpressionUUID->"2178cc1c-12fc-4749-84c6-\
+9caff528dabe"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nLoanAmount", "=", "25000"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"iTerm", "=", "4"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"iFrequency", "=", "12"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.74570186024788*^9, 3.745701923490391*^9}, 
+   3.7457023261582985`*^9, {3.7457024028168325`*^9, 3.745702404376836*^9}, {
+   3.7457026594636664`*^9, 3.7457026608988686`*^9}, {3.7457027008355427`*^9, 
+   3.7457027026139455`*^9}},ExpressionUUID->"e2207c33-9319-4c5e-a6d9-\
+964c982a828f"],
+
+Cell["\<\
+How much must Joe save each month if he decides to save for the purchase of \
+the car?\
+\>", "Item",
+ CellChangeTimes->{{3.586041902401648*^9, 3.586041938818928*^9}, {
+  3.586042030667214*^9, 3.586042065120122*^9}, {3.71370706725069*^9, 
+  3.713707068057996*^9}},ExpressionUUID->"34b7d87c-6429-4f64-9d13-\
+36e29959f7bd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nSavingsRate", "=", "0.04"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"FindRoot", "[", 
+  RowBox[{
+   RowBox[{"nLoanAmount", "\[Equal]", 
+    RowBox[{"TimeValue", "[", 
+     RowBox[{
+      RowBox[{"Annuity", "[", 
+       RowBox[{"\[FormalP]", ",", "iTerm", ",", 
+        RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", 
+      RowBox[{"EffectiveInterest", "[", 
+       RowBox[{"nSavingsRate", ",", 
+        RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", "iTerm"}], "]"}]}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{"\[FormalP]", ",", 
+     RowBox[{"nLoanAmount", "*", 
+      RowBox[{"nAnnualRate", "/", "iFrequency"}]}]}], "}"}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.7457019499012375`*^9, 3.7457019599944553`*^9}, {
+   3.7457021499091887`*^9, 3.745702239858947*^9}, {3.7457023529435453`*^9, 
+   3.7457023543631477`*^9}, 3.7457024082924423`*^9, 3.745702559391887*^9, 
+   3.745702604655369*^9, 3.7457026668288794`*^9, {3.7457027071379538`*^9, 
+   3.7457027167943707`*^9}, 
+   3.7457029631804104`*^9},ExpressionUUID->"4c2a0c27-aece-43fa-ba15-\
+6219f6d31572"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\[FormalP]", "\[Rule]", "481.14303270891304`"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.7457022545697727`*^9, {3.7457023314311075`*^9, 3.7457023571243525`*^9}, {
+   3.745702411568448*^9, 3.7457024278548765`*^9}, {3.745702563930896*^9, 
+   3.7457025671445017`*^9}, 3.745702734192401*^9, {3.74570284051939*^9, 
+   3.7457028423445935`*^9}, {3.74570302986973*^9, 
+   3.745703042911353*^9}},ExpressionUUID->"0f6d487d-e26e-48b7-b17a-\
+d4b1cbedecfb"]
+}, Open  ]],
+
+Cell["\<\
+What is the monthly loan payment if Joe decides to borrow the money for the \
+purchase of the car?\
+\>", "Item",
+ CellChangeTimes->{{3.586041902401648*^9, 3.586041968664239*^9}, 
+   3.586042072990613*^9, {3.7137070707310877`*^9, 3.713707071432933*^9}, {
+   3.7457028994480953`*^9, 
+   3.7457028994480953`*^9}},ExpressionUUID->"9c29605e-608a-4ccc-b423-\
+4f8feeb746f7"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nAnnualRate", "=", "0.06"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"nPayment", "=", 
+  RowBox[{"\[FormalP]", "/.", 
+   RowBox[{"FindRoot", "[", 
+    RowBox[{
+     RowBox[{"nLoanAmount", "\[Equal]", 
+      RowBox[{"TimeValue", "[", 
+       RowBox[{
+        RowBox[{"Annuity", "[", 
+         RowBox[{"\[FormalP]", ",", "iTerm", ",", 
+          RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", 
+        RowBox[{"EffectiveInterest", "[", 
+         RowBox[{"nAnnualRate", ",", 
+          RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", "0"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\[FormalP]", ",", 
+       RowBox[{"nLoanAmount", "*", 
+        RowBox[{"nAnnualRate", "/", "iFrequency"}]}]}], "}"}]}], 
+    "]"}]}]}]}], "Input",
+ CellChangeTimes->{
+  3.745702396561222*^9, 3.7457024536885223`*^9, {3.7457026883691206`*^9, 
+   3.7457026906311245`*^9}, {3.745702902452702*^9, 3.745702908148712*^9}, {
+   3.7457030014098787`*^9, 
+   3.745703015106703*^9}},ExpressionUUID->"9adca27d-dd03-4859-a555-\
+3a368e78e90c"],
+
+Cell[BoxData["587.125726198409`"], "Output",
+ CellChangeTimes->{{3.745702980455641*^9, 3.7457029829828453`*^9}, 
+   3.7457030487019634`*^9},ExpressionUUID->"5bc1026a-718f-4a8d-8907-\
+61bbe079c441"]
+}, Open  ]],
+
+Cell["\<\
+If Joe decides to save each month the same amount he would have had to pay \
+for the loan, how much would he have left over when he purchased the car \
+after 4 years of saving?\
+\>", "Item",
+ CellChangeTimes->{{3.586041902401648*^9, 3.586041968663053*^9}, {
+  3.586042084393153*^9, 3.586042181829925*^9}, {3.586046113674018*^9, 
+  3.586046116825715*^9}, {3.713707076514043*^9, 
+  3.7137070773373013`*^9}},ExpressionUUID->"b6d614e0-abca-4edb-a226-\
+0255cfd3e3cf"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"TimeValue", "[", 
+   RowBox[{
+    RowBox[{"Annuity", "[", 
+     RowBox[{"nPayment", ",", "iTerm", ",", 
+      RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", 
+    RowBox[{"EffectiveInterest", "[", 
+     RowBox[{"nSavingsRate", ",", 
+      RowBox[{"1", "/", "iFrequency"}]}], "]"}], ",", "iTerm"}], "]"}], "-", 
+  "nLoanAmount"}]], "Input",
+ CellChangeTimes->{{3.74570306377559*^9, 3.7457031429205294`*^9}, {
+  3.745703181830799*^9, 
+  3.745703183112002*^9}},ExpressionUUID->"716a7c1e-8f64-43d5-9e64-\
+bfe1c6a1cb03"],
+
+Cell[BoxData["5506.818465851884`"], "Output",
+ CellChangeTimes->{
+  3.7457031917700167`*^9},ExpressionUUID->"fa03b87e-db8d-4beb-b076-\
+5e6248530597"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 12", "Section",
+ CellChangeTimes->{{3.586042383764511*^9, 3.586042389822274*^9}, {
+  3.586471226172426*^9, 3.586471227036387*^9}, {3.586723617375483*^9, 
+  3.586723623830784*^9}, {3.684352065340062*^9, 3.684352065540318*^9}, {
+  3.713707202873521*^9, 
+  3.713707204478593*^9}},ExpressionUUID->"0bc996de-8fb9-4b39-bf54-\
+5b45170d4fba"],
+
+Cell["\<\
+Consider two investments, both of which require an initial investment of \
+$12,500. The first, A, pays a steady cashflow over the next 4 years. The \
+second, B, pays a gradually increasing cashflow over the same period. These \
+cash-flows are summarized in the table below:\
+\>", "Text",
+ CellChangeTimes->{{3.586043572764669*^9, 3.586043684307403*^9}, {
+   3.586045264719255*^9, 3.586045319419024*^9}, 
+   3.745089008546891*^9},ExpressionUUID->"443910e7-f31f-469b-84ea-\
+bec757b6b9a8"],
+
+Cell[TextData[Cell[BoxData[GridBox[{
+   {
+    StyleBox["\[Null]",
+     ShowStringCharacters->False], 
+    TagBox["0",
+     HoldForm], 
+    TagBox["1",
+     HoldForm], 
+    TagBox["2",
+     HoldForm], 
+    TagBox["3",
+     HoldForm], 
+    TagBox["4",
+     HoldForm]},
+   {
+    TagBox["A",
+     HoldForm], 
+    RowBox[{"-", "12500"}], "4000", "4000", "4000", "4000"},
+   {
+    TagBox["B",
+     HoldForm], 
+    RowBox[{"-", "12500"}], 
+    RowBox[{"       ", "0"}], "2500", "6000", "8500"}
+  },
+  GridBoxAlignment->{
+   "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+    "RowsIndexed" -> {}},
+  GridBoxDividers->{
+   "Columns" -> {False, True, {False}, False}, "ColumnsIndexed" -> {}, 
+    "Rows" -> {False, True, {False}, False}, "RowsIndexed" -> {}},
+  GridBoxSpacings->{"Columns" -> {
+      Offset[0.27999999999999997`], {
+       Offset[2.0999999999999996`]}, 
+      Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+      Offset[0.2], {
+       Offset[0.4]}, 
+      Offset[0.2]}, "RowsIndexed" -> {}}]],
+ CellChangeTimes->{
+  3.586043420085034*^9},ExpressionUUID->"3d4e856c-8e71-4d3d-8c1c-\
+ed26e42dcdf6"]], "Text",
+ CellChangeTimes->{{3.586043436985777*^9, 3.586043457717173*^9}, {
+  3.586043492212434*^9, 3.586043502580657*^9}, {3.586045191988339*^9, 
+  3.5860452008424664`*^9}},
+ TextAlignment->Center,ExpressionUUID->"98550357-1299-465d-bc50-fe8b1bc5e33d"],
+
+Cell["\<\
+You need to make an investment decision. Assume annual compounding for your \
+calculations. \
+\>", "Text",
+ CellChangeTimes->{
+  3.586045325661447*^9},ExpressionUUID->"59564f53-a53f-4043-bbe2-\
+751b56476aaa"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+An investment is viable if it has a positive IRR. You decide to pick the \
+viable investment with the largest IRR, but if neither IRR is positive you \
+will hold onto your $12,500. \
+\>", "Item",
+ CellChangeTimes->{{3.586044417961466*^9, 3.58604445755732*^9}, {
+  3.586045351052182*^9, 
+  3.5860454124225063`*^9}},ExpressionUUID->"47257819-5dbb-45f3-b33e-\
+247f6269766d"],
+
+Cell["\<\
+Determine the viability of each investment in terms of its IRR.\
+\>", "Subitem",
+ CellChangeTimes->{{3.586044417961466*^9, 3.58604445755732*^9}, {
+   3.586045351052182*^9, 3.586045412421536*^9}, {3.586045460979187*^9, 
+   3.5860454663130207`*^9}, 3.7137070441157093`*^9, {3.7457125087774105`*^9, 
+   3.7457125087774105`*^9}},ExpressionUUID->"016e9fe5-221d-4a99-861c-\
+255cdcf02287"]
+}, Open  ]],
+
+Cell["Investment A", "Text",
+ CellChangeTimes->{{3.745712527029443*^9, 
+  3.745712528745446*^9}},ExpressionUUID->"709bd738-086d-4cce-8e4e-\
+42efdfb464ba"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FindRoot", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"TimeValue", "[", 
+     RowBox[{
+      RowBox[{"Annuity", "[", 
+       RowBox[{"4000", ",", "4"}], "]"}], ",", "\[FormalR]", ",", "0"}], 
+     "]"}], "\[Equal]", "12500"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\[FormalR]", ",", ".05"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.745712535640658*^9, 3.7457126064647827`*^9}, {
+  3.74571266189168*^9, 3.7457126749177027`*^9}, {3.745712706289358*^9, 
+  3.7457127357578096`*^9}, {3.745712872164449*^9, 
+  3.745712900572099*^9}},ExpressionUUID->"c3c97366-1bc4-44bd-af6c-\
+1abd5798362a"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\[FormalR]", "\[Rule]", "0.10661525730354651`"}], "}"}]], "Output",\
+
+ CellChangeTimes->{{3.7457127101737647`*^9, 3.7457127402662177`*^9}, 
+   3.745713034513934*^9},ExpressionUUID->"171e0531-2f22-4a01-834d-\
+1c2c1709c402"]
+}, Open  ]],
+
+Cell["Investment B", "Text",
+ CellChangeTimes->{{3.745713042688349*^9, 
+  3.7457130439987507`*^9}},ExpressionUUID->"d75e0738-452c-4d90-9bf4-\
+b4b690394f81"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FindRoot", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"TimeValue", "[", 
+     RowBox[{
+      RowBox[{"Cashflow", "[", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "2500", ",", "6000", ",", "8500"}], "}"}],
+        "]"}], ",", "\[FormalR]", ",", "0"}], "]"}], "\[Equal]", "12500"}], 
+   ",", 
+   RowBox[{"{", 
+    RowBox[{"\[FormalR]", ",", ".05"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7457127727766743`*^9, 
+  3.74571283275878*^9}},ExpressionUUID->"4d4d0bc6-77ea-4fad-8fbf-\
+f761ab9a90ff"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\[FormalR]", "\[Rule]", "0.09678179547081421`"}], "}"}]], "Output",\
+
+ CellChangeTimes->{3.7457128287495728`*^9, 
+  3.7457130374155397`*^9},ExpressionUUID->"8c09f6a3-2763-4651-9a40-\
+a21c3fcbd6ca"]
+}, Open  ]],
+
+Cell["\<\
+What is your investment decision on an IRR basis: do not invest, invest in A, \
+or invest in B?\
+\>", "Subitem",
+ CellChangeTimes->{{3.586044417961466*^9, 3.586044457555867*^9}, {
+  3.586044492715687*^9, 3.586044686267665*^9}, {3.586044790937256*^9, 
+  3.586044818302574*^9}, {3.586045443764134*^9, 
+  3.586045445314744*^9}},ExpressionUUID->"973b917d-c976-4f48-a314-\
+4b5cffbbd413"],
+
+Cell["\<\
+Both investment have positive IRR but A is higher. Choose investment A.\
+\>", "Text",
+ CellChangeTimes->{{3.7457130533587675`*^9, 3.7457130561511726`*^9}, {
+  3.745713526347206*^9, 
+  3.7457135365340233`*^9}},ExpressionUUID->"3c430c59-dc4f-4328-9861-\
+9b5d42b48eb0"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Alternately, you have a threshold rate of return of 7% that you use to \
+evaluate investment opportunities. An investment is considered viable if its \
+PV is positive. You decide to pick the viable investment with the highest PV, \
+but if neither is viable you will hold onto your $12,500.\
+\>", "Item",
+ CellChangeTimes->{{3.586044417961466*^9, 3.586044457555867*^9}, {
+  3.586044492715687*^9, 3.586044639707508*^9}, {3.586044996497514*^9, 
+  3.586045008456459*^9}, {3.586045086489648*^9, 3.586045128583138*^9}, {
+  3.713707036411291*^9, 
+  3.713707048668028*^9}},ExpressionUUID->"45a87470-1bee-4c34-b971-\
+5281eda2c51e"],
+
+Cell["\<\
+Determine the viability of each investment in terms of its PV.\
+\>", "Subitem",
+ CellChangeTimes->{{3.586044417961466*^9, 3.586044457555867*^9}, {
+   3.586044492715687*^9, 3.586044686269588*^9}, 3.5860450231096373`*^9, 
+   3.713707051946837*^9},ExpressionUUID->"f760b5d8-c17a-467a-9d17-\
+b55f0023450b"]
+}, Open  ]],
+
+Cell["Investment A", "Text",
+ CellChangeTimes->{{3.745713339318477*^9, 
+  3.745713340504079*^9}},ExpressionUUID->"e63aa7be-03c9-4431-9867-\
+1b7d3d2d8b25"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TimeValue", "[", 
+  RowBox[{
+   RowBox[{"Annuity", "[", 
+    RowBox[{"4000", ",", "4"}], "]"}], ",", "0.07", ",", "0"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7457133480076923`*^9, 
+  3.7457133611429157`*^9}},ExpressionUUID->"87c9a8f4-db02-4e09-8344-\
+20547c8ed023"],
+
+Cell[BoxData["13548.845025855702`"], "Output",
+ CellChangeTimes->{
+  3.7457133645437217`*^9},ExpressionUUID->"3bc5febd-c183-437d-b7ce-\
+db2d03b486e2"]
+}, Open  ]],
+
+Cell["Investment B", "Text",
+ CellChangeTimes->{{3.745713388630164*^9, 
+  3.7457133905801673`*^9}},ExpressionUUID->"9a038bf2-5d92-40ac-8134-\
+ee04c760cf82"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TimeValue", "[", 
+  RowBox[{
+   RowBox[{"Cashflow", "[", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0", ",", "2500", ",", "6000", ",", "8500"}], "}"}], 
+    "]"}], ",", "0.07", ",", "0"}], "]"}]], "Input",
+ CellChangeTimes->{{3.7457134008293853`*^9, 
+  3.7457134064453955`*^9}},ExpressionUUID->"c03837f6-091f-4508-bb4d-\
+b5eb1a4f7f9c"],
+
+Cell[BoxData["13565.993384432104`"], "Output",
+ CellChangeTimes->{
+  3.745713409861801*^9},ExpressionUUID->"6b8c72a6-1a5a-4d84-ac1e-\
+af1f12ae74da"]
+}, Open  ]],
+
+Cell["\<\
+What is your investment decision on a PV basis: do not invest, invest in A, \
+or invest in B?\
+\>", "Subitem",
+ CellChangeTimes->{{3.586044417961466*^9, 3.586044457555867*^9}, {
+  3.586044492715687*^9, 3.586044686267665*^9}, {3.586044790937256*^9, 
+  3.586044818302574*^9}},ExpressionUUID->"282e199a-fb1e-49ce-b2a3-\
+a5409003e498"],
+
+Cell["\<\
+At 7% interest, both investments have PV higher than 12500. Investment B has \
+a slightly higher PV than A so choose Investment B.\
+\>", "Text",
+ CellChangeTimes->{{3.7457134293462353`*^9, 3.7457135227435994`*^9}, {
+  3.745713643144611*^9, 
+  3.745713663549447*^9}},ExpressionUUID->"1ae74130-86a0-4d52-a86d-\
+a7d944ee1f17"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowToolbars->{},
+WindowSize->{1070, 906},
+WindowMargins->{{5, Automatic}, {Automatic, 11}},
+Magnification:>1.25 Inherited,
+FrontEndVersion->"11.2 for Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"Stony Brook.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 656, 9, 196, "Title",ExpressionUUID->"90760aba-34d5-4763-bf77-c0c84de4f858"],
+Cell[1238, 33, 1589, 22, 66, "Subtitle",ExpressionUUID->"593a6220-5a3f-4969-ad72-09d30caad2c7"],
+Cell[2830, 57, 454, 11, 143, "Subsubtitle",ExpressionUUID->"db008c75-0c1d-41e1-9381-8b2e6d4f8488"],
+Cell[CellGroupData[{
+Cell[3309, 72, 154, 3, 83, "Section",ExpressionUUID->"29e36953-4361-4d80-8866-177f7372c361"],
+Cell[3466, 77, 221, 5, 38, "Text",ExpressionUUID->"4643bf28-d517-4fa3-b723-b5880f591b96"],
+Cell[3690, 84, 515, 9, 36, "Item",ExpressionUUID->"187141fb-bd96-458f-97dd-78de922b0577"],
+Cell[CellGroupData[{
+Cell[4230, 97, 616, 11, 35, "Input",ExpressionUUID->"2394b740-1f14-4241-87b4-537974e2ae06"],
+Cell[4849, 110, 328, 7, 40, "Output",ExpressionUUID->"fc33df48-62da-4073-9298-a9a67338c952"]
+}, Open  ]],
+Cell[5192, 120, 182, 3, 36, "Item",ExpressionUUID->"dd73d0c9-c1f9-410f-82fa-ed8e4c705f05"],
+Cell[CellGroupData[{
+Cell[5399, 127, 311, 7, 35, "Input",ExpressionUUID->"df0d3105-b950-434b-aaaa-05ff18936efd"],
+Cell[5713, 136, 176, 3, 40, "Output",ExpressionUUID->"fa027d9a-b23f-4a62-8dc6-71d86557bbb7"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5938, 145, 203, 4, 83, "Section",ExpressionUUID->"dbd53e70-7280-4844-ba38-605610b8c0d2"],
+Cell[6144, 151, 213, 5, 38, "Text",ExpressionUUID->"752f3b7b-0964-4a12-b288-0e60212962b5"],
+Cell[6360, 158, 187, 3, 36, "Item",ExpressionUUID->"78905f55-a1e5-4a34-9208-7caef66e439f"],
+Cell[CellGroupData[{
+Cell[6572, 165, 304, 7, 35, "Input",ExpressionUUID->"25b162a5-a3c4-44df-8bda-e7617b3a4a7d"],
+Cell[6879, 174, 176, 3, 40, "Output",ExpressionUUID->"aa0b0319-86a8-4c6e-b4e3-1cb29f350f03"]
+}, Open  ]],
+Cell[7070, 180, 165, 3, 36, "Item",ExpressionUUID->"d1c35f9f-35ff-4764-84be-a1ea11a2947c"],
+Cell[CellGroupData[{
+Cell[7260, 187, 252, 6, 35, "Input",ExpressionUUID->"a078b6e3-3803-4aa0-8385-23e7d9fa07fd"],
+Cell[7515, 195, 148, 3, 40, "Output",ExpressionUUID->"ee2684cb-c581-43f8-b592-04e74877ec67"]
+}, Open  ]],
+Cell[7678, 201, 219, 4, 36, "Item",ExpressionUUID->"a24e05fa-e70a-469c-ad1d-66d93d5251f0"],
+Cell[CellGroupData[{
+Cell[7922, 209, 255, 6, 35, "Input",ExpressionUUID->"296248cc-a58c-4da8-b52e-f458aeb52d1f"],
+Cell[8180, 217, 149, 3, 40, "Output",ExpressionUUID->"0ebc1958-39a5-4b0b-a479-29f847c38cac"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8378, 226, 175, 3, 83, "Section",ExpressionUUID->"c2be1b5f-6763-4d3a-82fa-57727e0d1724"],
+Cell[8556, 231, 626, 11, 110, "Text",ExpressionUUID->"02f19394-7de6-4c26-8ff0-cd19653c4dbd"],
+Cell[9185, 244, 1856, 55, 134, "Text",ExpressionUUID->"8aeca668-b5b3-4cc2-92fc-59459ccff667"],
+Cell[11044, 301, 453, 8, 86, "Text",ExpressionUUID->"645030b0-66eb-413a-b53b-a36f4a01ff09"],
+Cell[CellGroupData[{
+Cell[11522, 313, 1084, 22, 38, "Input",ExpressionUUID->"b2888260-27fd-44ab-bf53-7db149ec7a0a"],
+Cell[12609, 337, 459, 10, 40, "Output",ExpressionUUID->"e15481d9-a279-4265-9adc-f366d1e461ec"]
+}, Open  ]],
+Cell[13083, 350, 179, 3, 38, "Text",ExpressionUUID->"b9ff6c92-3858-4c56-9844-4a996e3b6090"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13299, 358, 206, 4, 83, "Section",ExpressionUUID->"18a09e30-04b1-47c7-b0b3-8d0e5a9a5502"],
+Cell[13508, 364, 600, 10, 86, "Text",ExpressionUUID->"3724db6c-d5c3-4bf1-a7c7-a9fda4004048"],
+Cell[14111, 376, 1343, 34, 61, "Text",ExpressionUUID->"5c1b7248-d770-4ca5-975e-d5a51c7ab3d8"],
+Cell[15457, 412, 218, 4, 38, "Text",ExpressionUUID->"8070bb32-902d-4934-8808-378870d73fa2"],
+Cell[15678, 418, 327, 5, 36, "Item",ExpressionUUID->"9df89691-06c1-4710-9fbe-779d88af7ee2"],
+Cell[CellGroupData[{
+Cell[16030, 427, 938, 20, 108, "Input",ExpressionUUID->"07a2352d-5f79-4cca-968c-857fe60a0b0e"],
+Cell[16971, 449, 320, 7, 40, "Output",ExpressionUUID->"5f52c3d6-20cb-409d-af48-c5e5d237e75a"],
+Cell[17294, 458, 352, 8, 40, "Output",ExpressionUUID->"7b6d330c-982e-4475-a8b5-1c12ead1e23f"],
+Cell[17649, 468, 14848, 305, 86, "Output",ExpressionUUID->"fe55311e-6c41-48d2-b3a8-050ae3245347"],
+Cell[32500, 775, 171, 3, 40, "Output",ExpressionUUID->"e826bc2a-2c5e-4fa1-8642-5a49bd3fa210"]
+}, Open  ]],
+Cell[32686, 781, 381, 7, 59, "Item",ExpressionUUID->"761bcf8f-ec44-4792-b712-8ab2de6cfd57"],
+Cell[CellGroupData[{
+Cell[33092, 792, 1293, 29, 108, "Input",ExpressionUUID->"52d3a58b-70f7-4502-8e6d-d5fb477dae8a"],
+Cell[34388, 823, 232, 5, 40, "Output",ExpressionUUID->"9005e138-8397-436a-b6da-ddd470375c92"],
+Cell[34623, 830, 207, 5, 40, "Output",ExpressionUUID->"0ed1058b-fa78-4687-bc98-d06bcf4bde41"],
+Cell[34833, 837, 14776, 304, 86, "Output",ExpressionUUID->"d89495a4-caf0-4b60-9fc8-1c4fafd6fea2"],
+Cell[49612, 1143, 174, 3, 40, "Output",ExpressionUUID->"0228b33e-dc4e-464d-93d9-c56a4dede580"]
+}, Open  ]],
+Cell[49801, 1149, 183, 3, 36, "Item",ExpressionUUID->"9f8e5b6e-c643-4902-ac9e-8de3dea14c9c"],
+Cell[CellGroupData[{
+Cell[50009, 1156, 835, 21, 105, "Input",ExpressionUUID->"6a1e33b5-e77a-4b97-9f28-334abb66efc6"],
+Cell[50847, 1179, 509, 10, 50, "Output",ExpressionUUID->"694de4f9-c45c-491f-9464-baeb9f1d5053"],
+Cell[51359, 1191, 14986, 306, 107, "Output",ExpressionUUID->"bc1d0532-0010-4a1a-9cb0-0d7b241e8351"],
+Cell[66348, 1499, 173, 3, 50, "Output",ExpressionUUID->"bc669d26-5149-4193-815c-00f1a234290f"]
+}, Open  ]],
+Cell[66536, 1505, 189, 3, 45, "Item",ExpressionUUID->"e5cf220a-902b-4c77-b6b4-ed1642987d88"],
+Cell[CellGroupData[{
+Cell[66750, 1512, 210, 4, 43, "Input",ExpressionUUID->"ee5054c8-be29-488e-b1a6-bf1508af6f05"],
+Cell[66963, 1518, 147, 3, 50, "Output",ExpressionUUID->"28a4425a-70c4-434d-9d15-fc58662349e6"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[67159, 1527, 180, 3, 103, "Section",ExpressionUUID->"da852475-7c95-4f9b-8202-56249fe657a2"],
+Cell[67342, 1532, 624, 10, 77, "Text",ExpressionUUID->"c895a168-7512-427c-84fd-b761db0d963d"],
+Cell[67969, 1544, 288, 6, 47, "Text",ExpressionUUID->"90b5c57c-d132-4052-b1b1-524968d22be5"],
+Cell[68260, 1552, 249, 4, 45, "Item",ExpressionUUID->"ae8a82fb-2cb9-46b7-a339-401c80d78378"],
+Cell[CellGroupData[{
+Cell[68534, 1560, 1261, 27, 55, "Input",ExpressionUUID->"0b32d0f2-8f95-4501-ac1c-155516f1c6bf"],
+Cell[69798, 1589, 300, 5, 50, "Output",ExpressionUUID->"1ac43249-b116-4aa5-b48d-679c8c7c2e2b"]
+}, Open  ]],
+Cell[70113, 1597, 234, 4, 45, "Item",ExpressionUUID->"2a01d5de-88bd-46e9-8c58-d80ad30346be"],
+Cell[CellGroupData[{
+Cell[70372, 1605, 662, 15, 43, "Input",ExpressionUUID->"b3f725cc-49b7-4cb5-8efb-1ccf5692aea1"],
+Cell[71037, 1622, 317, 5, 50, "Output",ExpressionUUID->"38a69d70-d620-4172-bbe5-22ea0af51136"]
+}, Open  ]],
+Cell[71369, 1630, 296, 6, 45, "Item",ExpressionUUID->"59d343e3-5ea1-4aa1-8a9e-52ca2e2bd973"],
+Cell[CellGroupData[{
+Cell[71690, 1640, 812, 20, 55, "Input",ExpressionUUID->"23008a2a-e2d5-48ef-a185-b3f3607e86f1"],
+Cell[72505, 1662, 229, 5, 55, "Output",ExpressionUUID->"b73ad4a1-36f1-4cca-ab93-0f0a41a9fecf"]
+}, Open  ]],
+Cell[72749, 1670, 370, 8, 45, "Item",ExpressionUUID->"f9e00bde-1ba0-484d-90cb-7e2f37aa9ab5"],
+Cell[CellGroupData[{
+Cell[73144, 1682, 855, 19, 55, "Input",ExpressionUUID->"1a10994f-69c5-4662-b8bb-611c805081ff"],
+Cell[74002, 1703, 257, 5, 53, "Output",ExpressionUUID->"6cdd75cb-a168-4bbe-9391-dc3b551ae4d7"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[74308, 1714, 180, 3, 103, "Section",ExpressionUUID->"f095590b-3e2d-44f9-a03d-c203999992b7"],
+Cell[74491, 1719, 943, 21, 47, "Text",ExpressionUUID->"b461cfcc-94c0-4eaa-bd87-dfb28f0e1a2c"],
+Cell[75437, 1742, 1731, 53, 243, "Equation",ExpressionUUID->"1d175a51-9ce5-43ef-b689-04a0a58daa9c"],
+Cell[77171, 1797, 401, 11, 47, "Text",ExpressionUUID->"d7906761-c2fb-40ba-b5c3-2908e1eb42ff"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[77609, 1813, 447, 7, 103, "Section",ExpressionUUID->"d20ba98d-beaf-4f53-b197-506713de68fd"],
+Cell[78059, 1822, 495, 9, 77, "Text",ExpressionUUID->"15ff6273-7b7d-4a81-b744-3814929c5baf"],
+Cell[78557, 1833, 362, 9, 105, "Input",ExpressionUUID->"8998668e-aad2-4772-a871-0646f72881dd"],
+Cell[78922, 1844, 331, 5, 45, "Item",ExpressionUUID->"31f97de9-81f6-47f9-8fc8-f572533f1c9e"],
+Cell[CellGroupData[{
+Cell[79278, 1853, 440, 8, 43, "Input",ExpressionUUID->"3907264b-3280-4bc4-acac-dd64071644f8"],
+Cell[79721, 1863, 260, 4, 50, "Output",ExpressionUUID->"4a93edf0-3484-4d91-96fa-0713c0cb50fe"]
+}, Open  ]],
+Cell[79996, 1870, 275, 4, 45, "Item",ExpressionUUID->"9acd4fcf-e53f-45a1-a95d-042ede027c00"],
+Cell[CellGroupData[{
+Cell[80296, 1878, 960, 23, 55, "Input",ExpressionUUID->"e43733b6-78c2-47ba-b699-557569e01ab6"],
+Cell[81259, 1903, 225, 4, 50, "Output",ExpressionUUID->"08ac9974-ab1b-41ed-8ebd-072879fae98a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[81521, 1912, 594, 15, 43, "Input",ExpressionUUID->"cf524894-4b0f-4259-89e4-bee1d34efee0"],
+Cell[82118, 1929, 224, 3, 50, "Output",ExpressionUUID->"96c9485f-aabf-49a1-9a9e-e1d429f5fa57"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[82379, 1937, 217, 4, 43, "Input",ExpressionUUID->"c4e6d6ba-bf9b-4fdd-9da1-abfebdaa3407"],
+Cell[82599, 1943, 198, 3, 50, "Output",ExpressionUUID->"3f4551f0-0497-486c-b283-c7de88243766"]
+}, Open  ]],
+Cell[82812, 1949, 295, 6, 45, "Item",ExpressionUUID->"164f7f99-7474-4ac7-9ac4-66b8fedbee59"],
+Cell[83110, 1957, 3260, 71, 525, "Input",ExpressionUUID->"bdeaaec4-d7a4-4c54-9675-d72350286177"],
+Cell[86373, 2030, 508, 9, 77, "Text",ExpressionUUID->"f10b448e-1afb-4b63-a9c3-60b28b9ef35f"],
+Cell[CellGroupData[{
+Cell[86906, 2043, 322, 8, 43, "Input",ExpressionUUID->"04240a0d-38fc-446b-897c-d733882dd131"],
+Cell[87231, 2053, 382, 10, 53, "Output",ExpressionUUID->"707851d7-1a79-4cff-9519-3beab9bcb6c0"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[87662, 2069, 356, 6, 103, "Section",ExpressionUUID->"e8440834-4ab5-47b9-bd7b-6580638c6914"],
+Cell[88021, 2077, 555, 10, 77, "Text",ExpressionUUID->"0ea8d83e-6cbb-49fb-b41d-0dd0a82dc8df"],
+Cell[88579, 2089, 290, 7, 75, "Input",ExpressionUUID->"422043b2-37a6-4a68-8998-a5f3eff938e4"],
+Cell[88872, 2098, 381, 8, 45, "Item",ExpressionUUID->"75322b36-005f-42e9-a692-8c70de347792"],
+Cell[89256, 2108, 154, 3, 47, "Text",ExpressionUUID->"3c6580d5-1867-4a56-91ca-3f415286089f"],
+Cell[CellGroupData[{
+Cell[89435, 2115, 1375, 29, 115, "Input",ExpressionUUID->"b89584bb-c2cc-4f5b-b82a-2d49190de486"],
+Cell[90813, 2146, 325, 5, 50, "Output",ExpressionUUID->"e811aa42-45f9-40ae-aaa1-ed533e7cf1a3"]
+}, Open  ]],
+Cell[91153, 2154, 154, 3, 47, "Text",ExpressionUUID->"c77b5494-1dd9-4cbb-bffe-e1627e7ca34b"],
+Cell[CellGroupData[{
+Cell[91332, 2161, 1041, 24, 115, "Input",ExpressionUUID->"c25ac8b5-2e0c-409f-96f8-6bce7d4fb5a1"],
+Cell[92376, 2187, 225, 4, 50, "Output",ExpressionUUID->"83d6976b-766c-4e77-bbcb-03ff7398cf9a"]
+}, Open  ]],
+Cell[92616, 2194, 170, 3, 47, "Text",ExpressionUUID->"ecff766c-085d-427b-84c2-3348110ed745"],
+Cell[92789, 2199, 423, 8, 45, "Item",ExpressionUUID->"17680627-9bae-489c-beef-6cb0eca46a35"],
+Cell[93215, 2209, 1681, 42, 375, "Input",ExpressionUUID->"a648daad-58d7-4c79-80bd-e622de83d6f3"],
+Cell[94899, 2253, 152, 3, 47, "Text",ExpressionUUID->"f6736191-f00c-47d9-b0d4-793156d1b4c3"],
+Cell[CellGroupData[{
+Cell[95076, 2260, 1213, 29, 195, "Input",ExpressionUUID->"99ba0353-26b1-4ce7-93ab-a9d50f863bb1"],
+Cell[96292, 2291, 385, 10, 53, "Output",ExpressionUUID->"d942c7a7-9ebb-4d25-a5de-22c4ac4b2b8c"]
+}, Open  ]],
+Cell[96692, 2304, 152, 3, 47, "Text",ExpressionUUID->"90f11059-16e0-4005-9269-76401b155506"],
+Cell[CellGroupData[{
+Cell[96869, 2311, 1113, 28, 195, "Input",ExpressionUUID->"21ea38f7-bea5-4d1e-88f1-a5fc1ee69e78"],
+Cell[97985, 2341, 336, 9, 53, "Output",ExpressionUUID->"989e193b-283f-44d8-a83a-8d3c92aef0ac"]
+}, Open  ]],
+Cell[98336, 2353, 264, 6, 47, "Text",ExpressionUUID->"12782040-a59e-421d-9700-d500b1af895a"],
+Cell[98603, 2361, 81, 0, 43, "Input",ExpressionUUID->"dc45d837-69d5-44a2-ab04-55da2f3c6299"],
+Cell[98687, 2363, 81, 0, 43, "Input",ExpressionUUID->"3e28e0dd-d76e-4ba8-aef3-389339a55d94"],
+Cell[98771, 2365, 81, 0, 43, "Input",ExpressionUUID->"6ecdf058-ad56-4cc9-baa1-45968c77ba3b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[98889, 2370, 356, 6, 103, "Section",ExpressionUUID->"e7946cf1-59eb-433c-b13f-5610f4b9264e"],
+Cell[99248, 2378, 817, 13, 77, "Text",ExpressionUUID->"67c2fece-a3fd-4291-9b7e-50add6cc093d"],
+Cell[100068, 2393, 330, 5, 45, "Item",ExpressionUUID->"b23a3c57-35b3-4b11-aaab-89b74802012e"],
+Cell[CellGroupData[{
+Cell[100423, 2402, 1277, 28, 65, "Input",ExpressionUUID->"1b796ef7-7bb4-4499-b186-d170129563ca"],
+Cell[101703, 2432, 200, 3, 50, "Output",ExpressionUUID->"c6b3d007-8751-4e2e-8bde-e6551c752acc"]
+}, Open  ]],
+Cell[101918, 2438, 411, 8, 45, "Item",ExpressionUUID->"8362c81a-317a-4cfa-9c70-26fa310c2182"],
+Cell[CellGroupData[{
+Cell[102354, 2450, 780, 18, 65, "Input",ExpressionUUID->"101e5ec4-691d-4233-ac9f-ffaa51de1415"],
+Cell[103137, 2470, 150, 3, 50, "Output",ExpressionUUID->"a1d137ad-d2b4-491f-9e1a-9ddc3eb920bf"]
+}, Open  ]],
+Cell[103302, 2476, 552, 10, 73, "Item",ExpressionUUID->"5e802c26-5e15-449f-a35f-d76f026dec05"],
+Cell[103857, 2488, 81, 0, 43, "Input",ExpressionUUID->"712b0e11-2f41-4ada-9759-871e744d8e45"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[103975, 2493, 357, 6, 103, "Section",ExpressionUUID->"cc7d95ea-667b-4396-b1a0-e7bcccfc9d8b"],
+Cell[104335, 2501, 510, 9, 77, "Text",ExpressionUUID->"01e39aff-9a40-4953-b960-4fd1587f74a5"],
+Cell[CellGroupData[{
+Cell[104870, 2514, 1285, 31, 175, "Input",ExpressionUUID->"2e92e7a2-91a4-4f44-8765-f4481df8cbbf"],
+Cell[106158, 2547, 149, 3, 50, "Output",ExpressionUUID->"18b4dea0-ad12-4b15-a9b4-6f904465349f"]
+}, Open  ]],
+Cell[106322, 2553, 2322, 58, 525, "Input",ExpressionUUID->"78a0845a-6a12-425c-a000-4164bb5a315d"],
+Cell[108647, 2613, 218, 5, 45, "Item",ExpressionUUID->"57630e36-4e7e-45d6-b964-9fceca417a53"],
+Cell[CellGroupData[{
+Cell[108890, 2622, 309, 8, 43, "Input",ExpressionUUID->"4215ded4-6f82-4329-b2f9-9286ebde8e96"],
+Cell[109202, 2632, 332, 9, 50, "Output",ExpressionUUID->"3981d9f7-8263-49f1-a6a3-086c3590c967"]
+}, Open  ]],
+Cell[109549, 2644, 188, 3, 47, "Text",ExpressionUUID->"6c714835-ace2-4741-9b51-91988b54db25"],
+Cell[109740, 2649, 220, 5, 45, "Item",ExpressionUUID->"9ffb86fe-cbc6-4c84-aadb-0cb2ccae7980"],
+Cell[109963, 2656, 204, 3, 47, "Text",ExpressionUUID->"235fa50a-c0f5-4a09-84ab-0e2544cc2f94"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[110204, 2664, 349, 6, 103, "Section",ExpressionUUID->"e2bb8b50-27a2-42e6-b052-0cbe4240edd5"],
+Cell[110556, 2672, 786, 13, 77, "Text",ExpressionUUID->"2178cc1c-12fc-4749-84c6-9caff528dabe"],
+Cell[111345, 2687, 539, 11, 105, "Input",ExpressionUUID->"e2207c33-9319-4c5e-a6d9-964c982a828f"],
+Cell[111887, 2700, 330, 7, 45, "Item",ExpressionUUID->"34b7d87c-6429-4f64-9d13-36e29959f7bd"],
+Cell[CellGroupData[{
+Cell[112242, 2711, 1097, 26, 85, "Input",ExpressionUUID->"4c2a0c27-aece-43fa-ba15-6219f6d31572"],
+Cell[113342, 2739, 486, 9, 55, "Output",ExpressionUUID->"0f6d487d-e26e-48b7-b17a-d4b1cbedecfb"]
+}, Open  ]],
+Cell[113843, 2751, 377, 8, 45, "Item",ExpressionUUID->"9c29605e-608a-4ccc-b423-4f8feeb746f7"],
+Cell[CellGroupData[{
+Cell[114245, 2763, 1052, 26, 85, "Input",ExpressionUUID->"9adca27d-dd03-4859-a555-3a368e78e90c"],
+Cell[115300, 2791, 197, 3, 50, "Output",ExpressionUUID->"5bc1026a-718f-4a8d-8907-61bbe079c441"]
+}, Open  ]],
+Cell[115512, 2797, 472, 9, 45, "Item",ExpressionUUID->"b6d614e0-abca-4edb-a226-0255cfd3e3cf"],
+Cell[CellGroupData[{
+Cell[116009, 2810, 550, 14, 43, "Input",ExpressionUUID->"716a7c1e-8f64-43d5-9e64-bfe1c6a1cb03"],
+Cell[116562, 2826, 149, 3, 50, "Output",ExpressionUUID->"fa03b87e-db8d-4beb-b076-5e6248530597"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[116760, 2835, 349, 6, 103, "Section",ExpressionUUID->"0bc996de-8fb9-4b39-bf54-5b45170d4fba"],
+Cell[117112, 2843, 496, 9, 77, "Text",ExpressionUUID->"443910e7-f31f-469b-84ea-bec757b6b9a8"],
+Cell[117611, 2854, 1402, 43, 107, "Text",ExpressionUUID->"98550357-1299-465d-bc50-fe8b1bc5e33d"],
+Cell[119016, 2899, 218, 6, 47, "Text",ExpressionUUID->"59564f53-a53f-4043-bbe2-751b56476aaa"],
+Cell[CellGroupData[{
+Cell[119259, 2909, 381, 8, 45, "Item",ExpressionUUID->"47257819-5dbb-45f3-b33e-247f6269766d"],
+Cell[119643, 2919, 392, 7, 37, "Subitem",ExpressionUUID->"016e9fe5-221d-4a99-861c-255cdcf02287"]
+}, Open  ]],
+Cell[120050, 2929, 154, 3, 47, "Text",ExpressionUUID->"709bd738-086d-4cce-8e4e-42efdfb464ba"],
+Cell[CellGroupData[{
+Cell[120229, 2936, 612, 15, 47, "Input",ExpressionUUID->"c3c97366-1bc4-44bd-af6c-1abd5798362a"],
+Cell[120844, 2953, 262, 6, 50, "Output",ExpressionUUID->"171e0531-2f22-4a01-834d-1c2c1709c402"]
+}, Open  ]],
+Cell[121121, 2962, 156, 3, 47, "Text",ExpressionUUID->"d75e0738-452c-4d90-9bf4-b4b690394f81"],
+Cell[CellGroupData[{
+Cell[121302, 2969, 536, 15, 47, "Input",ExpressionUUID->"4d4d0bc6-77ea-4fad-8fbf-f761ab9a90ff"],
+Cell[121841, 2986, 237, 6, 50, "Output",ExpressionUUID->"8c09f6a3-2763-4651-9a40-a21c3fcbd6ca"]
+}, Open  ]],
+Cell[122093, 2995, 392, 8, 37, "Subitem",ExpressionUUID->"973b917d-c976-4f48-a314-4b5cffbbd413"],
+Cell[122488, 3005, 276, 6, 47, "Text",ExpressionUUID->"3c430c59-dc4f-4328-9861-9b5d42b48eb0"],
+Cell[CellGroupData[{
+Cell[122789, 3015, 632, 11, 73, "Item",ExpressionUUID->"45a87470-1bee-4c34-b971-5281eda2c51e"],
+Cell[123424, 3028, 312, 6, 37, "Subitem",ExpressionUUID->"f760b5d8-c17a-467a-9d17-b55f0023450b"]
+}, Open  ]],
+Cell[123751, 3037, 154, 3, 47, "Text",ExpressionUUID->"e63aa7be-03c9-4431-9867-1b7d3d2d8b25"],
+Cell[CellGroupData[{
+Cell[123930, 3044, 294, 8, 43, "Input",ExpressionUUID->"87c9a8f4-db02-4e09-8344-20547c8ed023"],
+Cell[124227, 3054, 150, 3, 50, "Output",ExpressionUUID->"3bc5febd-c183-437d-b7ce-db2d03b486e2"]
+}, Open  ]],
+Cell[124392, 3060, 156, 3, 47, "Text",ExpressionUUID->"9a038bf2-5d92-40ac-8134-ee04c760cf82"],
+Cell[CellGroupData[{
+Cell[124573, 3067, 359, 9, 43, "Input",ExpressionUUID->"c03837f6-091f-4508-bb4d-b5eb1a4f7f9c"],
+Cell[124935, 3078, 148, 3, 50, "Output",ExpressionUUID->"6b8c72a6-1a5a-4d84-ac1e-af1f12ae74da"]
+}, Open  ]],
+Cell[125098, 3084, 341, 7, 37, "Subitem",ExpressionUUID->"282e199a-fb1e-49ce-b2a3-a5409003e498"],
+Cell[125442, 3093, 333, 7, 47, "Text",ExpressionUUID->"1ae74130-86a0-4d52-a86d-a7d944ee1f17"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

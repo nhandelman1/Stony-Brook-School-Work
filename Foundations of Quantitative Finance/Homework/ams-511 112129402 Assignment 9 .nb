@@ -1,0 +1,447 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[     15521,        439]
+NotebookOptionsPosition[     12383,        377]
+NotebookOutlinePosition[     12921,        400]
+CellTagsIndexPosition[     12878,        397]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["AMS-511 Foundations of Quantitative Finance", "Title",
+ CellChangeTimes->{{3.410118002352737*^9, 3.4101180035512123`*^9}, {
+   3.4104512493187323`*^9, 3.410451249562763*^9}, {3.411070441580077*^9, 
+   3.411070441827072*^9}, {3.411127582523164*^9, 3.41112758277359*^9}, {
+   3.4111315188866587`*^9, 3.411131524894576*^9}, {3.411253224366561*^9, 
+   3.411253224912155*^9}, {3.4114345716329317`*^9, 3.4114345742149363`*^9}, {
+   3.411436143492992*^9, 3.411436148100697*^9}, {3.461105702626305*^9, 
+   3.461105709176071*^9}, 3.4611060748428698`*^9, 3.461106153130972*^9, 
+   3.461106185408854*^9},ExpressionUUID->"7e828797-e1b6-4f57-b899-\
+a8e07e040324"],
+
+Cell["Fall 2018 \[LongDash] Assignment 09", "Subtitle",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGCQAmIQHbQ2eYNHxkvHVSeDNoLoLa0Jma+BNNePzWD69zqT
+ieZZLx01rqpOBtFurBz/dgDp+lZJhp1AeuvyeP8zQJrFbC2Y/nyqLwFEB61c
+kgSirQJesnWefOmotaacA0S3/MtwBNEHtSaB6ePFCaEgOnsOXzSIjjmlGQ+i
+mWYbJIBoFSffByBabd7hZyB6yxNHzgjmV46PHH7xgOi5ay8YgGib3L+GIDrr
+6YswEP1z3VswrXS/p72V7ZXjruQnnSA69tLetjtA+tjsbe0gmjv4hmbE7leO
+T8r/aYPoZaEP81dce+XIxMhfBqKLTB5ePHf9lePeOeyXQXTO5ekvuu6+ctxz
+tvIliO7aNUF2yr1XjoskZ4FpsSgGix33XzlasZtagei6ozau94F0/5GVYNop
+Xyory/a1Y4TB5mwQ/W979dXl1a8de7eY3ADRvMvreZ0+vHYs7p8IpgHB6tvk
+
+  "],ExpressionUUID->"02fc04eb-08b0-4047-8a12-d15bba5ae4d8"],
+
+Cell["\<\
+Robert J. Frey, Research Professor
+Stony Brook University, Applied Mathematics and Statistics
+
+Robert.Frey@StonyBrook.edu
+http://www.ams.sunysb.edu/~frey\
+\>", "Subsubtitle",
+ CellChangeTimes->{{3.411439843209729*^9, 3.411439853156939*^9}, {
+  3.587883368607191*^9, 
+  3.587883390413391*^9}},ExpressionUUID->"08e4a1b3-2056-43d0-8e9e-\
+6cd3bae632dc"],
+
+Cell[CellGroupData[{
+
+Cell["Question 01", "Section",
+ CellChangeTimes->{{3.6070363532228622`*^9, 3.607036365603837*^9}, {
+  3.749843092702549*^9, 
+  3.7498430952848988`*^9}},ExpressionUUID->"bc154a9a-97c3-48ad-b271-\
+b193ade7a2bd"],
+
+Cell[TextData[{
+ "Assuming continuous compounding, an asset has a carrying charge per unit of \
+time proportional to the spot price. This condition might occur, for example, \
+if the charge represented insurance for the safe storage of the asset. Let \
+the charge be ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"q", " ", 
+    RowBox[{"S", "[", "t", "]"}]}], TraditionalForm]],ExpressionUUID->
+  "347246b6-8d2f-413c-9e93-7be7deea3394"],
+ ". Show that the theoretical price of the forward contract with delivery \
+date ",
+ StyleBox["T",
+  FontSlant->"Italic"],
+ " is"
+}], "Text",
+ CellChangeTimes->{{3.607036370445997*^9, 
+  3.607036524559506*^9}},ExpressionUUID->"6d04ebd3-220e-4a17-8a87-\
+a5273584018b"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"F", "=", 
+   RowBox[{"S", " ", 
+    SuperscriptBox["\[ExponentialE]", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"r", "+", "q"}], ")"}], "T"}]]}]}], 
+  TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.6070365399387207`*^9, 
+  3.607036572696213*^9}},ExpressionUUID->"3e2c8ace-0e68-447c-b9f2-\
+b09e9338f711"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 02", "Section",
+ CellChangeTimes->{{3.607036728307599*^9, 3.60703673760305*^9}, {
+  3.7498431265660753`*^9, 
+  3.749843130421797*^9}},ExpressionUUID->"4f78d1f4-5c23-4c8e-8d15-\
+d6f7170be236"],
+
+Cell[TextData[{
+ "The interest rates in the UK ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["r", "UK"], "=", "0.04"}], TraditionalForm]],ExpressionUUID->
+  "97b90143-4cca-45da-9169-6128f1b26a38"],
+ " and US ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["r", "US"], "=", "0.06"}], TraditionalForm]],ExpressionUUID->
+  "a724d883-d031-4ae2-b9b1-987e98d6ffeb"],
+ ", compounded continuously. The spot price of the UK pound is $1.60 and the \
+forward price for the UK pound deliverable in 6-months is $2.00."
+}], "Text",
+ CellChangeTimes->{{3.607036745027219*^9, 
+  3.607036876559011*^9}},ExpressionUUID->"cfd2a73a-a722-4097-9a00-\
+fd0d58409959"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Does an arbitrage opportunity exist. Show clearly why one is or is not \
+available.\
+\>", "Item",
+ CellChangeTimes->{{3.607036897815133*^9, 
+  3.6070369375514383`*^9}},ExpressionUUID->"c5dfa8e1-c7dc-43e6-8bd6-\
+055126a98b45"],
+
+Cell["\<\
+If there is such an opportunity, describe the trade and show what the \
+risk-free profit would be.\
+\>", "Item",
+ CellChangeTimes->{{3.607036897815133*^9, 
+  3.6070369695338087`*^9}},ExpressionUUID->"132d9c81-fb65-4c98-bf1f-\
+2a5123ccdf78"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 03", "Section",
+ CellChangeTimes->{{3.607037095107222*^9, 3.6070371064390097`*^9}, {
+  3.749843134854032*^9, 
+  3.749843138006151*^9}},ExpressionUUID->"990e2a78-0e6b-410c-83bc-\
+c3dc27a27c6a"],
+
+Cell[TextData[{
+ "The stock of the ABC Corp. has a current price ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"S", "[", "0", "]"}], "=", 
+    RowBox[{"$120", ".00"}]}], TraditionalForm]],ExpressionUUID->
+  "9edc40d9-d722-4559-9b4e-cd07eac02581"],
+ " and an annual volatility of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Sigma]", "=", 
+    RowBox[{"20", "%"}]}], TraditionalForm]],ExpressionUUID->
+  "06d12c80-1ff7-490c-9a6d-5af195c7d6b8"],
+ ". The risk-free return is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["r", "f"], "=", 
+    RowBox[{"2", "%"}]}], TraditionalForm]],ExpressionUUID->
+  "93092e1d-92b7-439e-b063-b34bcd71f6ee"],
+ ". What is the value of an call option expiring in ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"T", "=", 
+    RowBox[{"0.5", " ", "years"}]}], TraditionalForm]],ExpressionUUID->
+  "7edc3c30-439f-42f0-a310-69e243d6bedc"],
+ " with a strike price of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"K", "=", "$115"}], TraditionalForm]],ExpressionUUID->
+  "b57f1b5a-12a5-4657-8b36-d67643876097"],
+ "? Use a geometric binomial model with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "20"}], TraditionalForm]],ExpressionUUID->
+  "af9972d8-0ee6-4ca5-9ff1-c5c3f2e1707f"],
+ " time steps."
+}], "Text",
+ CellChangeTimes->{{3.607037198802346*^9, 3.607037258220096*^9}, {
+  3.607037332414493*^9, 3.607037513356783*^9}, {3.6070377095536346`*^9, 
+  3.607037710821216*^9}},ExpressionUUID->"ad27ecd8-ad3f-4909-9fd9-\
+662ca8d2286c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 04", "Section",
+ CellChangeTimes->{{3.607037591487691*^9, 3.607037598103382*^9}, {
+  3.7498431498619127`*^9, 
+  3.749843153269696*^9}},ExpressionUUID->"25d1549f-33e1-4ad4-833b-\
+6b0bb41798bb"],
+
+Cell[TextData[{
+ "For the stock above, plot the current price of a put option expiring in \
+6-months for prices from $90.00 to $150.00. On the same graph, plot the final \
+pay-off function for the option at expiry. Use a geometric binomial model \
+with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "=", "20"}], TraditionalForm]],ExpressionUUID->
+  "162694df-6f2d-4035-94fb-a59bc68a755b"],
+ " time steps."
+}], "Text",
+ CellChangeTimes->{{3.607037678320125*^9, 3.607037825638805*^9}, {
+  3.6071221928394737`*^9, 
+  3.6071222077825527`*^9}},ExpressionUUID->"4ce6b4ef-f626-4856-b317-\
+329b7f691ef0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 05", "Section",
+ CellChangeTimes->{{3.607037831165977*^9, 3.607037838444982*^9}, {
+  3.7498431593653593`*^9, 
+  3.7498431626212263`*^9}},ExpressionUUID->"71a19eb5-db08-42d1-87ab-\
+72f17aac2491"],
+
+Cell[TextData[{
+ "Given the It\[OHat] process with initial condition ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"X", "(", "0", ")"}], "=", "0"}], TraditionalForm]],
+  ExpressionUUID->"47cc7a01-385c-4901-a7db-2c1170e5204c"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.6070379829528713`*^9, 3.6070380033331127`*^9}, {
+  3.607038520602356*^9, 
+  3.6070385391693993`*^9}},ExpressionUUID->"9ac3280d-8052-45dc-822e-\
+8def52e6e409"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"\[DifferentialD]", 
+    RowBox[{"X", "(", "t", ")"}]}], "=", 
+   RowBox[{
+    RowBox[{"\[Mu]", " ", 
+     RowBox[{"\[DifferentialD]", "t"}]}], "+", 
+    RowBox[{"\[Sigma]", 
+     RowBox[{"\[DifferentialD]", 
+      RowBox[{"W", "(", "t", ")"}]}]}]}]}], TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.60703801434988*^9, 3.6070380630612707`*^9}, {
+  3.607038097286703*^9, 
+  3.6070381046866407`*^9}},ExpressionUUID->"5001dc07-cdec-40d3-a2dc-\
+e6bb8d91d210"],
+
+Cell["and the transformation", "Text",
+ CellChangeTimes->{{3.6070381094114647`*^9, 
+  3.6070381224213867`*^9}},ExpressionUUID->"a8e8346b-e995-440f-b202-\
+b6e6b12957c7"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"Y", "(", "t", ")"}], "=", 
+   RowBox[{"a", "+", 
+    RowBox[{"b", " ", 
+     RowBox[{"X", "(", "t", ")"}]}]}]}], TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.6070381381762333`*^9, 3.6070381605358677`*^9}, {
+  3.607038279382169*^9, 
+  3.607038288972994*^9}},ExpressionUUID->"a1c4683a-4799-4dfd-af65-\
+96fe593361a4"],
+
+Cell[TextData[{
+ "Find the It\[OHat] process governing ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Y", "(", "t", ")"}], TraditionalForm]],ExpressionUUID->
+  "0e198e14-323e-4bee-9de8-b81f3eb029b1"],
+ " and its initial condition ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Y", "(", "0", ")"}], TraditionalForm]],ExpressionUUID->
+  "db525fd9-d98e-414f-aad8-55409dfdae55"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.607038187130419*^9, 3.607038204650098*^9}, {
+  3.607038543561185*^9, 
+  3.607038572015442*^9}},ExpressionUUID->"e664ead5-c640-49f7-8c10-\
+2350fb8af046"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Question 06", "Section",
+ CellChangeTimes->{{3.607037831165977*^9, 3.607037838444982*^9}, {
+  3.607038717194106*^9, 3.6070387173852587`*^9}, {3.74984316663787*^9, 
+  3.749843169685245*^9}},ExpressionUUID->"3bbe834b-ba90-475f-a356-\
+77cd4a14337f"],
+
+Cell[TextData[{
+ "Given the It\[OHat] process with initial condition ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"X", "(", "0", ")"}], "=", "4"}], TraditionalForm]],
+  ExpressionUUID->"95d305b8-31c1-4b13-95ab-c1aa2adc6de5"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.6070379829528713`*^9, 3.6070380033331127`*^9}, {
+  3.607038520602356*^9, 3.6070385391693993`*^9}, {3.607038724704525*^9, 
+  3.6070387248385687`*^9}, {3.60703877684603*^9, 
+  3.60703877966261*^9}},ExpressionUUID->"814bc8ae-0d30-432a-80bd-\
+03abd62eefc7"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"\[DifferentialD]", 
+    RowBox[{"X", "(", "t", ")"}]}], "=", 
+   RowBox[{
+    RowBox[{"\[Mu]", " ", 
+     RowBox[{"X", "(", "t", ")"}], 
+     RowBox[{"\[DifferentialD]", "t"}]}], "+", 
+    RowBox[{
+     RowBox[{"\[Sigma]X", "(", "t", ")"}], 
+     RowBox[{"\[DifferentialD]", 
+      RowBox[{"W", "(", "t", ")"}]}]}]}]}], TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.60703801434988*^9, 3.6070380630612707`*^9}, {
+  3.607038097286703*^9, 3.6070381046866407`*^9}, {3.607038744118483*^9, 
+  3.607038752430232*^9}},ExpressionUUID->"c6e03611-bedb-4758-85ad-\
+2a2ca664a4a8"],
+
+Cell["and the transformation", "Text",
+ CellChangeTimes->{{3.6070381094114647`*^9, 
+  3.6070381224213867`*^9}},ExpressionUUID->"3e0d4f27-913e-4171-8a61-\
+740b7fceb1c6"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{"Y", "(", "t", ")"}], "=", 
+   SqrtBox[
+    RowBox[{"X", "(", "t", ")"}]]}], TraditionalForm]], "Equation",
+ CellChangeTimes->{{3.6070381381762333`*^9, 3.6070381605358677`*^9}, {
+  3.607038279382169*^9, 3.607038288972994*^9}, {3.607038760190055*^9, 
+  3.6070387678388157`*^9}},ExpressionUUID->"19a04195-351c-47c0-91ad-\
+5b1133f13044"],
+
+Cell[TextData[{
+ "Find the It\[OHat] process governing ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Y", "(", "t", ")"}], TraditionalForm]],ExpressionUUID->
+  "00af3f7e-926e-4ca7-87db-127f6b728ab7"],
+ " and its initial condition ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Y", "(", "0", ")"}], TraditionalForm]],ExpressionUUID->
+  "9bde9c74-f456-4bdd-8e50-4451cc27a4a3"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.607038187130419*^9, 3.607038204650098*^9}, {
+  3.607038543561185*^9, 
+  3.607038572015442*^9}},ExpressionUUID->"be1adb47-b98f-44cc-9553-\
+bc6c863c0f1b"]
+}, Open  ]]
+}, Open  ]]
+},
+Editable->True,
+Selectable->True,
+WindowSize->{1440, 781},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+PrintingCopies->1,
+PrintingPageRange->{1, Automatic},
+ShowSelection->True,
+DefaultFormatType->DefaultTextFormatType,
+Magnification:>1.25 Inherited,
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->"StonyBrook.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[567, 22, 656, 9, 153, "Title",ExpressionUUID->"7e828797-e1b6-4f57-b899-a8e07e040324"],
+Cell[1226, 33, 642, 11, 82, "Subtitle",ExpressionUUID->"02fc04eb-08b0-4047-8a12-d15bba5ae4d8"],
+Cell[1871, 46, 359, 10, 183, "Subsubtitle",ExpressionUUID->"08e4a1b3-2056-43d0-8e9e-6cd3bae632dc"],
+Cell[CellGroupData[{
+Cell[2255, 60, 209, 4, 105, "Section",ExpressionUUID->"bc154a9a-97c3-48ad-b271-b193ade7a2bd"],
+Cell[2467, 66, 699, 18, 102, "Text",ExpressionUUID->"6d04ebd3-220e-4a17-8a87-a5273584018b"],
+Cell[3169, 86, 352, 11, 48, "Equation",ExpressionUUID->"3e2c8ace-0e68-447c-b9f2-b09e9338f711"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3558, 102, 206, 4, 105, "Section",ExpressionUUID->"4f78d1f4-5c23-4c8e-8d15-d6f7170be236"],
+Cell[3767, 108, 665, 18, 74, "Text",ExpressionUUID->"cfd2a73a-a722-4097-9a00-fd0d58409959"],
+Cell[CellGroupData[{
+Cell[4457, 130, 235, 6, 43, "Item",ExpressionUUID->"c5dfa8e1-c7dc-43e6-8bd6-055126a98b45"],
+Cell[4695, 138, 250, 6, 43, "Item",ExpressionUUID->"132d9c81-fb65-4c98-bf1f-2a5123ccdf78"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4994, 150, 207, 4, 105, "Section",ExpressionUUID->"990e2a78-0e6b-410c-83bc-c3dc27a27c6a"],
+Cell[5204, 156, 1464, 42, 78, "Text",ExpressionUUID->"ad27ecd8-ad3f-4909-9fd9-662ca8d2286c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6705, 203, 207, 4, 105, "Section",ExpressionUUID->"25d1549f-33e1-4ad4-833b-6b0bb41798bb"],
+Cell[6915, 209, 595, 14, 74, "Text",ExpressionUUID->"4ce6b4ef-f626-4856-b317-329b7f691ef0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7547, 228, 209, 4, 105, "Section",ExpressionUUID->"71a19eb5-db08-42d1-87ab-72f17aac2491"],
+Cell[7759, 234, 431, 12, 46, "Text",ExpressionUUID->"9ac3280d-8052-45dc-822e-8def52e6e409"],
+Cell[8193, 248, 507, 14, 45, "Equation",ExpressionUUID->"5001dc07-cdec-40d3-a2dc-e6bb8d91d210"],
+Cell[8703, 264, 168, 3, 45, "Text",ExpressionUUID->"a8e8346b-e995-440f-b202-b6e6b12957c7"],
+Cell[8874, 269, 369, 10, 45, "Equation",ExpressionUUID->"a1c4683a-4799-4dfd-af65-96fe593361a4"],
+Cell[9246, 281, 555, 16, 46, "Text",ExpressionUUID->"e664ead5-c640-49f7-8c10-2350fb8af046"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9838, 302, 252, 4, 105, "Section",ExpressionUUID->"3bbe834b-ba90-475f-a356-77cd4a14337f"],
+Cell[10093, 308, 526, 13, 46, "Text",ExpressionUUID->"814bc8ae-0d30-432a-80bd-03abd62eefc7"],
+Cell[10622, 323, 621, 16, 45, "Equation",ExpressionUUID->"c6e03611-bedb-4758-85ad-2a2ca664a4a8"],
+Cell[11246, 341, 168, 3, 45, "Text",ExpressionUUID->"3e0d4f27-913e-4171-8a61-740b7fceb1c6"],
+Cell[11417, 346, 380, 9, 59, "Equation",ExpressionUUID->"19a04195-351c-47c0-91ad-5b1133f13044"],
+Cell[11800, 357, 555, 16, 46, "Text",ExpressionUUID->"be1adb47-b98f-44cc-9553-bc6c863c0f1b"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
