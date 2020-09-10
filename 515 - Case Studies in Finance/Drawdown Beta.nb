@@ -1,0 +1,545 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     20922,        537]
+NotebookOptionsPosition[     17651,        473]
+NotebookOutlinePosition[     17999,        488]
+CellTagsIndexPosition[     17956,        485]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Drawdown Beta - Uncompounded Returns", "Section",
+ CellChangeTimes->{{3.7917652447491636`*^9, 3.791765246561267*^9}, {
+  3.7920093991808825`*^9, 
+  3.792009405901267*^9}},ExpressionUUID->"a0b316f3-5208-44a5-bcaa-\
+c0b0e6391eb1"],
+
+Cell["\<\
+To run the program with the included data, select Evaluation -> Evaluate \
+Notebook. The Drawdown Beta is given in the last subsection.
+The CDaR \[Alpha] is set in the \[OpenCurlyDoubleQuote]Load Data and Set \
+Variables\[CloseCurlyDoubleQuote] subsection with variable nAlpha. \[Alpha] \
+\[Element] [0,1]. \[Alpha] = 0 is average drawdown. \[Alpha] = 1 is maximum \
+drawdown.\
+\>", "Text",
+ CellChangeTimes->{{3.79209865734036*^9, 3.7920987123825083`*^9}, {
+  3.792098757017061*^9, 
+  3.7920988685664415`*^9}},ExpressionUUID->"abdb11f3-6559-4351-96e8-\
+546fe48be554"],
+
+Cell[CellGroupData[{
+
+Cell["Load Data and Set Variables", "Subsection",
+ CellChangeTimes->{{3.7917652551287575`*^9, 3.791765260037038*^9}, {
+  3.7920987290494614`*^9, 
+  3.7920987331216946`*^9}},ExpressionUUID->"146ece0f-e2f5-42db-8b34-\
+be7af8c3a9b9"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"mGLDData", "=", 
+   RowBox[{"Transpose", "@", 
+    RowBox[{
+     RowBox[{"Import", "[", "\"\<GLD.csv\>\"", "]"}], "[", 
+     RowBox[{"[", 
+      RowBox[{"2", ";;"}], "]"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"mSP500Data", "=", 
+   RowBox[{"Transpose", "@", 
+    RowBox[{
+     RowBox[{"Import", "[", "\"\<^GSPC.csv\>\"", "]"}], "[", 
+     RowBox[{"[", 
+      RowBox[{"2", ";;"}], "]"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nAlpha", "=", "0"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7917651520358605`*^9, 3.7917652230269213`*^9}, {
+  3.7917654840168486`*^9, 3.7917654943724413`*^9}, {3.7917657976857896`*^9, 
+  3.791765803845142*^9}, {3.79176612780056*^9, 3.7917661337753706`*^9}, {
+  3.792098735921855*^9, 
+  3.7920987361938705`*^9}},ExpressionUUID->"84945594-887a-4db4-8f96-\
+03fac5b1f4c5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Calculate Returns", "Subsection",
+ CellChangeTimes->{{3.7917653703223457`*^9, 
+  3.7917653721184483`*^9}},ExpressionUUID->"b211efd3-781c-4edb-9400-\
+ce2d6b48388d"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"AppendTo", "[", 
+   RowBox[{"mGLDData", ",", 
+    RowBox[{
+     RowBox[{"Differences", "[", 
+      RowBox[{"mGLDData", "[", 
+       RowBox[{"[", "2", "]"}], "]"}], "]"}], "/", 
+     RowBox[{"Most", "[", 
+      RowBox[{"mGLDData", "[", 
+       RowBox[{"[", "2", "]"}], "]"}], "]"}]}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"AppendTo", "[", 
+   RowBox[{"mSP500Data", ",", 
+    RowBox[{
+     RowBox[{"Differences", "[", 
+      RowBox[{"mSP500Data", "[", 
+       RowBox[{"[", "2", "]"}], "]"}], "]"}], "/", 
+     RowBox[{"Most", "[", 
+      RowBox[{"mSP500Data", "[", 
+       RowBox[{"[", "2", "]"}], "]"}], "]"}]}]}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.79176538560222*^9, 3.791765459573451*^9}, {
+  3.791765501851869*^9, 3.791765507432188*^9}, {3.7917655378559284`*^9, 
+  3.79176555397485*^9}, {3.7917656211496925`*^9, 3.7917656331773806`*^9}, {
+  3.7917657512501335`*^9, 3.7917657777816515`*^9}, {3.791765996664854*^9, 
+  3.79176607139421*^9}, {3.791766150624206*^9, 3.791766159398827*^9}, {
+  3.792012554871378*^9, 
+  3.792012563228856*^9}},ExpressionUUID->"25ed807e-327e-4d04-9f08-\
+65bc8e5e550c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Calculate Uncompounded Cumulative Returns", "Subsection",
+ CellChangeTimes->{{3.7917662279019957`*^9, 
+  3.7917662386504145`*^9}},ExpressionUUID->"f86be6a2-fa9a-47a8-a097-\
+b52d85f7f97c"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"AppendTo", "[", 
+   RowBox[{"mGLDData", ",", 
+    RowBox[{"FoldList", "[", 
+     RowBox[{"Plus", ",", 
+      RowBox[{"mGLDData", "[", 
+       RowBox[{"[", "3", "]"}], "]"}]}], "]"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"AppendTo", "[", 
+   RowBox[{"mSP500Data", ",", 
+    RowBox[{"FoldList", "[", 
+     RowBox[{"Plus", ",", 
+      RowBox[{"mSP500Data", "[", 
+       RowBox[{"[", "3", "]"}], "]"}]}], "]"}]}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7917662566060467`*^9, 3.7917663271649704`*^9}, {
+  3.791766383120079*^9, 3.791766400171909*^9}, {3.7920125401675367`*^9, 
+  3.7920125479799843`*^9}},ExpressionUUID->"55193920-c34e-4157-90b0-\
+e1ea2e56eb91"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Calculate SP500 Drawdowns", "Subsection",
+ CellChangeTimes->{{3.791766556049219*^9, 3.791766587951275*^9}, {
+  3.7917666613494043`*^9, 3.791766666310213*^9}, {3.792025064999916*^9, 
+  3.792025126790451*^9}, {3.792025170225935*^9, 
+  3.792025170801968*^9}},ExpressionUUID->"75d71adf-acc0-454a-a657-\
+c81dc3c6c1ab"],
+
+Cell["\<\
+Calculate drawdown at each time by definition. vCumuReturns is a list of \
+cumulative returns. The last return in the list corresponds to the current \
+time.\
+\>", "Text",
+ CellChangeTimes->{{3.791766673876226*^9, 3.7917667173067026`*^9}, {
+  3.7920096133321314`*^9, 3.7920096294480534`*^9}, {3.7920096954548287`*^9, 
+  3.7920096968509083`*^9}, {3.792025067644068*^9, 
+  3.79202507134828*^9}},ExpressionUUID->"c2c93674-ae79-4b77-b989-\
+54b3b62ba5f9"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xDrawdown", "[", "vCumuReturns_", "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", "vRets", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"Max", "[", 
+     RowBox[{"Map", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"#", "-", 
+         RowBox[{"vCumuReturns", "[", 
+          RowBox[{"[", 
+           RowBox[{"-", "1"}], "]"}], "]"}]}], "&"}], ",", "vCumuReturns"}], 
+      "]"}], "]"}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.7917665940196857`*^9, 3.7917666418181696`*^9}, {
+  3.791766811075074*^9, 3.7917668666579723`*^9}, {3.7917669465301123`*^9, 
+  3.7917669895861883`*^9}, {3.7920106591889515`*^9, 3.792010678486055*^9}, {
+  3.7920276220511713`*^9, 
+  3.792027672122035*^9}},ExpressionUUID->"9feb98ee-7d0b-4bdd-802e-\
+7e0fdcd00237"],
+
+Cell["\<\
+Calculate drawdown at each time sequentially. vReturns is a list of returns.\
+\>", "Text",
+ CellChangeTimes->{{3.7920094843267527`*^9, 3.792009524931075*^9}, {
+  3.7920096372524996`*^9, 3.792009651028288*^9}, {3.792009704478345*^9, 
+  3.7920097100586643`*^9}, {3.7920099153454056`*^9, 3.792009917061504*^9}, {
+  3.792011085135314*^9, 
+  3.792011090414616*^9}},ExpressionUUID->"938bc52c-11b0-4eef-bea8-\
+9c4359ae9dfb"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xDrawdownFast", "[", "vReturns_", "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"nSum", "=", "0"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Map", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"nSum", "=", 
+           RowBox[{"Min", "[", 
+            RowBox[{
+             RowBox[{"nSum", "+", "#"}], ",", "0"}], "]"}]}], ";", "nSum"}], 
+         ")"}], "&"}], ",", "vReturns"}], "]"}], "*", 
+     RowBox[{"-", "1"}]}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.7917680699397335`*^9, 3.791768083418157*^9}, 
+   3.7920088850364757`*^9, {3.792009445184514*^9, 3.7920094620634794`*^9}, {
+   3.792009530662403*^9, 3.7920096055446863`*^9}, {3.792009659826791*^9, 
+   3.79200966452806*^9}, {3.7920097618776283`*^9, 3.7920097677459636`*^9}, {
+   3.792009894182195*^9, 3.7920098951662517`*^9}, {3.7920099314053245`*^9, 
+   3.7920100219205017`*^9}, {3.7920110809320736`*^9, 
+   3.7920110956199136`*^9}, {3.792011287199871*^9, 
+   3.792011287626896*^9}},ExpressionUUID->"c5027a10-7114-4b17-8f29-\
+73b3081c7ab1"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"AppendTo", "[", 
+   RowBox[{"mSP500Data", ",", 
+    RowBox[{"xDrawdownFast", "[", 
+     RowBox[{"mSP500Data", "[", 
+      RowBox[{"[", "3", "]"}], "]"}], "]"}]}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.791767180207568*^9, 3.7917672470224853`*^9}, {
+   3.7917672939473677`*^9, 3.791767297036173*^9}, {3.7917673549746747`*^9, 
+   3.7917674743460846`*^9}, 3.791767506326141*^9, {3.7917675584614325`*^9, 
+   3.791767567930852*^9}, {3.7917676291765594`*^9, 3.7917676424209824`*^9}, {
+   3.7920113612091045`*^9, 3.7920113613811145`*^9}, {3.7920114150121818`*^9, 
+   3.792011444401863*^9}, {3.7920125206554213`*^9, 3.792012529358919*^9}, {
+   3.7920128468040757`*^9, 3.792012849016202*^9}, {3.792012993309455*^9, 
+   3.7920129964606357`*^9}, {3.792025082488917*^9, 3.792025083107952*^9}, {
+   3.79202513062267*^9, 
+   3.7920251659696913`*^9}},ExpressionUUID->"e68c5e3a-60c2-45f0-a3d1-\
+938353307f75"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Calculate Ordering of SP500 Drawdowns", "Subsection",
+ CellChangeTimes->{{3.7920123383829956`*^9, 
+  3.7920123442593317`*^9}},ExpressionUUID->"96f09487-ca01-4e90-a0c9-\
+752db1ed04ca"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"AppendTo", "[", 
+   RowBox[{"mSP500Data", ",", 
+    RowBox[{"Reverse", "@", 
+     RowBox[{"Ordering", "[", 
+      RowBox[{"mSP500Data", "[", 
+       RowBox[{"[", "5", "]"}], "]"}], "]"}]}]}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.792012349226616*^9, 3.792012389385913*^9}, {
+  3.7920124893166285`*^9, 3.792012512387948*^9}, {3.79201305370791*^9, 
+  3.792013054127934*^9}, {3.7920131337134857`*^9, 
+  3.7920131347735467`*^9}},ExpressionUUID->"e3fda2f7-21a1-45dc-bc4e-\
+e9b996b04371"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Calculate Conditional Drawdown at Risk", "Subsection",
+ CellChangeTimes->{{3.7920117017895846`*^9, 
+  3.7920117105730867`*^9}},ExpressionUUID->"b5dd9092-2a4e-4b41-a55e-\
+626c2db18017"],
+
+Cell["\<\
+\[Alpha] \[Element] [0,1]. \[Alpha] = 0 is average drawdown. \[Alpha] = 1 is \
+maximum drawdown.
+vDDOrdering gives the indexes of vDrawdowns in decreasing sorted order.\
+\>", "Text",
+ CellChangeTimes->{{3.7920119323807735`*^9, 3.792011942396346*^9}, {
+  3.792011988103961*^9, 3.7920119886559925`*^9}, {3.7920121056886864`*^9, 
+  3.7920121548034954`*^9}, {3.7920121875353675`*^9, 3.792012217074057*^9}, {
+  3.7920238307323203`*^9, 
+  3.79202401150766*^9}},ExpressionUUID->"12f76b16-39f1-4d01-8a16-\
+ddf80e24c836"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xCDaR", "[", 
+   RowBox[{"vDrawdowns_", ",", "vDDOrdering_", ",", "nAlpha_"}], "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"nQ", "=", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"nAlpha", "<", "1"}], ",", 
+       RowBox[{"nQ", "=", 
+        RowBox[{"Ceiling", "[", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"1", "-", "nAlpha"}], ")"}], "*", 
+          RowBox[{"Length", "@", "vDrawdowns"}]}], "]"}]}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Mean", "[", 
+      RowBox[{"vDrawdowns", "[", 
+       RowBox[{"[", " ", 
+        RowBox[{"vDDOrdering", "[", 
+         RowBox[{"[", 
+          RowBox[{"1", ";;", "nQ"}], "]"}], "]"}], "]"}], "]"}], "]"}]}]}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.7920117159093924`*^9, 3.79201175591268*^9}, {
+  3.7920230846816487`*^9, 3.792023113508298*^9}, {3.792023148241284*^9, 
+  3.792023215323121*^9}, {3.792023528131013*^9, 3.7920235610298944`*^9}, {
+  3.792023741278204*^9, 3.792023742102251*^9}, {3.792023809780122*^9, 
+  3.792023822924874*^9}, {3.792024058207331*^9, 
+  3.7920240758703413`*^9}},ExpressionUUID->"3bd1cc55-1c29-4dc4-9a44-\
+d4bcc1361388"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"nSP500CDaR", "=", 
+  RowBox[{"xCDaR", "[", 
+   RowBox[{
+    RowBox[{"mSP500Data", "[", 
+     RowBox[{"[", "5", "]"}], "]"}], ",", 
+    RowBox[{"mSP500Data", "[", 
+     RowBox[{"[", "6", "]"}], "]"}], ",", "nAlpha"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.7920243406614866`*^9, 3.792024497629465*^9}, {
+   3.792024537076721*^9, 3.792024551588551*^9}, {3.7920248579650745`*^9, 
+   3.7920248664645605`*^9}, {3.7920266954081707`*^9, 
+   3.7920266971722717`*^9}, {3.7920267619269753`*^9, 
+   3.7920267620379815`*^9}, {3.79202679855007*^9, 3.792026799137103*^9}, 
+   3.7920271492261276`*^9, {3.7920273355697856`*^9, 3.7920273367298517`*^9}, {
+   3.792027425795946*^9, 3.792027426371979*^9}, {3.7920987198659363`*^9, 
+   3.792098720857993*^9}},ExpressionUUID->"6451738f-fcff-47a1-9ee7-\
+d4a7f5f7942a"],
+
+Cell[BoxData["0.07511059809844532`"], "Output",
+ CellChangeTimes->{3.7920271523093033`*^9, 3.7920273403050566`*^9, 
+  3.7920274269750137`*^9, 3.7920277589940042`*^9, 3.7920283137017317`*^9, 
+  3.7920988837183084`*^9},ExpressionUUID->"cc47c476-5fd7-480e-a75f-\
+867c64ab63ca"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Calculate Numerator of Drawdown Beta", "Subsection",
+ CellChangeTimes->{{3.7920245792141314`*^9, 3.7920245803781977`*^9}, {
+  3.792024613078068*^9, 
+  3.792024620922517*^9}},ExpressionUUID->"b92ae580-8c6c-416b-be2b-\
+a18a40008448"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xNumeratorOfDDBeta", "[", 
+   RowBox[{
+   "vMktCumuReturns_", ",", "vMktDDOrdering_", ",", "vAssetCumuReturns_", ",",
+     "nAlpha_"}], "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"nQ", "=", "1"}], ",", "vAssetCumuRets"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"nAlpha", "<", "1"}], ",", 
+       RowBox[{"nQ", "=", 
+        RowBox[{"Ceiling", "[", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"1", "-", "nAlpha"}], ")"}], "*", 
+          RowBox[{"Length", "@", "vMktCumuReturns"}]}], "]"}]}]}], "]"}], ";",
+      "\[IndentingNewLine]", 
+     RowBox[{"vAssetCumuRets", "=", 
+      RowBox[{"Map", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"vAssetCumuReturns", "[", 
+          RowBox[{"[", 
+           RowBox[{"First", "@", 
+            RowBox[{"Ordering", "[", 
+             RowBox[{
+              RowBox[{"vMktCumuReturns", "[", 
+               RowBox[{"[", 
+                RowBox[{"1", ";;", "#"}], "]"}], "]"}], ",", 
+              RowBox[{"-", "1"}]}], "]"}]}], "]"}], "]"}], "&"}], ",", 
+        RowBox[{"vMktDDOrdering", "[", 
+         RowBox[{"[", 
+          RowBox[{"1", ";;", "nQ"}], "]"}], "]"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Mean", "[", 
+      RowBox[{"vAssetCumuRets", "-", 
+       RowBox[{"vAssetCumuReturns", "[", 
+        RowBox[{"[", 
+         RowBox[{"vMktDDOrdering", "[", 
+          RowBox[{"[", 
+           RowBox[{"1", ";;", "nQ"}], "]"}], "]"}], "]"}], "]"}]}], "]"}]}]}],
+    "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.7920246271828747`*^9, 3.7920246441578455`*^9}, {
+   3.79202470088809*^9, 3.792024719220139*^9}, {3.7920254028812423`*^9, 
+   3.7920254138328686`*^9}, {3.792025487882104*^9, 3.792025547725527*^9}, {
+   3.792025735146247*^9, 3.792025789792372*^9}, {3.7920258615544767`*^9, 
+   3.792025883833751*^9}, {3.79202591457751*^9, 3.792026010815014*^9}, {
+   3.7920260792219267`*^9, 3.792026180403714*^9}, {3.79202621407864*^9, 
+   3.792026258977208*^9}, {3.7920263322834005`*^9, 3.7920263516235075`*^9}, 
+   3.792026382175255*^9, {3.7920264163182077`*^9, 3.792026445701888*^9}, {
+   3.7920264949577055`*^9, 3.7920265048772726`*^9}, {3.792027226620554*^9, 
+   3.7920272596754446`*^9}, {3.792027310446349*^9, 3.792027311198392*^9}, 
+   3.792027413236228*^9},ExpressionUUID->"3971e092-2057-4de0-be5e-\
+cafd3bd27ce9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"nNumerOfDDBeta", "=", 
+  RowBox[{"xNumeratorOfDDBeta", "[", 
+   RowBox[{
+    RowBox[{"mSP500Data", "[", 
+     RowBox[{"[", "4", "]"}], "]"}], ",", 
+    RowBox[{"mSP500Data", "[", 
+     RowBox[{"[", "6", "]"}], "]"}], ",", 
+    RowBox[{"mGLDData", "[", 
+     RowBox[{"[", "4", "]"}], "]"}], ",", "nAlpha"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.792026541279355*^9, 3.7920266626602974`*^9}, 
+   3.792027150646209*^9},ExpressionUUID->"28464888-7f1c-434c-8693-\
+bdc2843ee5d8"],
+
+Cell[BoxData[
+ RowBox[{"-", "0.09000259355618592`"}]], "Output",
+ CellChangeTimes->{
+  3.792027154744443*^9, {3.7920272457516484`*^9, 3.792027265336768*^9}, {
+   3.7920273195778713`*^9, 3.7920273460383844`*^9}, 3.792027431579277*^9, 
+   3.792027759027006*^9, 3.7920283137347336`*^9, 
+   3.79209888375531*^9},ExpressionUUID->"12850f30-e37c-4c54-a067-\
+0909f74e01a8"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Calculate Drawdown Beta", "Subsection",
+ CellChangeTimes->{{3.7920266413730803`*^9, 
+  3.792026644085235*^9}},ExpressionUUID->"93dc10f3-2e5a-4628-a19d-\
+b1bda3f7e079"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"nNumerOfDDBeta", "/", "nSP500CDaR"}]], "Input",
+ CellChangeTimes->{{3.7920266727198725`*^9, 
+  3.7920266765220904`*^9}},ExpressionUUID->"6108f741-9815-449b-8ab7-\
+5d6f8f545dab"],
+
+Cell[BoxData[
+ RowBox[{"-", "1.198267565892926`"}]], "Output",
+ CellChangeTimes->{{3.79202667774016*^9, 3.79202670570776*^9}, 
+   3.7920267683893447`*^9, 3.79202681026474*^9, 3.792026961341381*^9, 
+   3.792027350351631*^9, 3.792027433089363*^9, 3.7920277590350065`*^9, 
+   3.792028313742734*^9, 
+   3.792098883762311*^9},ExpressionUUID->"8a67c5e2-5ba2-4907-8195-\
+1c8552a301f0"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{946, 835},
+WindowMargins->{{Automatic, -11}, {73, Automatic}},
+FrontEndVersion->"11.2 for Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 234, 4, 67, "Section",ExpressionUUID->"a0b316f3-5208-44a5-bcaa-c0b0e6391eb1"],
+Cell[817, 28, 578, 11, 100, "Text",ExpressionUUID->"abdb11f3-6559-4351-96e8-546fe48be554"],
+Cell[CellGroupData[{
+Cell[1420, 43, 230, 4, 53, "Subsection",ExpressionUUID->"146ece0f-e2f5-42db-8b34-be7af8c3a9b9"],
+Cell[1653, 49, 1009, 26, 86, "Input",ExpressionUUID->"84945594-887a-4db4-8f96-03fac5b1f4c5"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2699, 80, 169, 3, 53, "Subsection",ExpressionUUID->"b211efd3-781c-4edb-9400-ce2d6b48388d"],
+Cell[2871, 85, 1170, 29, 48, "Input",ExpressionUUID->"25ed807e-327e-4d04-9f08-65bc8e5e550c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4078, 119, 193, 3, 53, "Subsection",ExpressionUUID->"f86be6a2-fa9a-47a8-a097-b52d85f7f97c"],
+Cell[4274, 124, 725, 19, 48, "Input",ExpressionUUID->"55193920-c34e-4157-90b0-e1ea2e56eb91"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5036, 148, 319, 5, 53, "Subsection",ExpressionUUID->"75d71adf-acc0-454a-a657-c81dc3c6c1ab"],
+Cell[5358, 155, 460, 9, 56, "Text",ExpressionUUID->"c2c93674-ae79-4b77-b989-54b3b62ba5f9"],
+Cell[5821, 166, 828, 20, 67, "Input",ExpressionUUID->"9feb98ee-7d0b-4bdd-802e-7e0fdcd00237"],
+Cell[6652, 188, 427, 8, 34, "Text",ExpressionUUID->"938bc52c-11b0-4eef-bea8-9c4359ae9dfb"],
+Cell[7082, 198, 1167, 27, 67, "Input",ExpressionUUID->"c5027a10-7114-4b17-8f29-73b3081c7ab1"],
+Cell[8252, 227, 935, 17, 28, "Input",ExpressionUUID->"e68c5e3a-60c2-45f0-a3d1-938353307f75"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9224, 249, 189, 3, 53, "Subsection",ExpressionUUID->"96f09487-ca01-4e90-a0c9-752db1ed04ca"],
+Cell[9416, 254, 525, 12, 28, "Input",ExpressionUUID->"e3fda2f7-21a1-45dc-bc4e-e9b996b04371"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9978, 271, 190, 3, 53, "Subsection",ExpressionUUID->"b5dd9092-2a4e-4b41-a55e-626c2db18017"],
+Cell[10171, 276, 522, 10, 56, "Text",ExpressionUUID->"12f76b16-39f1-4d01-8a16-ddf80e24c836"],
+Cell[10696, 288, 1295, 32, 86, "Input",ExpressionUUID->"3bd1cc55-1c29-4dc4-9a44-d4bcc1361388"],
+Cell[CellGroupData[{
+Cell[12016, 324, 821, 16, 28, "Input",ExpressionUUID->"6451738f-fcff-47a1-9ee7-d4a7f5f7942a"],
+Cell[12840, 342, 274, 4, 32, "Output",ExpressionUUID->"cc47c476-5fd7-480e-a75f-867c64ab63ca"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13163, 352, 237, 4, 53, "Subsection",ExpressionUUID->"b92ae580-8c6c-416b-be2b-a18a40008448"],
+Cell[13403, 358, 2486, 59, 124, "Input",ExpressionUUID->"3971e092-2057-4de0-be5e-cafd3bd27ce9"],
+Cell[CellGroupData[{
+Cell[15914, 421, 500, 12, 28, "Input",ExpressionUUID->"28464888-7f1c-434c-8693-bdc2843ee5d8"],
+Cell[16417, 435, 365, 7, 32, "Output",ExpressionUUID->"12850f30-e37c-4c54-a067-0909f74e01a8"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16831, 448, 173, 3, 53, "Subsection",ExpressionUUID->"93dc10f3-2e5a-4628-a19d-b1bda3f7e079"],
+Cell[CellGroupData[{
+Cell[17029, 455, 201, 4, 28, "Input",ExpressionUUID->"6108f741-9815-449b-8ab7-5d6f8f545dab"],
+Cell[17233, 461, 378, 7, 65, "Output",ExpressionUUID->"8a67c5e2-5ba2-4907-8195-1c8552a301f0"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

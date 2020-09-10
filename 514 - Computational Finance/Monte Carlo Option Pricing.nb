@@ -1,0 +1,2331 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    100311,       2323]
+NotebookOptionsPosition[     93067,       2189]
+NotebookOutlinePosition[     93410,       2204]
+CellTagsIndexPosition[     93367,       2201]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Project 1 - European, Bermuda and American Option Pricing", "Section",
+ CellChangeTimes->{{3.7852616736753244`*^9, 
+  3.7852616816876163`*^9}},ExpressionUUID->"6497d00e-6b49-45dc-b12b-\
+04a298ae0787"],
+
+Cell[CellGroupData[{
+
+Cell["European Option Pricing Overview", "Subsection",
+ CellChangeTimes->{{3.785261694435074*^9, 3.78526169691091*^9}, {
+  3.7852621247901278`*^9, 
+  3.7852621257293177`*^9}},ExpressionUUID->"144c5989-13e4-4fd7-9190-\
+6b0853188df1"],
+
+Cell[TextData[{
+ "The Black-Scholes formula provides an analytical solution for non-dividend \
+European option pricing. Standard Monte Carlo and control variate Monte Carlo \
+methods are also implemented and discussed. Mathematica provides a built-in \
+Black-Scholes function to check the simulations against. The price of the \
+underlying asset is used as the control variate. From Lidebrandt, \
+\[OpenCurlyDoubleQuote]Variance Reduction Three Approaches to Control \
+Variates\[CloseCurlyDoubleQuote], p. 12. \[Beta] in this project corresponds \
+to the control variate parameter \[Beta] used in the paper. n\[Beta]Min in \
+this project corresponds to ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["\[Beta]", "^"], "*"}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "74450f35-2db7-4df9-960d-576a47a09c07"],
+ " in the paper."
+}], "Text",
+ CellChangeTimes->{{3.7852617034038367`*^9, 3.7852617816320257`*^9}, {
+   3.785261846217602*^9, 3.7852618634486675`*^9}, {3.7852619466946387`*^9, 
+   3.785261948780225*^9}, {3.7852620132720547`*^9, 3.78526201979558*^9}, {
+   3.7852622744884353`*^9, 3.785262331454579*^9}, 3.7852714540200605`*^9, {
+   3.78527155542268*^9, 3.785271712614999*^9}, {3.7852717464045677`*^9, 
+   3.785271800075903*^9}},ExpressionUUID->"72840719-5bbc-458e-8577-\
+da9a4d853d7f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Bermuda Option Pricing Overview", "Subsection",
+ CellChangeTimes->{{3.785261795475746*^9, 3.785261798597034*^9}, {
+  3.785262384563591*^9, 
+  3.785262385768854*^9}},ExpressionUUID->"df7dabb0-5eac-42a7-8c6d-\
+9dd717270f7d"],
+
+Cell["\<\
+Bermuda option pricing is implemented using the Longstaff-Schwartz method \
+(also called Least Squares Monte Carlo). A control variate enhanced \
+implementation of Longstaff-Schwartz is also provided, where the \
+Black-Scholes European option price is used as the control variate. \
+Mathematica does not provide a built-in Bermuda option pricing function. \
+However, a non-dividend Bermuda call option should have the same price as a \
+European call option, so the simulation results should reflect this fact. A \
+description of the Longstaff-Schwartz method is as follows:
+
+1. Specify linear regression (see xRegression[] function in Bermuda section)
+2. Generate price path matrix. Remove first column t=0 (this is the current \
+price, same for every path)
+3. Calculate payoffs at each time step for each path
+4. Initialize cash flow matrix: same dimensions as price patch matrix, all 0 \
+but last column (expiry time step) is payoff at expiry
+5. For the control variate: initialize cash flow vector (length = number of \
+price paths) with expiry payoffs for each path
+6. For each time step backwards, starting at the next to last time step and \
+ending (include) at the first time step
+\t1. Find prices for paths that are in the money at this time step
+\t2. For each path in the money, discount the first non-zero cash flow in \
+subsequent time steps to this time step
+\t3. Run regression of 1. vs 2. to determine continuation function
+\t4. Calculate continuation function value for each in the money price from 1
+\t5. Set cash flow matrix values in this time step for in the money paths: \
+If[payoff > continuation value, payoff, 0];
+\t6. For the control variate cash flow matrix:  If[in the money and payoff > \
+continuation value, European option price with expiry at next time step, \
+discounted payoff of next time step];
+7. In the completed cash flow matrix, for each path, keep the earliest \
+non-zero cash flow. 
+8. Discount the cash flows from 7 to t = 0
+9. Calculate mean and standard deviation of discounted cash flows from 8
+10. For the control variate: discount control variate cash flow matrix to t=0 \
+(from t=1)
+11. For the control variate: calculate n\[Beta]Min using a subset of the \
+values from 8 and 10
+12. For the control variate: calculate expected value of the control variate. \
+This is the price of the European option with same settings as Bermuda option \
+(i.e. expiry at last time step)
+13. For the control variate: calculate mean and standard deviation using the \
+unused values from 8 and 10, and n\[Beta]Min and control variate expected value
+
+https://people.math.ethz.ch/~hjfurrer/teaching/\
+LongstaffSchwartzAmericanOptionsLeastSquareMonteCarlo.pdf
+https://studenttheses.cbs.dk/bitstream/handle/10417/3635/alberto_barola.pdf?\
+sequence=1 (101,102)\
+\>", "Text",
+ CellChangeTimes->{{3.7852618115343976`*^9, 3.785262111070495*^9}, {
+   3.7852621696176705`*^9, 3.785262261114811*^9}, 3.785262308702697*^9, {
+   3.7852623499611573`*^9, 3.785262362707093*^9}, {3.7852628003509216`*^9, 
+   3.7852628069994946`*^9}, {3.785270176061461*^9, 3.785270188197874*^9}, {
+   3.785271342112664*^9, 
+   3.785271360035438*^9}},ExpressionUUID->"97783fae-9f55-4aff-b393-\
+4ceaf50b98ca"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["American Option Pricing Overview", "Subsection",
+ CellChangeTimes->{{3.78526238831118*^9, 
+  3.785262391949458*^9}},ExpressionUUID->"bc5ca267-97a4-4c54-97ed-\
+a15c09caf797"],
+
+Cell["\<\
+American option prices can be approximated by increasing the number of \
+exercise times of a Bermuda option. Mathematica provides a built-in American \
+option pricing function using binomial trees. Also, a non-dividend American \
+call option should have the same price as a European call option, so the \
+simulation results should reflect this fact.\
+\>", "Text",
+ CellChangeTimes->{{3.7852624004781756`*^9, 
+  3.7852625831833167`*^9}},ExpressionUUID->"63a016e0-c34b-47e3-8a00-\
+10bb03833c19"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Section Parameters and Functions", "Subsection",
+ CellChangeTimes->{{3.7852626010733833`*^9, 
+  3.7852626047730293`*^9}},ExpressionUUID->"db6250f8-9931-4874-89af-\
+317a05fd933f"],
+
+Cell["\<\
+Parameters can be set here or in the European and Bermuda/American sections.\
+\>", "Text",
+ CellChangeTimes->{{3.785263228480359*^9, 3.7852632479696307`*^9}, {
+  3.785271464164025*^9, 
+  3.785271470262041*^9}},ExpressionUUID->"63e1c8df-dc65-48ba-b648-\
+a7c42dfe1284"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"iDaysPerYear", "=", "365"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nCurrentPrice", "=", "100"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nCallStrikePrice", "=", "105"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nPutStrikePrice", "=", "95"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nDailyVolatility", "=", "0.02"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"nDailyRiskFreeRate", "=", 
+    RowBox[{"0.1", "/", "iDaysPerYear"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"iDaysToExpiry", "=", "100"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"iPaths", "=", "100000"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"iPathsFor\[Beta]Estimate", "=", "2000"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.785263257268756*^9, 3.7852632677446833`*^9}, {
+   3.7852694812065215`*^9, 3.785269481597054*^9}, {3.7852709674734488`*^9, 
+   3.7852709763634005`*^9}, {3.7852721425420127`*^9, 3.785272142948619*^9}, 
+   3.7852755818768034`*^9, {3.785275904810343*^9, 3.7852759050923276`*^9}},
+ CellLabel->"In[96]:=",ExpressionUUID->"7d91a5b9-585b-400a-80a4-8d00f053b456"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xBlackScholes", "[", 
+   RowBox[{
+   "sType_", ",", "nCurrentPrice_", ",", "nStrike_", ",", "iDaysToExpiry_", 
+    ",", "nDailyVolatility_", ",", "nDailyRiskFreeRate_"}], "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"FinancialDerivative", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\"\<European\>\"", ",", "sType"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"\"\<StrikePrice\>\"", "\[Rule]", "nStrike"}], ",", 
+        RowBox[{"\"\<Expiration\>\"", "\[Rule]", "iDaysToExpiry"}]}], "}"}], 
+      ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"\"\<CurrentPrice\>\"", "\[Rule]", "nCurrentPrice"}], ",", 
+        RowBox[{"\"\<Volatility\>\"", "\[Rule]", "nDailyVolatility"}], ",", 
+        RowBox[{"\"\<InterestRate\>\"", "\[Rule]", "nDailyRiskFreeRate"}]}], 
+       "}"}]}], "]"}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.785265095056436*^9, 3.785265116334784*^9}, {
+  3.785265360926709*^9, 3.7852653761049833`*^9}},
+ CellLabel->
+  "In[107]:=",ExpressionUUID->"431ef684-cdfe-450a-9791-ca9305a954aa"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xGenerateGBMPaths", "[", 
+   RowBox[{
+   "nDailyRiskFreeRate_", ",", "nDailyVolatility_", ",", "nCurrentPrice_", 
+    ",", "iDaysToExpiry_", ",", "iStepSize_", ",", "iPaths_"}], "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", "vvnPaths", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"iDaysToExpiry", "<", "iStepSize"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", "nCurrentPrice", "}"}], ",", "iPaths"}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"vvnPaths", "=", 
+        RowBox[{"Normal", "@", 
+         RowBox[{"RandomFunction", "[", 
+          RowBox[{
+           RowBox[{"GeometricBrownianMotionProcess", "[", 
+            RowBox[{
+            "nDailyRiskFreeRate", ",", "nDailyVolatility", ",", 
+             "nCurrentPrice"}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "iDaysToExpiry", ",", "iStepSize"}], "}"}], ",",
+            " ", "iPaths"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"#", "[", 
+           RowBox[{"[", 
+            RowBox[{"All", ",", "2"}], "]"}], "]"}], "&"}], ",", "vvnPaths"}],
+         "]"}]}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{3.7852632966415844`*^9},
+ CellLabel->
+  "In[108]:=",ExpressionUUID->"2b4690db-a637-4ced-a5fa-c8369ac85cd6"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xDisplayParameters", "[", "vDisplay_", "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"Grid", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"ToString", "@", 
+            RowBox[{"vDisplay", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], "<>", 
+           "\"\< Option and Simulation Parameters\>\""}], ",", 
+          "SpanFromLeft"}], "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Current Price\>\"", ",", 
+          RowBox[{"vDisplay", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Call Strike\>\"", ",", 
+          RowBox[{"vDisplay", "[", 
+           RowBox[{"[", "3", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Put Strike\>\"", ",", 
+          RowBox[{"vDisplay", "[", 
+           RowBox[{"[", "4", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Days to Expiry\>\"", ",", 
+          RowBox[{"vDisplay", "[", 
+           RowBox[{"[", "5", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Exercise Days\>\"", ",", 
+          RowBox[{"vDisplay", "[", 
+           RowBox[{"[", "6", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Daily Volatility\>\"", ",", 
+          RowBox[{"vDisplay", "[", 
+           RowBox[{"[", "7", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Daily Risk Free Rate\>\"", ",", 
+          RowBox[{"vDisplay", "[", 
+           RowBox[{"[", "8", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Days Per Year\>\"", ",", 
+          RowBox[{"vDisplay", "[", 
+           RowBox[{"[", "9", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Simulation Paths\>\"", ",", " ", 
+          RowBox[{"vDisplay", "[", 
+           RowBox[{"[", "10", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<\[Beta] Estimate Paths\>\"", ",", 
+          RowBox[{"vDisplay", "[", 
+           RowBox[{"[", "11", "]"}], "]"}]}], "}"}]}], "\[IndentingNewLine]", 
+       "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Dividers", "\[Rule]", "All"}], ",", 
+      RowBox[{"Alignment", "\[Rule]", "Left"}]}], "]"}]}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{
+  3.7852626662543445`*^9, {3.7852628732658763`*^9, 3.7852629101112127`*^9}, {
+   3.785262962357918*^9, 3.7852630106672816`*^9}, {3.785263220245076*^9, 
+   3.7852632212345285`*^9}, {3.785263253129264*^9, 3.7852632542917695`*^9}},
+ CellLabel->
+  "In[109]:=",ExpressionUUID->"00fb1dbc-da7f-46dc-afc3-027a17e1afa6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["European Call and Put Option Pricing", "Subsection",
+ CellChangeTimes->{{3.785262695765829*^9, 3.7852626999058695`*^9}, {
+  3.785270698640583*^9, 
+  3.78527070133736*^9}},ExpressionUUID->"2336b77a-70e9-445b-9b0b-\
+1d32e7bbd4d2"],
+
+Cell[CellGroupData[{
+
+Cell["Parameters and Functions", "Subsubsection",
+ CellChangeTimes->{{3.785263376656534*^9, 
+  3.7852633790245914`*^9}},ExpressionUUID->"7b9d9c83-358c-4462-8d16-\
+5b0624170abb"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nEuroCurrentPrice", "=", "nCurrentPrice"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nEuroCallStrikePrice", "=", "nCallStrikePrice"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nEuroPutStrikePrice", "=", "nPutStrikePrice"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nEuroDailyVolatility", "=", "nDailyVolatility"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nEuroDailyRiskFreeRate", "=", "nDailyRiskFreeRate"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"iEuroDaysToExpiry", "=", "iDaysToExpiry"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"iEuroPaths", "=", "iPaths"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"iEuroPathsFor\[Beta]Estimate", "=", "iPathsFor\[Beta]Estimate"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{
+  3.7852634271622467`*^9, {3.785263549260277*^9, 3.785263614582946*^9}},
+ CellLabel->
+  "In[110]:=",ExpressionUUID->"02f2aefa-142e-48ff-8b63-0dbc4f3f6722"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"xGeneratePathData", "[", 
+    RowBox[{
+    "nDailyRiskFreeRate_", ",", "nDailyVolatility_", ",", "nCurrentPrice_", 
+     ",", "nCallStrikePrice_", ",", "nPutStrikePrice_", ",", "iDaysToExpiry_",
+      ",", "iStepSize_", ",", "iPaths_"}], "]"}], ":=", 
+   RowBox[{"Block", "[", 
+    RowBox[{
+     RowBox[{"{", "vnExpiryPrices", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"vnExpiryPrices", "=", 
+       RowBox[{
+        RowBox[{"xGenerateGBMPaths", "[", 
+         RowBox[{
+         "nDailyRiskFreeRate", ",", "nDailyVolatility", ",", "nCurrentPrice", 
+          ",", "iDaysToExpiry", ",", "iDaysToExpiry", ",", "iPaths"}], "]"}], 
+        "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "2"}], "]"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"vnExpiryPrices", ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Max", "[", 
+           RowBox[{
+            RowBox[{"#", "-", "nCallStrikePrice"}], ",", "0"}], "]"}], "&"}], 
+         "/@", "vnExpiryPrices"}], ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Max", "[", 
+           RowBox[{
+            RowBox[{"nPutStrikePrice", "-", "#"}], ",", "0"}], "]"}], "&"}], "/@",
+          "vnExpiryPrices"}], ",", 
+        RowBox[{"Exp", "[", 
+         RowBox[{
+          RowBox[{"-", "nDailyRiskFreeRate"}], "*", "iDaysToExpiry"}], "]"}], 
+        ",", 
+        RowBox[{"nCurrentPrice", "*", 
+         RowBox[{"Exp", "[", 
+          RowBox[{"nDailyRiskFreeRate", "*", "iDaysToExpiry"}], "]"}]}]}], 
+       "}"}]}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"For", " ", "standard", " ", "MC"}], ",", " ", 
+    RowBox[{
+     RowBox[{"pass", " ", "iEstimatePaths"}], "=", 
+     RowBox[{
+      RowBox[{"Null", ".", " ", "For"}], " ", "CV", " ", "MC"}]}], ",", " ", 
+    RowBox[{
+     RowBox[{"pass", " ", "iEstimatePaths"}], "=", 
+     RowBox[{
+      RowBox[{"iPaths", ".", " ", "For"}], " ", "PCV", " ", "MC"}]}], ",", 
+    " ", 
+    RowBox[{
+     RowBox[{"pass", " ", "iEstimatePaths"}], "\[LessEqual]", "iPaths"}]}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"xMCEuropeanPricing", "[", 
+   RowBox[{
+   "vnExpiryPrices_", ",", "vnPayoffs_", ",", "nDiscountRate_", ",", 
+    "nExpectedPrice_", ",", "iPaths_", ",", "iEstimatePaths_"}], "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "nExpiryPriceSD", ",", "nPayoffSD", ",", "nCorr", ",", "n\[Beta]Min", 
+      ",", "nMCPrice", ",", "nMCSD"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"iEstimatePaths", "===", "Null"}], ",", " ", 
+       RowBox[{
+        RowBox[{"nMCPrice", "=", 
+         RowBox[{"nDiscountRate", "*", 
+          RowBox[{"Mean", "[", "vnPayoffs", "]"}]}]}], ";", 
+        RowBox[{"nMCSD", "=", 
+         RowBox[{
+          RowBox[{"StandardDeviation", "[", "vnPayoffs", "]"}], "/", 
+          RowBox[{"Sqrt", "@", "iPaths"}]}]}]}], ",", "\[IndentingNewLine]", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"nExpiryPriceSD", "=", 
+         RowBox[{"StandardDeviation", "[", 
+          RowBox[{"vnExpiryPrices", "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ";;", "iEstimatePaths"}], "]"}], "]"}], "]"}]}], ";",
+         "\[IndentingNewLine]", 
+        RowBox[{"nPayoffSD", "=", 
+         RowBox[{"StandardDeviation", "[", 
+          RowBox[{"vnPayoffs", "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ";;", "iEstimatePaths"}], "]"}], "]"}], "]"}]}], ";",
+         "\[IndentingNewLine]", 
+        RowBox[{"nCorr", "=", 
+         RowBox[{"Correlation", "[", 
+          RowBox[{
+           RowBox[{"vnPayoffs", "[", 
+            RowBox[{"[", 
+             RowBox[{"1", ";;", "iEstimatePaths"}], "]"}], "]"}], ",", 
+           RowBox[{"vnExpiryPrices", "[", 
+            RowBox[{"[", 
+             RowBox[{"1", ";;", "iEstimatePaths"}], "]"}], "]"}]}], "]"}]}], 
+        ";", "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"iPaths", "\[Equal]", "iEstimatePaths"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"n\[Beta]Min", "=", "1"}], ";", "\[IndentingNewLine]", 
+           RowBox[{"nMCPrice", "=", 
+            RowBox[{"nDiscountRate", "*", 
+             RowBox[{"Mean", "[", 
+              RowBox[{
+              "vnPayoffs", "-", "vnExpiryPrices", "+", "nExpectedPrice"}], 
+              "]"}]}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"nMCSD", "=", 
+            RowBox[{"Sqrt", "[", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"nPayoffSD", "^", "2"}], "+", 
+                RowBox[{"nExpiryPriceSD", "^", "2"}], "-", 
+                RowBox[{
+                "2", "nCorr", "*", "nPayoffSD", "*", "nExpiryPriceSD"}]}], 
+               ")"}], "/", "iPaths"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+          ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"n\[Beta]Min", "=", 
+            RowBox[{"nPayoffSD", "*", 
+             RowBox[{"nCorr", "/", "nExpiryPriceSD"}]}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"nMCPrice", "=", 
+            RowBox[{"nDiscountRate", "*", 
+             RowBox[{"Mean", "[", 
+              RowBox[{
+               RowBox[{"vnPayoffs", "[", 
+                RowBox[{"[", 
+                 RowBox[{
+                  RowBox[{"iEstimatePaths", "+", "1"}], ";;"}], "]"}], "]"}], 
+               "-", 
+               RowBox[{"n\[Beta]Min", "*", 
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"vnExpiryPrices", "[", 
+                   RowBox[{"[", 
+                    RowBox[{
+                    RowBox[{"iEstimatePaths", "+", "1"}], ";;"}], "]"}], 
+                   "]"}], "-", "nExpectedPrice"}], ")"}]}]}], "]"}]}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"nMCSD", "=", 
+            RowBox[{"Sqrt", "[", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"1", "-", 
+                RowBox[{"nCorr", "^", "2"}]}], ")"}], "*", 
+              RowBox[{
+               RowBox[{"nPayoffSD", "^", "2"}], "/", 
+               RowBox[{"(", 
+                RowBox[{"iPaths", "-", "iEstimatePaths"}], ")"}]}]}], "]"}]}],
+            ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]}], 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"nMCPrice", ",", "nMCSD"}], "}"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]}], "Input",
+ CellChangeTimes->{
+  3.7852634362253237`*^9, {3.785270674351619*^9, 3.785270675402987*^9}, {
+   3.785271610897326*^9, 3.7852716115715737`*^9}},
+ CellLabel->
+  "In[118]:=",ExpressionUUID->"66a1f31a-c4db-4f76-8717-d2c86db3168e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Path Generation", "Subsubsection",
+ CellChangeTimes->{{3.785263415251462*^9, 
+  3.785263418113707*^9}},ExpressionUUID->"78207c48-1e0d-4f77-94b7-\
+25303fccf788"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"nPathGenTime", ",", 
+     RowBox[{"{", 
+      RowBox[{
+      "vnExpiryPrices", ",", "vnCallPayoffs", ",", "vnPutPayoffs", ",", 
+       "nDiscountRate", ",", "nExpectedPrice"}], "}"}]}], "}"}], "=", 
+   RowBox[{"Timing", "[", 
+    RowBox[{"xGeneratePathData", "[", 
+     RowBox[{
+     "nEuroDailyRiskFreeRate", ",", "nEuroDailyVolatility", ",", 
+      "nEuroCurrentPrice", ",", "nEuroCallStrikePrice", ",", 
+      "nEuroPutStrikePrice", ",", "iEuroDaysToExpiry", ",", 
+      "iEuroDaysToExpiry", ",", "iEuroPaths"}], "]"}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.785263455056633*^9, 3.785263459086907*^9}, {
+  3.7852636418198485`*^9, 3.785263676567794*^9}, {3.7852658587335353`*^9, 
+  3.7852658589209948`*^9}},
+ CellLabel->
+  "In[120]:=",ExpressionUUID->"c245aa18-742e-4674-8a8f-5ee76ea604cb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Computation and Display", "Subsubsection",
+ CellChangeTimes->{{3.785263465043898*^9, 
+  3.785263467242008*^9}},ExpressionUUID->"890c6346-6bbc-44b9-ae81-\
+2ba0e7355977"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"vnBSCallTimePrice", "=", 
+   RowBox[{"Timing", "[", 
+    RowBox[{"xBlackScholes", "[", 
+     RowBox[{
+     "\"\<Call\>\"", ",", "nEuroCurrentPrice", ",", "nEuroCallStrikePrice", 
+      ",", "iEuroDaysToExpiry", ",", "nEuroDailyVolatility", ",", 
+      "nEuroDailyRiskFreeRate"}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"vnBSPutTimePrice", "=", 
+    RowBox[{"Timing", "[", 
+     RowBox[{"xBlackScholes", "[", 
+      RowBox[{
+      "\"\<Put\>\"", ",", "nEuroCurrentPrice", ",", "nEuroPutStrikePrice", 
+       ",", "iEuroDaysToExpiry", ",", "nEuroDailyVolatility", ",", 
+       "nEuroDailyRiskFreeRate"}], "]"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"xDisplayParameters", "[", 
+   RowBox[{"{", 
+    RowBox[{
+    "\"\<European\>\"", ",", "nEuroCurrentPrice", ",", "nEuroCallStrikePrice",
+      ",", "nEuroPutStrikePrice", ",", "iEuroDaysToExpiry", ",", 
+     RowBox[{"{", "iEuroDaysToExpiry", "}"}], ",", "nEuroDailyVolatility", 
+     ",", "nEuroDailyRiskFreeRate", ",", "iDaysPerYear", ",", "iEuroPaths", 
+     ",", "iEuroPathsFor\[Beta]Estimate"}], "}"}], "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"Grid", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Price Path Generation Time (s)\>\"", ",", "nPathGenTime"}], 
+     "}"}], "}"}], ",", 
+   RowBox[{"Dividers", "\[Rule]", "All"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Row", "[", 
+  RowBox[{"{", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Grid", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<European Call Option Price, 4 Methods of Calculation\>\"", ",", 
+          "SpanFromLeft"}], "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<Method\>\"", ",", 
+          "\"\<Price = \!\(\*OverscriptBox[\(Y\), \(_\)]\)\>\"", ",", 
+          "\"\<Std Dev(\!\(\*OverscriptBox[\(Y\), \(_\)]\))\>\"", ",", 
+          "\"\<Time (s)\>\""}], "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Black-Scholes\>\"", ",", 
+          RowBox[{"vnBSCallTimePrice", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], ",", "Null", ",", 
+          RowBox[{"vnBSCallTimePrice", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Prepend", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", 
+           RowBox[{"Reverse", "@", 
+            RowBox[{"Timing", "[", 
+             RowBox[{"xMCEuropeanPricing", "[", 
+              RowBox[{
+              "vnExpiryPrices", ",", "vnCallPayoffs", ",", "nDiscountRate", 
+               ",", "nExpectedPrice", ",", "iEuroPaths", ",", "Null"}], "]"}],
+              "]"}]}]}], ",", "\"\<Standard MC\>\""}], "]"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Prepend", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", 
+           RowBox[{"Reverse", "@", 
+            RowBox[{"Timing", "[", 
+             RowBox[{"xMCEuropeanPricing", "[", 
+              RowBox[{
+              "vnExpiryPrices", ",", "vnCallPayoffs", ",", "nDiscountRate", 
+               ",", "nExpectedPrice", ",", "iEuroPaths", ",", "iEuroPaths"}], 
+              "]"}], "]"}]}]}], ",", "\"\<Control Variate MC\>\""}], "]"}], 
+        ",", "\[IndentingNewLine]", 
+        RowBox[{"Prepend", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", 
+           RowBox[{"Reverse", "@", 
+            RowBox[{"Timing", "[", 
+             RowBox[{"xMCEuropeanPricing", "[", 
+              RowBox[{
+              "vnExpiryPrices", ",", "vnCallPayoffs", ",", "nDiscountRate", 
+               ",", "nExpectedPrice", ",", "iEuroPaths", ",", 
+               "iEuroPathsFor\[Beta]Estimate"}], "]"}], "]"}]}]}], ",", 
+          "\"\<Parameterized CV MC\>\""}], "]"}]}], "}"}], ",", 
+      RowBox[{"Dividers", "\[Rule]", "All"}], ",", 
+      RowBox[{"Alignment", "\[Rule]", "Left"}]}], "]"}], ",", 
+    "\[IndentingNewLine]", "\"\<  \>\"", ",", "\[IndentingNewLine]", 
+    RowBox[{"Grid", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<European Put Option Price, 4 Methods of Calculation\>\"", ",", 
+          "SpanFromLeft"}], "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<Method\>\"", ",", 
+          "\"\<Price = \!\(\*OverscriptBox[\(Y\), \(_\)]\)\>\"", ",", 
+          "\"\<Std Dev(\!\(\*OverscriptBox[\(Y\), \(_\)]\))\>\"", ",", 
+          "\"\<Time (s)\>\""}], "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Black-Scholes\>\"", ",", 
+          RowBox[{"vnBSPutTimePrice", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], ",", "Null", ",", 
+          RowBox[{"vnBSPutTimePrice", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Prepend", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", 
+           RowBox[{"Reverse", "@", 
+            RowBox[{"Timing", "[", 
+             RowBox[{"xMCEuropeanPricing", "[", 
+              RowBox[{
+              "vnExpiryPrices", ",", "vnPutPayoffs", ",", "nDiscountRate", 
+               ",", "nExpectedPrice", ",", "iEuroPaths", ",", "Null"}], "]"}],
+              "]"}]}]}], ",", "\"\<Standard MC\>\""}], "]"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Prepend", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", 
+           RowBox[{"Reverse", "@", 
+            RowBox[{"Timing", "[", 
+             RowBox[{"xMCEuropeanPricing", "[", 
+              RowBox[{
+              "vnExpiryPrices", ",", "vnPutPayoffs", ",", "nDiscountRate", 
+               ",", "nExpectedPrice", ",", "iEuroPaths", ",", "iEuroPaths"}], 
+              "]"}], "]"}]}]}], ",", "\"\<Control Variate MC\>\""}], "]"}], 
+        ",", "\[IndentingNewLine]", 
+        RowBox[{"Prepend", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", 
+           RowBox[{"Reverse", "@", 
+            RowBox[{"Timing", "[", 
+             RowBox[{"xMCEuropeanPricing", "[", 
+              RowBox[{
+              "vnExpiryPrices", ",", "vnPutPayoffs", ",", "nDiscountRate", 
+               ",", "nExpectedPrice", ",", "iEuroPaths", ",", 
+               "iEuroPathsFor\[Beta]Estimate"}], "]"}], "]"}]}]}], ",", 
+          "\"\<Parameterized CV MC\>\""}], "]"}]}], "}"}], ",", 
+      RowBox[{"Dividers", "\[Rule]", "All"}], ",", 
+      RowBox[{"Alignment", "\[Rule]", "Left"}]}], "]"}]}], 
+   "\[IndentingNewLine]", "}"}], "]"}]}], "Input",
+ CellChangeTimes->{
+  3.7852634859011602`*^9, {3.785263695054206*^9, 3.7852637059224005`*^9}, {
+   3.7852637545158186`*^9, 3.785263821122542*^9}, {3.7852654740249815`*^9, 
+   3.7852655648104897`*^9}, {3.785271023559862*^9, 3.785271030819482*^9}},
+ CellLabel->
+  "In[121]:=",ExpressionUUID->"10ef3e73-b563-413b-b6d9-94f6851aa36a"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"European Option and Simulation Parameters\"\>", "\[SpanFromLeft]"},
+    {"\<\"Current Price\"\>", "100"},
+    {"\<\"Call Strike\"\>", "105"},
+    {"\<\"Put Strike\"\>", "95"},
+    {"\<\"Days to Expiry\"\>", "100"},
+    {"\<\"Exercise Days\"\>", 
+     RowBox[{"{", "100", "}"}]},
+    {"\<\"Daily Volatility\"\>", "0.02`"},
+    {"\<\"Daily Risk Free Rate\"\>", "0.00027397260273972606`"},
+    {"\<\"Days Per Year\"\>", "365"},
+    {"\<\"Simulation Paths\"\>", "100000"},
+    {"\<\"\[Beta] Estimate Paths\"\>", "2000"}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{
+  3.785263533472892*^9, 3.7852638313303432`*^9, 3.7852642950553093`*^9, 
+   3.785265312583461*^9, 3.785265715432521*^9, 3.7852660151724243`*^9, 
+   3.785268484131567*^9, 3.785269113878196*^9, 3.785269709331812*^9, 
+   3.7852709822583094`*^9, {3.785272035586712*^9, 3.7852720998434706`*^9}, 
+   3.785272157310218*^9, {3.7852724233989143`*^9, 3.7852724647807255`*^9}, {
+   3.7852725289091196`*^9, 3.7852725738316526`*^9}, 3.785272630154454*^9, 
+   3.7852735436501923`*^9, 3.7852759252743464`*^9},
+ CellLabel->
+  "Out[123]=",ExpressionUUID->"89cf3477-621c-49d2-b07f-02f8f9081bce"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Price Path Generation Time (s)\"\>", "0.640625`"}
+   },
+   AutoDelete->False,
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{
+  3.785263533472892*^9, 3.7852638313303432`*^9, 3.7852642950553093`*^9, 
+   3.785265312583461*^9, 3.785265715432521*^9, 3.7852660151724243`*^9, 
+   3.785268484131567*^9, 3.785269113878196*^9, 3.785269709331812*^9, 
+   3.7852709822583094`*^9, {3.785272035586712*^9, 3.7852720998434706`*^9}, 
+   3.785272157310218*^9, {3.7852724233989143`*^9, 3.7852724647807255`*^9}, {
+   3.7852725289091196`*^9, 3.7852725738316526`*^9}, 3.785272630154454*^9, 
+   3.7852735436501923`*^9, 3.7852759252793303`*^9},
+ CellLabel->
+  "Out[124]=",ExpressionUUID->"69c6b0e1-d9ba-43ee-902c-1e7c337be590"],
+
+Cell[BoxData[
+ TemplateBox[{TagBox[
+    GridBox[{{
+      "\"European Call Option Price, 4 Methods of Calculation\"", 
+       "\[SpanFromLeft]", "\[SpanFromLeft]", "\[SpanFromLeft]"}, {
+      "\"Method\"", "\"Price = \\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\)\"",
+        "\"Std Dev(\\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\))\"", 
+       "\"Time (s)\""}, {
+      "\"Black-Scholes\"", "7.016382131241066`", "", "0.`"}, {
+      "\"Standard MC\"", "6.989161484879336`", "0.04032502008475549`", 
+       "0.`"}, {
+      "\"Control Variate MC\"", "7.011321967730413`", "0.03624224323883989`", 
+       "0.03125`"}, {
+      "\"Parameterized CV MC\"", "7.000497827370195`", "0.02031238868873056`",
+        "0.`"}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> 
+     False, GridBoxDividers -> {"Columns" -> {{True}}, "Rows" -> {{True}}}, 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"],"\"  \"",
+   TagBox[
+    GridBox[{{
+      "\"European Put Option Price, 4 Methods of Calculation\"", 
+       "\[SpanFromLeft]", "\[SpanFromLeft]", "\[SpanFromLeft]"}, {
+      "\"Method\"", "\"Price = \\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\)\"",
+        "\"Std Dev(\\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\))\"", 
+       "\"Time (s)\""}, {
+      "\"Black-Scholes\"", "4.463834457299548`", "", "0.`"}, {
+      "\"Standard MC\"", "4.46165196221345`", "0.024978813773292613`", 
+       "0.`"}, {
+      "\"Control Variate MC\"", "4.4838124450645225`", "0.08542694191701143`",
+        "0.03125`"}, {
+      "\"Parameterized CV MC\"", "4.454914760635078`", 
+       "0.017599604917751963`", "0.015625`"}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> False, 
+     GridBoxDividers -> {"Columns" -> {{True}}, "Rows" -> {{True}}}, 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]},
+  "RowDefault"]], "Output",
+ CellChangeTimes->{
+  3.785263533472892*^9, 3.7852638313303432`*^9, 3.7852642950553093`*^9, 
+   3.785265312583461*^9, 3.785265715432521*^9, 3.7852660151724243`*^9, 
+   3.785268484131567*^9, 3.785269113878196*^9, 3.785269709331812*^9, 
+   3.7852709822583094`*^9, {3.785272035586712*^9, 3.7852720998434706`*^9}, 
+   3.785272157310218*^9, {3.7852724233989143`*^9, 3.7852724647807255`*^9}, {
+   3.7852725289091196`*^9, 3.7852725738316526`*^9}, 3.785272630154454*^9, 
+   3.7852735436501923`*^9, 3.7852759253661003`*^9},
+ CellLabel->
+  "Out[125]=",ExpressionUUID->"45e705a1-bddb-468c-9774-f7a6cbe399d8"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Analysis of Results", "Subsubsection",
+ CellChangeTimes->{{3.78527084856592*^9, 
+  3.785270852507821*^9}},ExpressionUUID->"1652592f-4799-4762-896f-\
+b5feafc1747b"],
+
+Cell["\<\
+The results of the analytical and simulated prices and standard deviations \
+for European call and put options are in the previous tables. The simulations \
+all used 100,000 paths. In the simulations I ran, the price for all methods \
+was always within 0.1 of the Black-Scholes price, and the standard deviations \
+were all less than 0.1. I found that the standard deviations for the call \
+were close to .042, 0.035 and .021 and for the put were close to 0.023, 0.085 \
+and 0.018 for the standard, control variate and parameterized control variate \
+simulations. So, the control variate did in fact reduce the variance. The \
+price estimates reflected their respective standard deviations, with the \
+standard and control variate simulations the most imprecise. The addition of \
+a control variate had virtually no effect on the run time. \
+\>", "Text",
+ CellChangeTimes->{{3.785270857604537*^9, 3.785270860019902*^9}, {
+  3.78527089899959*^9, 3.7852709208578024`*^9}, {3.785270951776445*^9, 
+  3.7852709588059225`*^9}, {3.785271001781652*^9, 3.785271009157809*^9}, {
+  3.7852710706461363`*^9, 3.7852712264385676`*^9}, {3.7852714019163437`*^9, 
+  3.7852714428575797`*^9}, {3.7852718642376328`*^9, 3.785271914209393*^9}, {
+  3.785271949944913*^9, 3.7852720309455833`*^9}, {3.7852723492949843`*^9, 
+  3.78527234981446*^9}, {3.7852724884090557`*^9, 3.7852725047775617`*^9}, {
+  3.785272666626463*^9, 3.785272958381099*^9}, {3.7852730561631403`*^9, 
+  3.785273152029823*^9}},ExpressionUUID->"490ede28-2596-4e33-b285-\
+d0a00e79aafd"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Bermuda and American Call and Put Option Pricing", "Subsection",
+ CellChangeTimes->{{3.785262705068348*^9, 3.785262708669508*^9}, {
+  3.7852663892380586`*^9, 
+  3.7852663907233925`*^9}},ExpressionUUID->"97c53f97-8fd5-4216-8117-\
+c2083e6ae37e"],
+
+Cell[CellGroupData[{
+
+Cell["Parameters and Functions", "Subsubsection",
+ CellChangeTimes->{
+  3.7852638593641033`*^9},ExpressionUUID->"c3c23798-dbee-432f-9435-\
+fe845cccec47"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nBermCurrentPrice", "=", "nCurrentPrice"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nBermCallStrikePrice", "=", "nCallStrikePrice"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nBermPutStrikePrice", "=", "nPutStrikePrice"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nBermDailyVolatility", "=", "nDailyVolatility"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"nBermDailyRiskFreeRate", "=", "nDailyRiskFreeRate"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"iBermDaysToExpiry", "=", "iDaysToExpiry"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"iBermPaths", "=", "iPaths"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"iBermPathsFor\[Beta]Estimate", "=", "iPathsFor\[Beta]Estimate"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{
+  3.785263914197391*^9, {3.7852639814830675`*^9, 3.7852640341384525`*^9}, {
+   3.785264333874198*^9, 3.7852643787025547`*^9}, {3.7852664099979615`*^9, 
+   3.7852664150923085`*^9}, {3.785266499812792*^9, 3.7852665471190863`*^9}, {
+   3.7852666553109903`*^9, 3.7852666554828243`*^9}, {3.7852685037628965`*^9, 
+   3.785268504251737*^9}, {3.7852690997752047`*^9, 3.785269100099599*^9}},
+ CellLabel->
+  "In[126]:=",ExpressionUUID->"88df190d-812d-4af0-ae60-b38c23e05781"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"xRegression", "[", 
+   RowBox[{"vPrices_", ",", "vDiscPayoffs_"}], "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"LinearModelFit", "[", 
+      RowBox[{
+       RowBox[{"Transpose", "@", 
+        RowBox[{"{", 
+         RowBox[{"vPrices", ",", "vDiscPayoffs"}], "}"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", 
+         SuperscriptBox["x", "2"], ",", 
+         SuperscriptBox["x", "3"], ",", 
+         SuperscriptBox["x", "4"], ",", 
+         SuperscriptBox["x", "5"]}], "}"}], ",", "x"}], "]"}], "[", 
+     "\"\<Function\>\"", "]"}]}], "\[IndentingNewLine]", 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"xLSPricing", "[", 
+   RowBox[{
+   "vvnTimeStepData_", ",", "sType_", ",", "nStrike_", ",", 
+    "iNumExerciseTimes_"}], "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "iStepSize", ",", "xPayoffFunc", ",", "mPathData", ",", "mCashFlow", ",",
+       "nDiscountRate", ",", "iStep", ",", "vPositions", ",", "vPrices", ",", 
+      "vDiscPayoffs", ",", "xContinuationFunc", ",", "vBSCV", ",", "nBSCVSD", 
+      ",", "nDiscPayoffCVSD", ",", "nCorr", ",", "n\[Beta]Min"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"iStepSize", "=", 
+      RowBox[{"iBermDaysToExpiry", "/", "iNumExerciseTimes"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"xPayoffFunc", "=", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"sType", "===", "\"\<Call\>\""}], ",", 
+        RowBox[{
+         RowBox[{"Max", "[", 
+          RowBox[{
+           RowBox[{"#", "-", "nStrike"}], ",", "0"}], "]"}], "&"}], ",", 
+        RowBox[{
+         RowBox[{"Max", "[", 
+          RowBox[{
+           RowBox[{"nStrike", "-", "#"}], ",", "0"}], "]"}], "&"}]}], "]"}]}],
+      ";", "\[IndentingNewLine]", 
+     RowBox[{"mPathData", "=", 
+      RowBox[{"vvnTimeStepData", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", 
+         RowBox[{"2", ";;"}]}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"mPathData", "=", 
+      RowBox[{"Map", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"#", ",", 
+           RowBox[{"xPayoffFunc", "[", "#", "]"}]}], "}"}], "&"}], ",", 
+        "mPathData", ",", 
+        RowBox[{"{", "2", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"mCashFlow", "=", 
+      RowBox[{"ConstantArray", "[", 
+       RowBox[{"0", ",", 
+        RowBox[{"{", 
+         RowBox[{"iPaths", ",", "iNumExerciseTimes"}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"mCashFlow", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", 
+         RowBox[{"-", "1"}]}], "]"}], "]"}], "=", 
+      RowBox[{"mPathData", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", 
+         RowBox[{"-", "1"}], ",", "2"}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"vBSCV", "=", 
+      RowBox[{"mPathData", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", 
+         RowBox[{"-", "1"}], ",", "2"}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"iStep", "=", 
+        RowBox[{"iNumExerciseTimes", "-", "1"}]}], ",", 
+       RowBox[{"iStep", ">", "0"}], ",", 
+       RowBox[{"iStep", "--"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"vPositions", "=", 
+         RowBox[{"Flatten", "@", 
+          RowBox[{"Position", "[", 
+           RowBox[{
+            RowBox[{"mPathData", "[", 
+             RowBox[{"[", 
+              RowBox[{"All", ",", "iStep", ",", "2"}], "]"}], "]"}], ",", 
+            RowBox[{"x_", "/;", 
+             RowBox[{"x", ">", "0"}]}]}], "]"}]}]}], ";", " ", 
+        RowBox[{"(*", 
+         RowBox[{
+         "Get", " ", "price", " ", "paths", " ", "that", " ", "are", " ", 
+          "in", " ", "the", " ", "money"}], "*)"}], "\[IndentingNewLine]", 
+        RowBox[{"vPrices", "=", 
+         RowBox[{"mPathData", "[", 
+          RowBox[{"[", 
+           RowBox[{"vPositions", ",", "iStep", ",", "1"}], "]"}], "]"}]}], 
+        ";", " ", 
+        RowBox[{"(*", 
+         RowBox[{"in", " ", "the", " ", "money", " ", "prices"}], "*)"}], 
+        "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+         "first", " ", "discounted", " ", "cash", " ", "flow", " ", "in", " ",
+           "subsequent", " ", "time", " ", "steps", " ", "for", " ", "paths", 
+          " ", "that", " ", "are", " ", "in", " ", "the", " ", "money", " ", 
+          "at", " ", "this", " ", "time", " ", "step"}], "*)"}], 
+        "\[IndentingNewLine]", 
+        RowBox[{"vDiscPayoffs", "=", 
+         RowBox[{"Map", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"Exp", "[", 
+              RowBox[{
+               RowBox[{"-", "nBermDailyRiskFreeRate"}], "*", "iStepSize", "*", 
+               RowBox[{"First", "@", 
+                RowBox[{"FirstPosition", "[", 
+                 RowBox[{"#", ",", 
+                  RowBox[{"x_", "/;", 
+                   RowBox[{"x", ">", "0"}]}], ",", 
+                  RowBox[{"{", "1", "}"}]}], "]"}]}]}], "]"}], "*", 
+             RowBox[{"FirstCase", "[", 
+              RowBox[{"#", ",", 
+               RowBox[{"x_", "/;", 
+                RowBox[{"x", ">", "0"}]}], ",", "0"}], "]"}]}], "&"}], ",", 
+           RowBox[{"mCashFlow", "[", 
+            RowBox[{"[", 
+             RowBox[{"vPositions", ",", 
+              RowBox[{
+               RowBox[{"iStep", "+", "1"}], ";;"}]}], "]"}], "]"}]}], "]"}]}],
+         ";", "\[IndentingNewLine]", 
+        RowBox[{"xContinuationFunc", "=", 
+         RowBox[{"xRegression", "[", 
+          RowBox[{"vPrices", ",", "vDiscPayoffs"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"vBSCV", "=", 
+         RowBox[{
+          RowBox[{"Exp", "[", 
+           RowBox[{
+            RowBox[{"-", "nBermDailyRiskFreeRate"}], "*", "iStepSize"}], 
+           "]"}], "*", "vBSCV"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"mCashFlow", "[", 
+          RowBox[{"[", 
+           RowBox[{"vPositions", ",", "iStep"}], "]"}], "]"}], "=", 
+         RowBox[{"MapIndexed", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"#1", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], ">", 
+               RowBox[{"xContinuationFunc", "[", 
+                RowBox[{"#1", "[", 
+                 RowBox[{"[", "1", "]"}], "]"}], "]"}]}], ",", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"vBSCV", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"vPositions", "[", 
+                   RowBox[{"[", "#2", "]"}], "]"}], "]"}], "]"}], "=", 
+                RowBox[{"xBlackScholes", "[", 
+                 RowBox[{"sType", ",", 
+                  RowBox[{"#1", "[", 
+                   RowBox[{"[", "1", "]"}], "]"}], ",", "nStrike", ",", 
+                  RowBox[{"iBermDaysToExpiry", "-", 
+                   RowBox[{"iStep", "*", "iStepSize"}]}], ",", 
+                  "nBermDailyVolatility", ",", "nBermDailyRiskFreeRate"}], 
+                 "]"}]}], ";", 
+               RowBox[{"#1", "[", 
+                RowBox[{"[", "2", "]"}], "]"}]}], ",", "0"}], "]"}], "&"}], 
+           ",", 
+           RowBox[{"mPathData", "[", 
+            RowBox[{"[", 
+             RowBox[{"vPositions", ",", "iStep"}], "]"}], "]"}]}], "]"}]}], 
+        ";"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{"vPositions", "=", 
+      RowBox[{"Flatten", "@", 
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"FirstPosition", "[", 
+           RowBox[{"#", ",", 
+            RowBox[{"x_", "/;", 
+             RowBox[{"x", ">", "0"}]}], ",", "0"}], "]"}], "&"}], ",", 
+         "mCashFlow"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"vDiscPayoffs", "=", 
+      RowBox[{"MapIndexed", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"#1", ">", "0"}], ",", 
+           RowBox[{
+            RowBox[{"Exp", "[", 
+             RowBox[{
+              RowBox[{"-", "nBermDailyRiskFreeRate"}], "*", "iStepSize", "*", 
+              "#1"}], "]"}], "*", 
+            RowBox[{"mCashFlow", "[", 
+             RowBox[{"[", 
+              RowBox[{
+               RowBox[{"First", "@", "#2"}], ",", "#1"}], "]"}], "]"}]}], ",",
+            "0"}], "]"}], "&"}], ",", "vPositions"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"vBSCV", "=", 
+      RowBox[{
+       RowBox[{"Exp", "[", 
+        RowBox[{
+         RowBox[{"-", "nBermDailyRiskFreeRate"}], "*", "iStepSize"}], "]"}], 
+       "*", "vBSCV"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"nBSCVSD", "=", 
+      RowBox[{"StandardDeviation", "[", 
+       RowBox[{"vBSCV", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ";;", "iBermPathsFor\[Beta]Estimate"}], "]"}], "]"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"nDiscPayoffCVSD", "=", 
+      RowBox[{"StandardDeviation", "[", 
+       RowBox[{"vDiscPayoffs", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ";;", "iBermPathsFor\[Beta]Estimate"}], "]"}], "]"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"nCorr", "=", 
+      RowBox[{"Correlation", "[", 
+       RowBox[{
+        RowBox[{"vDiscPayoffs", "[", 
+         RowBox[{"[", 
+          RowBox[{"1", ";;", "iBermPathsFor\[Beta]Estimate"}], "]"}], "]"}], 
+        ",", 
+        RowBox[{"vBSCV", "[", 
+         RowBox[{"[", 
+          RowBox[{"1", ";;", "iBermPathsFor\[Beta]Estimate"}], "]"}], "]"}]}],
+        "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"n\[Beta]Min", "=", 
+      RowBox[{"nDiscPayoffCVSD", "*", 
+       RowBox[{"nCorr", "/", "nBSCVSD"}]}]}], ";", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Mean", "@", "vDiscPayoffs"}], ",", 
+       RowBox[{"StandardDeviation", "@", "vDiscPayoffs"}], ",", 
+       RowBox[{"Mean", "[", 
+        RowBox[{
+         RowBox[{"vDiscPayoffs", "[", 
+          RowBox[{"[", 
+           RowBox[{
+            RowBox[{"iBermPathsFor\[Beta]Estimate", "+", "1"}], ";;"}], "]"}],
+           "]"}], "-", 
+         RowBox[{"n\[Beta]Min", "*", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"vBSCV", "[", 
+             RowBox[{"[", 
+              RowBox[{
+               RowBox[{"iBermPathsFor\[Beta]Estimate", "+", "1"}], ";;"}], 
+              "]"}], "]"}], "-", 
+            RowBox[{"xBlackScholes", "[", 
+             RowBox[{
+             "sType", ",", "nBermCurrentPrice", ",", "nStrike", ",", 
+              "iBermDaysToExpiry", ",", "nBermDailyVolatility", ",", 
+              "nBermDailyRiskFreeRate"}], "]"}]}], ")"}]}]}], "]"}], ",", 
+       RowBox[{"Sqrt", "[", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "-", 
+           RowBox[{"nCorr", "^", "2"}]}], ")"}], "*", 
+         RowBox[{
+          RowBox[{"nDiscPayoffCVSD", "^", "2"}], "/", 
+          RowBox[{"(", 
+           RowBox[{"iBermPaths", "-", "iBermPathsFor\[Beta]Estimate"}], 
+           ")"}]}]}], "]"}]}], "}"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]}], "Input",
+ CellChangeTimes->{
+  3.785263927681661*^9, {3.78526403830622*^9, 3.785264039308529*^9}, {
+   3.7852640739770947`*^9, 3.7852640763759365`*^9}, {3.785264121959114*^9, 
+   3.7852642015501194`*^9}, {3.7852646125409584`*^9, 
+   3.7852646146523952`*^9}, {3.785265130508532*^9, 3.785265140042838*^9}, {
+   3.785265193606067*^9, 3.7852652199353933`*^9}, {3.7852653891655426`*^9, 
+   3.785265414096896*^9}, {3.7852664380798645`*^9, 3.7852664397111444`*^9}, {
+   3.7852665757348404`*^9, 3.7852665761253786`*^9}, {3.7852685587845597`*^9, 
+   3.7852685860052624`*^9}, {3.785269190843356*^9, 3.785269270826931*^9}, {
+   3.7852693338351383`*^9, 3.785269341135089*^9}, {3.7852699042658877`*^9, 
+   3.785269913986014*^9}, 3.785269951162648*^9, {3.7852702001612015`*^9, 
+   3.7852702056159463`*^9}},
+ CellLabel->
+  "In[134]:=",ExpressionUUID->"b96ab79c-3d4c-493c-adac-d5f1c2df431f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xRunBermudaPricing", "[", "iNumExerciseTimes_", "]"}], ":=", 
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "nPathGenTime", ",", "vvnTimeStepData", ",", "vnBSCallTimePrice", ",", 
+      "vnBSPutTimePrice", ",", "vnAmericanCallTimePrice", ",", 
+      "vnAmericanPutTimePrice", ",", "vBermudaCallData", ",", 
+      "vBermudaPutData"}], "}"}], ",", "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"nPathGenTime", ",", "vvnTimeStepData"}], "}"}], "=", 
+      RowBox[{"Timing", "[", 
+       RowBox[{"xGenerateGBMPaths", "[", 
+        RowBox[{
+        "nBermDailyRiskFreeRate", ",", "nBermDailyVolatility", ",", 
+         "nBermCurrentPrice", ",", "iBermDaysToExpiry", ",", 
+         RowBox[{"iBermDaysToExpiry", "/", "iNumExerciseTimes"}], ",", 
+         "iBermPaths"}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{"vnBSCallTimePrice", "=", 
+      RowBox[{"Timing", "[", 
+       RowBox[{"xBlackScholes", "[", 
+        RowBox[{
+        "\"\<Call\>\"", ",", "nBermCurrentPrice", ",", "nBermCallStrikePrice",
+          ",", "iBermDaysToExpiry", ",", "nBermDailyVolatility", ",", 
+         "nBermDailyRiskFreeRate"}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"vnBSPutTimePrice", "=", 
+      RowBox[{"Timing", "[", 
+       RowBox[{"xBlackScholes", "[", 
+        RowBox[{
+        "\"\<Put\>\"", ",", "nBermCurrentPrice", ",", "nBermPutStrikePrice", 
+         ",", "iBermDaysToExpiry", ",", "nBermDailyVolatility", ",", 
+         "nBermDailyRiskFreeRate"}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"vnAmericanCallTimePrice", "=", 
+      RowBox[{"Timing", "[", 
+       RowBox[{"FinancialDerivative", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"\"\<American\>\"", ",", "\"\<Call\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"\"\<StrikePrice\>\"", "\[Rule]", "nBermCallStrikePrice"}],
+            ",", 
+           RowBox[{"\"\<Expiration\>\"", "\[Rule]", "iBermDaysToExpiry"}]}], 
+          "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"\"\<CurrentPrice\>\"", "\[Rule]", "nBermCurrentPrice"}], 
+           ",", 
+           RowBox[{"\"\<Volatility\>\"", "\[Rule]", "nBermDailyVolatility"}], 
+           ",", 
+           RowBox[{
+           "\"\<InterestRate\>\"", "\[Rule]", "nBermDailyRiskFreeRate"}]}], 
+          "}"}], ",", 
+         RowBox[{"Method", "\[Rule]", "\"\<Binomial\>\""}]}], "]"}], "]"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"vnAmericanPutTimePrice", "=", 
+      RowBox[{"Timing", "[", 
+       RowBox[{"FinancialDerivative", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"\"\<American\>\"", ",", "\"\<Put\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"\"\<StrikePrice\>\"", "\[Rule]", "nBermPutStrikePrice"}], 
+           ",", 
+           RowBox[{"\"\<Expiration\>\"", "\[Rule]", "iBermDaysToExpiry"}]}], 
+          "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"\"\<CurrentPrice\>\"", "\[Rule]", "nBermCurrentPrice"}], 
+           ",", 
+           RowBox[{"\"\<Volatility\>\"", "\[Rule]", "nBermDailyVolatility"}], 
+           ",", 
+           RowBox[{
+           "\"\<InterestRate\>\"", "\[Rule]", "nBermDailyRiskFreeRate"}], ",", 
+           RowBox[{"Method", "\[Rule]", "\"\<Binomial\>\""}]}], "}"}]}], 
+        "]"}], "]"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"vBermudaCallData", "=", 
+      RowBox[{"Flatten", "@", 
+       RowBox[{"Timing", "[", 
+        RowBox[{"xLSPricing", "[", 
+         RowBox[{
+         "vvnTimeStepData", ",", "\"\<Call\>\"", ",", "nBermCallStrikePrice", 
+          ",", "iNumExerciseTimes"}], "]"}], "]"}]}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"vBermudaPutData", "=", 
+      RowBox[{"Flatten", "@", 
+       RowBox[{"Timing", "[", 
+        RowBox[{"xLSPricing", "[", 
+         RowBox[{
+         "vvnTimeStepData", ",", "\"\<Put\>\"", ",", "nBermPutStrikePrice", 
+          ",", "iNumExerciseTimes"}], "]"}], "]"}]}]}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"Print", "[", 
+      RowBox[{"xDisplayParameters", "[", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Bermuda\>\"", ",", "nBermCurrentPrice", ",", 
+         "nBermCallStrikePrice", ",", "nBermPutStrikePrice", ",", 
+         "iBermDaysToExpiry", ",", 
+         RowBox[{"Table", "[", 
+          RowBox[{"x", ",", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", 
+             RowBox[{"iBermDaysToExpiry", "/", "iNumExerciseTimes"}], ",", 
+             "iBermDaysToExpiry", ",", 
+             RowBox[{"iBermDaysToExpiry", "/", "iNumExerciseTimes"}]}], 
+            "}"}]}], "]"}], ",", "nBermDailyVolatility", ",", 
+         "nBermDailyRiskFreeRate", ",", "iDaysPerYear", ",", "iBermPaths", 
+         ",", "iBermPathsFor\[Beta]Estimate"}], "}"}], "]"}], "]"}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"Print", "[", 
+      RowBox[{"Grid", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<Price Path Generation Time (s)\>\"", ",", "nPathGenTime"}], 
+          "}"}], "}"}], ",", 
+        RowBox[{"Dividers", "\[Rule]", "All"}]}], "]"}], "]"}], ";", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"Print", "[", "\[IndentingNewLine]", 
+      RowBox[{"Row", "[", 
+       RowBox[{"{", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Grid", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+              "\"\<Bermuda Call Option Price\>\"", ",", "SpanFromLeft"}], 
+              "}"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"{", 
+              RowBox[{
+              "\"\<Method\>\"", ",", 
+               "\"\<Price = \!\(\*OverscriptBox[\(Y\), \(_\)]\)\>\"", ",", 
+               "\"\<Std Dev(\!\(\*OverscriptBox[\(Y\), \(_\)]\))\>\"", ",", 
+               "\"\<Time (s)\>\""}], "}"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"{", 
+              RowBox[{"\"\<Black-Scholes European\>\"", ",", 
+               RowBox[{"vnBSCallTimePrice", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], ",", "Null", ",", 
+               RowBox[{"vnBSCallTimePrice", "[", 
+                RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"{", 
+              RowBox[{"\"\<Binomial American\>\"", ",", 
+               RowBox[{"vnAmericanCallTimePrice", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], ",", "Null", ",", 
+               RowBox[{"vnAmericanCallTimePrice", "[", 
+                RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Prepend", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"vBermudaCallData", "[", 
+                  RowBox[{"[", "2", "]"}], "]"}], ",", 
+                 RowBox[{"vBermudaCallData", "[", 
+                  RowBox[{"[", "3", "]"}], "]"}], ",", "\"\<\>\""}], "}"}], 
+               ",", "\"\<Longstaff-Schwartz MC\>\""}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Prepend", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"vBermudaCallData", "[", 
+                  RowBox[{"[", "4", "]"}], "]"}], ",", 
+                 RowBox[{"vBermudaCallData", "[", 
+                  RowBox[{"[", "5", "]"}], "]"}], ",", 
+                 RowBox[{"vBermudaCallData", "[", 
+                  RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ",", 
+               "\"\<Parameterized CV LS MC\>\""}], "]"}]}], "}"}], ",", 
+           RowBox[{"Dividers", "\[Rule]", "All"}], ",", 
+           RowBox[{"Alignment", "\[Rule]", "Left"}]}], "]"}], ",", 
+         "\[IndentingNewLine]", "\"\<  \>\"", ",", "\[IndentingNewLine]", 
+         RowBox[{"Grid", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+              "\"\<Bermuda Put Option Price\>\"", ",", "SpanFromLeft"}], 
+              "}"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"{", 
+              RowBox[{
+              "\"\<Method\>\"", ",", 
+               "\"\<Price = \!\(\*OverscriptBox[\(Y\), \(_\)]\)\>\"", ",", 
+               "\"\<Std Dev(\!\(\*OverscriptBox[\(Y\), \(_\)]\))\>\"", ",", 
+               "\"\<Time (s)\>\""}], "}"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"{", 
+              RowBox[{"\"\<Black-Scholes European\>\"", ",", 
+               RowBox[{"vnBSPutTimePrice", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], ",", "Null", ",", 
+               RowBox[{"vnBSPutTimePrice", "[", 
+                RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"{", 
+              RowBox[{"\"\<Binomial American\>\"", ",", 
+               RowBox[{"vnAmericanPutTimePrice", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], ",", "Null", ",", 
+               RowBox[{"vnAmericanPutTimePrice", "[", 
+                RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Prepend", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"vBermudaPutData", "[", 
+                  RowBox[{"[", "2", "]"}], "]"}], ",", 
+                 RowBox[{"vBermudaPutData", "[", 
+                  RowBox[{"[", "3", "]"}], "]"}], ",", "\"\<\>\""}], "}"}], 
+               ",", "\"\<Longstaff-Schwartz MC\>\""}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Prepend", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"vBermudaPutData", "[", 
+                  RowBox[{"[", "4", "]"}], "]"}], ",", 
+                 RowBox[{"vBermudaPutData", "[", 
+                  RowBox[{"[", "5", "]"}], "]"}], ",", 
+                 RowBox[{"vBermudaPutData", "[", 
+                  RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ",", 
+               "\"\<Parameterized CV LS MC\>\""}], "]"}]}], "}"}], ",", 
+           RowBox[{"Dividers", "\[Rule]", "All"}], ",", 
+           RowBox[{"Alignment", "\[Rule]", "Left"}]}], "]"}]}], 
+        "\[IndentingNewLine]", "}"}], "]"}], "\[IndentingNewLine]", "]"}], 
+     ";"}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.7852668593404818`*^9, 3.7852668919859605`*^9}, {
+   3.785266934227459*^9, 3.7852669738672113`*^9}, {3.7852670090053988`*^9, 
+   3.7852670102661724`*^9}, {3.7852676929851494`*^9, 3.785267738583104*^9}, {
+   3.78526777673056*^9, 3.7852678518679695`*^9}, {3.785268203054484*^9, 
+   3.785268271621519*^9}, {3.785268339343339*^9, 3.785268342070626*^9}, {
+   3.7852685995371766`*^9, 3.7852686090399675`*^9}, {3.7852686960455456`*^9, 
+   3.7852687278288813`*^9}, {3.7852687833224382`*^9, 
+   3.7852687847802505`*^9}, {3.785268834436593*^9, 3.7852688672028046`*^9}, 
+   3.7852689654761753`*^9, {3.78526917130623*^9, 3.78526917201232*^9}, {
+   3.7852694335851183`*^9, 3.7852694696322384`*^9}, {3.785269521736229*^9, 
+   3.7852695249810824`*^9}, 3.785269559065793*^9, {3.785269594069138*^9, 
+   3.7852696118953495`*^9}, {3.785269777434819*^9, 3.7852697838447733`*^9}, 
+   3.785269837262994*^9, {3.7852733746983876`*^9, 3.785273401229067*^9}, {
+   3.7852734384842854`*^9, 3.7852735387107434`*^9}},
+ CellLabel->
+  "In[136]:=",ExpressionUUID->"2b8ea957-5e50-42d3-a77e-71838ffb6555"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Bermuda Option: 2 Exercise Times", "Subsubsection",
+ CellChangeTimes->{{3.7852638722710724`*^9, 3.785263874574123*^9}, {
+  3.7852667007195826`*^9, 3.7852667018149776`*^9}, {3.785267914322361*^9, 
+  3.7852679276181927`*^9}, {3.785268411660841*^9, 
+  3.7852684119732676`*^9}},ExpressionUUID->"62e23f2c-7b1d-40e5-a0a9-\
+a7b6912baedd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xRunBermudaPricing", "[", "2", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.7852684599227057`*^9, 3.785268480933035*^9}, {
+  3.7852686223511724`*^9, 3.7852686367141366`*^9}, {3.785268737849231*^9, 
+  3.785268741737151*^9}},
+ CellLabel->
+  "In[137]:=",ExpressionUUID->"45a1271e-90b7-47b4-8fb3-a56c1e159d61"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Bermuda Option and Simulation Parameters\"\>", "\[SpanFromLeft]"},
+    {"\<\"Current Price\"\>", "100"},
+    {"\<\"Call Strike\"\>", "105"},
+    {"\<\"Put Strike\"\>", "95"},
+    {"\<\"Days to Expiry\"\>", "100"},
+    {"\<\"Exercise Days\"\>", 
+     RowBox[{"{", 
+      RowBox[{"50", ",", "100"}], "}"}]},
+    {"\<\"Daily Volatility\"\>", "0.02`"},
+    {"\<\"Daily Risk Free Rate\"\>", "0.00027397260273972606`"},
+    {"\<\"Days Per Year\"\>", "365"},
+    {"\<\"Simulation Paths\"\>", "100000"},
+    {"\<\"\[Beta] Estimate Paths\"\>", "2000"}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{{3.7852684896055994`*^9, 3.78526851331116*^9}, 
+   3.785268648528697*^9, 3.7852688958130364`*^9, {3.7852689928374057`*^9, 
+   3.7852690032024364`*^9}, 3.7852691163323107`*^9, 3.785269286057424*^9, 
+   3.7852693480028152`*^9, 3.7852697098027153`*^9, 3.785269788516276*^9, 
+   3.7852700645151186`*^9, 3.7852702126116285`*^9, 3.785270992983848*^9, 
+   3.785272167787217*^9, 3.785272640002207*^9, 3.7852735536209517`*^9, 
+   3.785275934996088*^9},
+ CellLabel->
+  "During evaluation of \
+In[137]:=",ExpressionUUID->"c3c30290-ed68-4af7-bfd8-e0254abb1af4"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Price Path Generation Time (s)\"\>", "0.671875`"}
+   },
+   AutoDelete->False,
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{{3.7852684896055994`*^9, 3.78526851331116*^9}, 
+   3.785268648528697*^9, 3.7852688958130364`*^9, {3.7852689928374057`*^9, 
+   3.7852690032024364`*^9}, 3.7852691163323107`*^9, 3.785269286057424*^9, 
+   3.7852693480028152`*^9, 3.7852697098027153`*^9, 3.785269788516276*^9, 
+   3.7852700645151186`*^9, 3.7852702126116285`*^9, 3.785270992983848*^9, 
+   3.785272167787217*^9, 3.785272640002207*^9, 3.7852735536209517`*^9, 
+   3.785275935000077*^9},
+ CellLabel->
+  "During evaluation of \
+In[137]:=",ExpressionUUID->"72cb1136-6680-4bac-81db-0618b0712b2d"],
+
+Cell[BoxData[
+ TemplateBox[{TagBox[
+    GridBox[{{
+      "\"Bermuda Call Option Price\"", "\[SpanFromLeft]", "\[SpanFromLeft]", 
+       "\[SpanFromLeft]"}, {
+      "\"Method\"", "\"Price = \\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\)\"",
+        "\"Std Dev(\\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\))\"", 
+       "\"Time (s)\""}, {
+      "\"Black-Scholes European\"", "7.016382131241066`", "", "0.`"}, {
+      "\"Binomial American\"", "7.016382131241066`", "", "0.`"}, {
+      "\"Longstaff-Schwartz MC\"", "6.977048450593288`", 
+       "12.393426185487387`", "\"\""}, {
+      "\"Parameterized CV LS MC\"", "7.016209494019588`", "0.`", "1.5625`"}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> False, 
+     GridBoxDividers -> {"Columns" -> {{True}}, "Rows" -> {{True}}}, 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"],"\"  \"",
+   TagBox[
+    GridBox[{{
+      "\"Bermuda Put Option Price\"", "\[SpanFromLeft]", "\[SpanFromLeft]", 
+       "\[SpanFromLeft]"}, {
+      "\"Method\"", "\"Price = \\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\)\"",
+        "\"Std Dev(\\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\))\"", 
+       "\"Time (s)\""}, {
+      "\"Black-Scholes European\"", "4.463834457299548`", "", "0.`"}, {
+      "\"Binomial American\"", "4.441748345575802`", "", "0.`"}, {
+      "\"Longstaff-Schwartz MC\"", "4.521963713741228`", 
+       "7.2818690104302455`", "\"\""}, {
+      "\"Parameterized CV LS MC\"", "4.519704094016231`", 
+       "0.0005440806923274438`", "6.765625`"}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> False, 
+     GridBoxDividers -> {"Columns" -> {{True}}, "Rows" -> {{True}}}, 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{{3.7852684896055994`*^9, 3.78526851331116*^9}, 
+   3.785268648528697*^9, 3.7852688958130364`*^9, {3.7852689928374057`*^9, 
+   3.7852690032024364`*^9}, 3.7852691163323107`*^9, 3.785269286057424*^9, 
+   3.7852693480028152`*^9, 3.7852697098027153`*^9, 3.785269788516276*^9, 
+   3.7852700645151186`*^9, 3.7852702126116285`*^9, 3.785270992983848*^9, 
+   3.785272167787217*^9, 3.785272640002207*^9, 3.7852735536209517`*^9, 
+   3.785275935009054*^9},
+ CellLabel->
+  "During evaluation of \
+In[137]:=",ExpressionUUID->"f14d03fa-19b0-43c6-9189-83206e0b8b04"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Bermuda Option: 5 Exercise Times", "Subsubsection",
+ CellChangeTimes->{{3.785268380536967*^9, 3.7852683825441475`*^9}, 
+   3.785268414984161*^9},ExpressionUUID->"f67b0c4c-0d01-4413-8456-\
+86c13bf3856a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xRunBermudaPricing", "[", "5", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.785268660923803*^9, 3.7852686682788906`*^9}, {
+  3.7852688854589834`*^9, 3.785268938834099*^9}},
+ CellLabel->
+  "In[138]:=",ExpressionUUID->"5c858c55-9d13-4a31-ba88-ff53d8f14529"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Bermuda Option and Simulation Parameters\"\>", "\[SpanFromLeft]"},
+    {"\<\"Current Price\"\>", "100"},
+    {"\<\"Call Strike\"\>", "105"},
+    {"\<\"Put Strike\"\>", "95"},
+    {"\<\"Days to Expiry\"\>", "100"},
+    {"\<\"Exercise Days\"\>", 
+     RowBox[{"{", 
+      RowBox[{"20", ",", "40", ",", "60", ",", "80", ",", "100"}], "}"}]},
+    {"\<\"Daily Volatility\"\>", "0.02`"},
+    {"\<\"Daily Risk Free Rate\"\>", "0.00027397260273972606`"},
+    {"\<\"Days Per Year\"\>", "365"},
+    {"\<\"Simulation Paths\"\>", "100000"},
+    {"\<\"\[Beta] Estimate Paths\"\>", "2000"}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{{3.785268896201747*^9, 3.785268940031822*^9}, 
+   3.785269007828351*^9, 3.7852692864287047`*^9, 3.785269348363469*^9, 
+   3.785269710164673*^9, 3.785269821348553*^9, 3.7852700672243176`*^9, 
+   3.7852702156044292`*^9, 3.7852710219145823`*^9, 3.785272196307511*^9, 
+   3.78527266924422*^9, 3.785273583398857*^9, 3.7852759647246237`*^9},
+ CellLabel->
+  "During evaluation of \
+In[138]:=",ExpressionUUID->"1a37f7cb-b7b4-44fd-8413-6c7a8efb871b"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Price Path Generation Time (s)\"\>", "0.875`"}
+   },
+   AutoDelete->False,
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{{3.785268896201747*^9, 3.785268940031822*^9}, 
+   3.785269007828351*^9, 3.7852692864287047`*^9, 3.785269348363469*^9, 
+   3.785269710164673*^9, 3.785269821348553*^9, 3.7852700672243176`*^9, 
+   3.7852702156044292`*^9, 3.7852710219145823`*^9, 3.785272196307511*^9, 
+   3.78527266924422*^9, 3.785273583398857*^9, 3.785275964744571*^9},
+ CellLabel->
+  "During evaluation of \
+In[138]:=",ExpressionUUID->"fba855af-3220-48dd-ac7c-e329f4ec4260"],
+
+Cell[BoxData[
+ TemplateBox[{TagBox[
+    GridBox[{{
+      "\"Bermuda Call Option Price\"", "\[SpanFromLeft]", "\[SpanFromLeft]", 
+       "\[SpanFromLeft]"}, {
+      "\"Method\"", "\"Price = \\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\)\"",
+        "\"Std Dev(\\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\))\"", 
+       "\"Time (s)\""}, {
+      "\"Black-Scholes European\"", "7.016382131241066`", "", "0.`"}, {
+      "\"Binomial American\"", "7.016382131241066`", "", "0.`"}, {
+      "\"Longstaff-Schwartz MC\"", "7.028983617617999`", "12.39814426463761`",
+        "\"\""}, {
+      "\"Parameterized CV LS MC\"", "7.015175468957384`", 
+       "0.0001345629525392676`", "3.9375`"}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> False, 
+     GridBoxDividers -> {"Columns" -> {{True}}, "Rows" -> {{True}}}, 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"],"\"  \"",
+   TagBox[
+    GridBox[{{
+      "\"Bermuda Put Option Price\"", "\[SpanFromLeft]", "\[SpanFromLeft]", 
+       "\[SpanFromLeft]"}, {
+      "\"Method\"", "\"Price = \\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\)\"",
+        "\"Std Dev(\\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\))\"", 
+       "\"Time (s)\""}, {
+      "\"Black-Scholes European\"", "4.463834457299548`", "", "0.`"}, {
+      "\"Binomial American\"", "4.441748345575802`", "", "0.`"}, {
+      "\"Longstaff-Schwartz MC\"", "4.584923079339862`", "6.95893228026883`", 
+       "\"\""}, {
+      "\"Parameterized CV LS MC\"", "4.569110127793972`", 
+       "0.0004911080684944239`", "23.546875`"}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> False, 
+     GridBoxDividers -> {"Columns" -> {{True}}, "Rows" -> {{True}}}, 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{{3.785268896201747*^9, 3.785268940031822*^9}, 
+   3.785269007828351*^9, 3.7852692864287047`*^9, 3.785269348363469*^9, 
+   3.785269710164673*^9, 3.785269821348553*^9, 3.7852700672243176`*^9, 
+   3.7852702156044292`*^9, 3.7852710219145823`*^9, 3.785272196307511*^9, 
+   3.78527266924422*^9, 3.785273583398857*^9, 3.785275964768506*^9},
+ CellLabel->
+  "During evaluation of \
+In[138]:=",ExpressionUUID->"24ade529-e5c4-4225-aec2-42108a7eff20"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Bermuda Option: 10 Exercise Times", "Subsubsection",
+ CellChangeTimes->{{3.785268387279008*^9, 
+  3.7852684155101676`*^9}},ExpressionUUID->"71f61535-3183-4e26-be1f-\
+e2f3a05be7f5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xRunBermudaPricing", "[", "10", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.785268671961989*^9, 3.7852686788312287`*^9}, {
+  3.78526888840766*^9, 3.7852688885638742`*^9}},
+ CellLabel->
+  "In[139]:=",ExpressionUUID->"fef765f4-0ac1-466c-a064-a51d6c8af51d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Bermuda Option and Simulation Parameters\"\>", "\[SpanFromLeft]"},
+    {"\<\"Current Price\"\>", "100"},
+    {"\<\"Call Strike\"\>", "105"},
+    {"\<\"Put Strike\"\>", "95"},
+    {"\<\"Days to Expiry\"\>", "100"},
+    {"\<\"Exercise Days\"\>", 
+     RowBox[{"{", 
+      RowBox[{
+      "10", ",", "20", ",", "30", ",", "40", ",", "50", ",", "60", ",", "70", 
+       ",", "80", ",", "90", ",", "100"}], "}"}]},
+    {"\<\"Daily Volatility\"\>", "0.02`"},
+    {"\<\"Daily Risk Free Rate\"\>", "0.00027397260273972606`"},
+    {"\<\"Days Per Year\"\>", "365"},
+    {"\<\"Simulation Paths\"\>", "100000"},
+    {"\<\"\[Beta] Estimate Paths\"\>", "2000"}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{3.7852688966263523`*^9, 3.7852690197450743`*^9, 
+  3.785269286851178*^9, 3.785269348773198*^9, 3.7852697106809487`*^9, 
+  3.7852700731205664`*^9, 3.785270221515973*^9, 3.7852710822962527`*^9, 
+  3.785272255875592*^9, 3.7852727275900526`*^9, 3.785273644063452*^9, 
+  3.7852760225325994`*^9},
+ CellLabel->
+  "During evaluation of \
+In[139]:=",ExpressionUUID->"31ae9903-bc6d-4827-ac94-ab4c6f15ca5e"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Price Path Generation Time (s)\"\>", "1.109375`"}
+   },
+   AutoDelete->False,
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{3.7852688966263523`*^9, 3.7852690197450743`*^9, 
+  3.785269286851178*^9, 3.785269348773198*^9, 3.7852697106809487`*^9, 
+  3.7852700731205664`*^9, 3.785270221515973*^9, 3.7852710822962527`*^9, 
+  3.785272255875592*^9, 3.7852727275900526`*^9, 3.785273644063452*^9, 
+  3.7852760225399203`*^9},
+ CellLabel->
+  "During evaluation of \
+In[139]:=",ExpressionUUID->"4484cd4a-1f96-4a21-817c-68d0123becfa"],
+
+Cell[BoxData[
+ TemplateBox[{TagBox[
+    GridBox[{{
+      "\"Bermuda Call Option Price\"", "\[SpanFromLeft]", "\[SpanFromLeft]", 
+       "\[SpanFromLeft]"}, {
+      "\"Method\"", "\"Price = \\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\)\"",
+        "\"Std Dev(\\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\))\"", 
+       "\"Time (s)\""}, {
+      "\"Black-Scholes European\"", "7.016382131241066`", "", "0.`"}, {
+      "\"Binomial American\"", "7.016382131241066`", "", "0.`"}, {
+      "\"Longstaff-Schwartz MC\"", "7.00852151979533`", "12.45927347864887`", 
+       "\"\""}, {
+      "\"Parameterized CV LS MC\"", "7.015337482212251`", 
+       "0.00005963374625097109`", "8.140625`"}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> False, 
+     GridBoxDividers -> {"Columns" -> {{True}}, "Rows" -> {{True}}}, 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"],"\"  \"",
+   TagBox[
+    GridBox[{{
+      "\"Bermuda Put Option Price\"", "\[SpanFromLeft]", "\[SpanFromLeft]", 
+       "\[SpanFromLeft]"}, {
+      "\"Method\"", "\"Price = \\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\)\"",
+        "\"Std Dev(\\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\))\"", 
+       "\"Time (s)\""}, {
+      "\"Black-Scholes European\"", "4.463834457299548`", "", "0.`"}, {
+      "\"Binomial American\"", "4.441748345575802`", "", "0.015625`"}, {
+      "\"Longstaff-Schwartz MC\"", "4.611703147789016`", "6.956195941319692`",
+        "\"\""}, {
+      "\"Parameterized CV LS MC\"", "4.590089574241276`", 
+       "0.00044511596831510783`", "46.546875`"}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> False, 
+     GridBoxDividers -> {"Columns" -> {{True}}, "Rows" -> {{True}}}, 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.7852688966263523`*^9, 3.7852690197450743`*^9, 
+  3.785269286851178*^9, 3.785269348773198*^9, 3.7852697106809487`*^9, 
+  3.7852700731205664`*^9, 3.785270221515973*^9, 3.7852710822962527`*^9, 
+  3.785272255875592*^9, 3.7852727275900526`*^9, 3.785273644063452*^9, 
+  3.7852760225616384`*^9},
+ CellLabel->
+  "During evaluation of \
+In[139]:=",ExpressionUUID->"c15c7cd3-c6d3-4040-bb31-dd32a60f3ded"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Bermuda Option: 20 Exercise Times", "Subsubsection",
+ CellChangeTimes->{{3.7852683950847073`*^9, 
+  3.7852684172418575`*^9}},ExpressionUUID->"c76dae64-cef7-4c53-b2d0-\
+5f3685046aa4"],
+
+Cell["This takes a couple of minutes to complete.", "Text",
+ CellChangeTimes->{{3.7852729821512365`*^9, 
+  3.7852729922647057`*^9}},ExpressionUUID->"07ea657d-e7b4-417b-9824-\
+5f3732e26236"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xRunBermudaPricing", "[", "20", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.7852690293387203`*^9, 3.785269030987884*^9}},
+ CellLabel->
+  "In[140]:=",ExpressionUUID->"0228e775-3677-4d6b-a7b7-168ce6f16bbd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Bermuda Option and Simulation Parameters\"\>", "\[SpanFromLeft]"},
+    {"\<\"Current Price\"\>", "100"},
+    {"\<\"Call Strike\"\>", "105"},
+    {"\<\"Put Strike\"\>", "95"},
+    {"\<\"Days to Expiry\"\>", "100"},
+    {"\<\"Exercise Days\"\>", 
+     RowBox[{"{", 
+      RowBox[{
+      "5", ",", "10", ",", "15", ",", "20", ",", "25", ",", "30", ",", "35", 
+       ",", "40", ",", "45", ",", "50", ",", "55", ",", "60", ",", "65", ",", 
+       "70", ",", "75", ",", "80", ",", "85", ",", "90", ",", "95", ",", 
+       "100"}], "}"}]},
+    {"\<\"Daily Volatility\"\>", "0.02`"},
+    {"\<\"Daily Risk Free Rate\"\>", "0.00027397260273972606`"},
+    {"\<\"Days Per Year\"\>", "365"},
+    {"\<\"Simulation Paths\"\>", "100000"},
+    {"\<\"\[Beta] Estimate Paths\"\>", "2000"}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{3.7852692874183345`*^9, 3.785269349398324*^9, 
+  3.785269711276108*^9, 3.785270084065691*^9, 3.7852702338878336`*^9, 
+  3.7852712043354635`*^9, 3.7852723741014757`*^9, 3.785272848325588*^9, 
+  3.7852737676082935`*^9, 3.785276147548401*^9},
+ CellLabel->
+  "During evaluation of \
+In[140]:=",ExpressionUUID->"2eb73697-65ad-4a06-b9dd-5ce7c2a566be"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Price Path Generation Time (s)\"\>", "1.625`"}
+   },
+   AutoDelete->False,
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{3.7852692874183345`*^9, 3.785269349398324*^9, 
+  3.785269711276108*^9, 3.785270084065691*^9, 3.7852702338878336`*^9, 
+  3.7852712043354635`*^9, 3.7852723741014757`*^9, 3.785272848325588*^9, 
+  3.7852737676082935`*^9, 3.785276147553388*^9},
+ CellLabel->
+  "During evaluation of \
+In[140]:=",ExpressionUUID->"cd9a5cbe-306a-4933-a667-ab5cc43346e3"],
+
+Cell[BoxData[
+ TemplateBox[{TagBox[
+    GridBox[{{
+      "\"Bermuda Call Option Price\"", "\[SpanFromLeft]", "\[SpanFromLeft]", 
+       "\[SpanFromLeft]"}, {
+      "\"Method\"", "\"Price = \\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\)\"",
+        "\"Std Dev(\\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\))\"", 
+       "\"Time (s)\""}, {
+      "\"Black-Scholes European\"", "7.016382131241066`", "", "0.`"}, {
+      "\"Binomial American\"", "7.016382131241066`", "", "0.`"}, {
+      "\"Longstaff-Schwartz MC\"", "7.069079983089119`", 
+       "12.514391906386757`", "\"\""}, {
+      "\"Parameterized CV LS MC\"", "7.012242227949913`", 
+       "0.00041402555400163254`", "18.71875`"}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> False, 
+     GridBoxDividers -> {"Columns" -> {{True}}, "Rows" -> {{True}}}, 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"],"\"  \"",
+   TagBox[
+    GridBox[{{
+      "\"Bermuda Put Option Price\"", "\[SpanFromLeft]", "\[SpanFromLeft]", 
+       "\[SpanFromLeft]"}, {
+      "\"Method\"", "\"Price = \\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\)\"",
+        "\"Std Dev(\\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\))\"", 
+       "\"Time (s)\""}, {
+      "\"Black-Scholes European\"", "4.463834457299548`", "", "0.`"}, {
+      "\"Binomial American\"", "4.441748345575802`", "", "0.`"}, {
+      "\"Longstaff-Schwartz MC\"", "4.6087050038230055`", 
+       "6.7284942539014185`", "\"\""}, {
+      "\"Parameterized CV LS MC\"", "4.601765176285662`", 
+       "0.00040216229302576393`", "99.515625`"}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> False, 
+     GridBoxDividers -> {"Columns" -> {{True}}, "Rows" -> {{True}}}, 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.7852692874183345`*^9, 3.785269349398324*^9, 
+  3.785269711276108*^9, 3.785270084065691*^9, 3.7852702338878336`*^9, 
+  3.7852712043354635`*^9, 3.7852723741014757`*^9, 3.785272848325588*^9, 
+  3.7852737676082935`*^9, 3.785276147561368*^9},
+ CellLabel->
+  "During evaluation of \
+In[140]:=",ExpressionUUID->"296ed223-1709-4335-a917-d88d7105bff8"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Bermuda Option: 100 Exercise Times - Approximate American Option Price\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.7852684044937854`*^9, 
+  3.785268427763105*^9}},ExpressionUUID->"44d9a27d-ba53-4f91-8eee-\
+8a638e940cad"],
+
+Cell["This takes a about 10 minutes to complete.", "Text",
+ CellChangeTimes->{{3.7852718240529337`*^9, 3.785271832673275*^9}, {
+   3.785272969482772*^9, 3.785272977230275*^9}, {3.7852744416297035`*^9, 
+   3.785274442328068*^9}, {3.7852745242249084`*^9, 3.7852745265760717`*^9}, 
+   3.785274874802518*^9},ExpressionUUID->"9ed37a92-2b74-4551-b2d6-\
+f233070f7acb"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xRunBermudaPricing", "[", "100", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.7852690334801035`*^9, 3.7852690363347807`*^9}, {
+  3.785271922033998*^9, 3.78527192934093*^9}, {3.785273643985346*^9, 
+  3.785273645356003*^9}, {3.785274528977553*^9, 3.7852745295951786`*^9}, {
+  3.7852747151251574`*^9, 3.7852747163769464`*^9}, {3.785274867898203*^9, 
+  3.785274871963278*^9}},
+ CellLabel->
+  "In[141]:=",ExpressionUUID->"fa3305e3-900b-482c-ba7d-9b21a3872e9a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Bermuda Option and Simulation Parameters\"\>", "\[SpanFromLeft]"},
+    {"\<\"Current Price\"\>", "100"},
+    {"\<\"Call Strike\"\>", "105"},
+    {"\<\"Put Strike\"\>", "95"},
+    {"\<\"Days to Expiry\"\>", "100"},
+    {"\<\"Exercise Days\"\>", 
+     RowBox[{"{", 
+      RowBox[{
+      "1", ",", "2", ",", "3", ",", "4", ",", "5", ",", "6", ",", "7", ",", 
+       "8", ",", "9", ",", "10", ",", "11", ",", "12", ",", "13", ",", "14", 
+       ",", "15", ",", "16", ",", "17", ",", "18", ",", "19", ",", "20", ",", 
+       "21", ",", "22", ",", "23", ",", "24", ",", "25", ",", "26", ",", "27",
+        ",", "28", ",", "29", ",", "30", ",", "31", ",", "32", ",", "33", ",",
+        "34", ",", "35", ",", "36", ",", "37", ",", "38", ",", "39", ",", 
+       "40", ",", "41", ",", "42", ",", "43", ",", "44", ",", "45", ",", "46",
+        ",", "47", ",", "48", ",", "49", ",", "50", ",", "51", ",", "52", ",",
+        "53", ",", "54", ",", "55", ",", "56", ",", "57", ",", "58", ",", 
+       "59", ",", "60", ",", "61", ",", "62", ",", "63", ",", "64", ",", "65",
+        ",", "66", ",", "67", ",", "68", ",", "69", ",", "70", ",", "71", ",",
+        "72", ",", "73", ",", "74", ",", "75", ",", "76", ",", "77", ",", 
+       "78", ",", "79", ",", "80", ",", "81", ",", "82", ",", "83", ",", "84",
+        ",", "85", ",", "86", ",", "87", ",", "88", ",", "89", ",", "90", ",",
+        "91", ",", "92", ",", "93", ",", "94", ",", "95", ",", "96", ",", 
+       "97", ",", "98", ",", "99", ",", "100"}], "}"}]},
+    {"\<\"Daily Volatility\"\>", "0.02`"},
+    {"\<\"Daily Risk Free Rate\"\>", "0.00027397260273972606`"},
+    {"\<\"Days Per Year\"\>", "365"},
+    {"\<\"Simulation Paths\"\>", "100000"},
+    {"\<\"\[Beta] Estimate Paths\"\>", "2000"}
+   },
+   AutoDelete->False,
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{3.7852745155461392`*^9, 3.785276888060527*^9},
+ CellLabel->
+  "During evaluation of \
+In[141]:=",ExpressionUUID->"81ad3824-84bc-498c-8ca9-a871daac7718"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"Price Path Generation Time (s)\"\>", "5.5625`"}
+   },
+   AutoDelete->False,
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{3.7852745155461392`*^9, 3.7852768880655136`*^9},
+ CellLabel->
+  "During evaluation of \
+In[141]:=",ExpressionUUID->"3d5ecec0-b52f-4629-9232-7d164b9a3d25"],
+
+Cell[BoxData[
+ TemplateBox[{TagBox[
+    GridBox[{{
+      "\"Bermuda Call Option Price\"", "\[SpanFromLeft]", "\[SpanFromLeft]", 
+       "\[SpanFromLeft]"}, {
+      "\"Method\"", "\"Price = \\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\)\"",
+        "\"Std Dev(\\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\))\"", 
+       "\"Time (s)\""}, {
+      "\"Black-Scholes European\"", "7.016382131241066`", "", "0.`"}, {
+      "\"Binomial American\"", "7.016382131241066`", "", "0.`"}, {
+      "\"Longstaff-Schwartz MC\"", "7.031755269500463`", 
+       "12.262724253655527`", "\"\""}, {
+      "\"Parameterized CV LS MC\"", "6.989150633989514`", 
+       "0.000192539298765904`", "230.234375`"}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> False, 
+     GridBoxDividers -> {"Columns" -> {{True}}, "Rows" -> {{True}}}, 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"],"\"  \"",
+   TagBox[
+    GridBox[{{
+      "\"Bermuda Put Option Price\"", "\[SpanFromLeft]", "\[SpanFromLeft]", 
+       "\[SpanFromLeft]"}, {
+      "\"Method\"", "\"Price = \\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\)\"",
+        "\"Std Dev(\\!\\(\\*OverscriptBox[\\(Y\\), \\(_\\)]\\))\"", 
+       "\"Time (s)\""}, {
+      "\"Black-Scholes European\"", "4.463834457299548`", "", "0.`"}, {
+      "\"Binomial American\"", "4.441748345575802`", "", "0.`"}, {
+      "\"Longstaff-Schwartz MC\"", "4.603619016632407`", "6.678860334705419`",
+        "\"\""}, {
+      "\"Parameterized CV LS MC\"", "4.611324123402387`", 
+       "0.00037491567105625947`", "481.828125`"}}, 
+     GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> False, 
+     GridBoxDividers -> {"Columns" -> {{True}}, "Rows" -> {{True}}}, 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]},
+  "RowDefault"]], "Print",
+ CellChangeTimes->{3.7852745155461392`*^9, 3.7852768881323357`*^9},
+ CellLabel->
+  "During evaluation of \
+In[141]:=",ExpressionUUID->"4fd48fe4-0853-4580-adfb-1c8b2486ddb4"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Analysis of Results", "Subsubsection",
+ CellChangeTimes->{{3.78527316192206*^9, 
+  3.785273166817155*^9}},ExpressionUUID->"b2beb819-79fb-4490-ba4a-\
+2a53f0469323"],
+
+Cell["\<\
+For a non-dividend Bermuda call, the price is theoretically the same as for \
+the non-dividend European call. In all simulations for the call, the price is \
+reasonable for the LS simulation and extremely accurate for the control \
+variate LS simulation. So, this acts as a sanity check that the algorithms \
+are programmed correctly. 
+
+For a non-dividend Bermuda put, the price is theoretically higher than for \
+the non-dividend European put. In all simulated cases for the put, this was \
+indeed the result for both algorithms. Mathematica\[CloseCurlyQuote]s built \
+in American pricing uses a binomial method and gives a result of 4.44 which \
+is lower than the European price of 4.46. The CBOE American pricing \
+calculator gives a value of 4.62. From the simulations, as the number of \
+exercise times increases, you can see that both simulations are converging \
+towards 4.62 (assuming this is the correct American put price), as expected.
+
+In all simulations for both calls and puts, introduction of the control \
+variate greatly decreased the standard deviation and does not appear to bias \
+the price estimate. \
+\>", "Text",
+ CellChangeTimes->{{3.7852739170939207`*^9, 3.7852741603110847`*^9}, {
+  3.785274286746448*^9, 3.785274415377975*^9}, {3.785274457087556*^9, 
+  3.785274465311584*^9}, {3.785274500719493*^9, 3.7852745180517073`*^9}, {
+  3.7852745802597475`*^9, 3.7852745966578107`*^9}, {3.7852761737070847`*^9, 
+  3.785276309825611*^9}, {3.7852763509579973`*^9, 3.7852763965254216`*^9}, {
+  3.7852764305729685`*^9, 3.7852764907351923`*^9}, {3.7852765301905885`*^9, 
+  3.7852765415832677`*^9}, {3.785277441734562*^9, 
+  3.7852774424996223`*^9}},ExpressionUUID->"7e1f6c35-3e46-4bb8-9ded-\
+57dfe1d9644d"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Future Improvements", "Subsection",
+ CellChangeTimes->{{3.785273206420978*^9, 
+  3.7852732086016216`*^9}},ExpressionUUID->"99b7a0a4-b2cd-429b-8f88-\
+f0dec014abc7"],
+
+Cell["\<\
+A more realistic path generation function could be implemented, such as a \
+jump diffusion. 
+
+All of my simulations operate on a single stock, but there are derivatives on \
+multiple stocks. 
+This would add new challenges, for example with regard to run time.
+
+European option pricing runs quickly and accurately for the parameterized \
+control variate Monte Carlo. 
+So, there isn\[CloseCurlyQuote]t much I could do to improve its run time or \
+accuracy. 
+The simulation could include dividends or other features.
+
+There are other algorithms that may perform better for Bermuda and American \
+option pricing. 
+I used a 5th degree polynomial, but there are other basis functions for the \
+linear regression in Longstaff-Schwartz that may better approximate the \
+exercise boundary. 
+I did not separately measure the Longstaff-Schwartz (without control variate) \
+run time, so I\[CloseCurlyQuote]m not completely sure that the control \
+variate isn\[CloseCurlyQuote]t greatly increasing the run time. 
+However, I think that fitting the linear regression to the 5th degree \
+polynomial is the bottleneck, and I don\[CloseCurlyQuote]t see an obvious way \
+to parallelize this computation. 
+Other computations are simple comparisons and arithmetic, on the order of the \
+number of paths.\
+\>", "Text",
+ CellChangeTimes->{{3.785273626645219*^9, 3.785273638152399*^9}, {
+  3.7852737002926207`*^9, 3.785273830437168*^9}, {3.785274607618512*^9, 
+  3.785274852456294*^9}, {3.785274890888094*^9, 
+  3.7852753516656632`*^9}},ExpressionUUID->"1a667055-65d9-41d3-a623-\
+a307fdfac193"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1424, 814},
+WindowMargins->{{Automatic, 81}, {Automatic, 78}},
+FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 206, 3, 67, "Section",ExpressionUUID->"6497d00e-6b49-45dc-b12b-04a298ae0787"],
+Cell[CellGroupData[{
+Cell[811, 29, 232, 4, 53, "Subsection",ExpressionUUID->"144c5989-13e4-4fd7-9190-6b0853188df1"],
+Cell[1046, 35, 1331, 24, 78, "Text",ExpressionUUID->"72840719-5bbc-458e-8577-da9a4d853d7f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2414, 64, 228, 4, 53, "Subsection",ExpressionUUID->"df7dabb0-5eac-42a7-8c6d-9dd717270f7d"],
+Cell[2645, 70, 3212, 55, 584, "Text",ExpressionUUID->"97783fae-9f55-4aff-b393-4ceaf50b98ca"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5894, 130, 179, 3, 53, "Subsection",ExpressionUUID->"bc5ca267-97a4-4c54-97ed-a15c09caf797"],
+Cell[6076, 135, 503, 9, 56, "Text",ExpressionUUID->"63a016e0-c34b-47e3-8a00-10bb03833c19"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6616, 149, 184, 3, 53, "Subsection",ExpressionUUID->"db6250f8-9931-4874-89af-317a05fd933f"],
+Cell[6803, 154, 277, 6, 34, "Text",ExpressionUUID->"63e1c8df-dc65-48ba-b648-a7c42dfe1284"],
+Cell[7083, 162, 1252, 28, 219, "Input",ExpressionUUID->"7d91a5b9-585b-400a-80a4-8d00f053b456"],
+Cell[8338, 192, 1177, 27, 86, "Input",ExpressionUUID->"431ef684-cdfe-450a-9791-ca9305a954aa"],
+Cell[9518, 221, 1520, 38, 143, "Input",ExpressionUUID->"2b4690db-a637-4ced-a5fa-c8369ac85cd6"],
+Cell[11041, 261, 3074, 76, 295, "Input",ExpressionUUID->"00fb1dbc-da7f-46dc-afc3-027a17e1afa6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14152, 342, 234, 4, 53, "Subsection",ExpressionUUID->"2336b77a-70e9-445b-9b0b-1d32e7bbd4d2"],
+Cell[CellGroupData[{
+Cell[14411, 350, 177, 3, 44, "Subsubsection",ExpressionUUID->"7b9d9c83-358c-4462-8d16-5b0624170abb"],
+Cell[14591, 355, 1037, 28, 181, "Input",ExpressionUUID->"02f2aefa-142e-48ff-8b63-0dbc4f3f6722"],
+Cell[15631, 385, 6916, 173, 523, "Input",ExpressionUUID->"66a1f31a-c4db-4f76-8717-d2c86db3168e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22584, 563, 166, 3, 44, "Subsubsection",ExpressionUUID->"78207c48-1e0d-4f77-94b7-25303fccf788"],
+Cell[22753, 568, 869, 21, 48, "Input",ExpressionUUID->"c245aa18-742e-4674-8a8f-5ee76ea604cb"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[23659, 594, 174, 3, 44, "Subsubsection",ExpressionUUID->"890c6346-6bbc-44b9-ae81-2ba0e7355977"],
+Cell[CellGroupData[{
+Cell[23858, 601, 6934, 159, 509, "Input",ExpressionUUID->"10ef3e73-b563-413b-b6d9-94f6851aa36a"],
+Cell[30795, 762, 1392, 29, 220, "Output",ExpressionUUID->"89cf3477-621c-49d2-b07f-02f8f9081bce"],
+Cell[32190, 793, 880, 17, 40, "Output",ExpressionUUID->"69c6b0e1-d9ba-43ee-902c-1e7c337be590"],
+Cell[33073, 812, 2505, 46, 132, "Output",ExpressionUUID->"45e705a1-bddb-468c-9774-f7a6cbe399d8"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[35627, 864, 169, 3, 44, "Subsubsection",ExpressionUUID->"1652592f-4799-4762-896f-b5feafc1747b"],
+Cell[35799, 869, 1539, 22, 100, "Text",ExpressionUUID->"490ede28-2596-4e33-b285-d0a00e79aafd"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[37387, 897, 249, 4, 53, "Subsection",ExpressionUUID->"97c53f97-8fd5-4216-8117-c2083e6ae37e"],
+Cell[CellGroupData[{
+Cell[37661, 905, 153, 3, 44, "Subsubsection",ExpressionUUID->"c3c23798-dbee-432f-9435-fe845cccec47"],
+Cell[37817, 910, 1384, 33, 200, "Input",ExpressionUUID->"88df190d-812d-4af0-ae60-b38c23e05781"],
+Cell[39204, 945, 12237, 303, 820, "Input",ExpressionUUID->"b96ab79c-3d4c-493c-adac-d5f1c2df431f"],
+Cell[51444, 1250, 11713, 253, 841, "Input",ExpressionUUID->"2b8ea957-5e50-42d3-a77e-71838ffb6555"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[63194, 1508, 337, 5, 44, "Subsubsection",ExpressionUUID->"62e23f2c-7b1d-40e5-a0a9-a7b6912baedd"],
+Cell[CellGroupData[{
+Cell[63556, 1517, 342, 7, 28, "Input",ExpressionUUID->"45a1271e-90b7-47b4-8fb3-a56c1e159d61"],
+Cell[CellGroupData[{
+Cell[63923, 1528, 1389, 30, 198, "Print",ExpressionUUID->"c3c30290-ed68-4af7-bfd8-e0254abb1af4"],
+Cell[65315, 1560, 850, 17, 29, "Print",ExpressionUUID->"72cb1136-6680-4bac-81db-0618b0712b2d"],
+Cell[66168, 1579, 2382, 44, 114, "Print",ExpressionUUID->"f14d03fa-19b0-43c6-9189-83206e0b8b04"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[68611, 1630, 208, 3, 44, "Subsubsection",ExpressionUUID->"f67b0c4c-0d01-4413-8456-86c13bf3856a"],
+Cell[CellGroupData[{
+Cell[68844, 1637, 291, 6, 28, "Input",ExpressionUUID->"5c858c55-9d13-4a31-ba88-ff53d8f14529"],
+Cell[CellGroupData[{
+Cell[69160, 1647, 1314, 28, 198, "Print",ExpressionUUID->"1a37f7cb-b7b4-44fd-8413-6c7a8efb871b"],
+Cell[70477, 1677, 737, 15, 29, "Print",ExpressionUUID->"fba855af-3220-48dd-ac7c-e329f4ec4260"],
+Cell[71217, 1694, 2297, 43, 114, "Print",ExpressionUUID->"24ade529-e5c4-4225-aec2-42108a7eff20"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[73575, 1744, 186, 3, 44, "Subsubsection",ExpressionUUID->"71f61535-3183-4e26-be1f-e2f3a05be7f5"],
+Cell[CellGroupData[{
+Cell[73786, 1751, 291, 6, 28, "Input",ExpressionUUID->"fef765f4-0ac1-466c-a064-a51d6c8af51d"],
+Cell[CellGroupData[{
+Cell[74102, 1761, 1339, 30, 198, "Print",ExpressionUUID->"31ae9903-bc6d-4827-ac94-ab4c6f15ca5e"],
+Cell[75444, 1793, 697, 15, 29, "Print",ExpressionUUID->"4484cd4a-1f96-4a21-817c-68d0123becfa"],
+Cell[76144, 1810, 2264, 43, 114, "Print",ExpressionUUID->"c15c7cd3-c6d3-4040-bb31-dd32a60f3ded"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[78469, 1860, 188, 3, 44, "Subsubsection",ExpressionUUID->"c76dae64-cef7-4c53-b2d0-5f3685046aa4"],
+Cell[78660, 1865, 189, 3, 34, "Text",ExpressionUUID->"07ea657d-e7b4-417b-9824-5f3732e26236"],
+Cell[CellGroupData[{
+Cell[78874, 1872, 241, 5, 28, "Input",ExpressionUUID->"0228e775-3677-4d6b-a7b7-168ce6f16bbd"],
+Cell[CellGroupData[{
+Cell[79140, 1881, 1413, 31, 198, "Print",ExpressionUUID->"2eb73697-65ad-4a06-b9dd-5ce7c2a566be"],
+Cell[80556, 1914, 643, 14, 29, "Print",ExpressionUUID->"cd9a5cbe-306a-4933-a667-ab5cc43346e3"],
+Cell[81202, 1930, 2211, 42, 114, "Print",ExpressionUUID->"296ed223-1709-4335-a917-d88d7105bff8"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[83474, 1979, 231, 5, 44, "Subsubsection",ExpressionUUID->"44d9a27d-ba53-4f91-8eee-8a638e940cad"],
+Cell[83708, 1986, 361, 5, 34, "Text",ExpressionUUID->"9ed37a92-2b74-4551-b2d6-f233070f7acb"],
+Cell[CellGroupData[{
+Cell[84094, 1995, 491, 9, 28, "Input",ExpressionUUID->"fa3305e3-900b-482c-ba7d-9b21a3872e9a"],
+Cell[CellGroupData[{
+Cell[84610, 2008, 2188, 40, 236, "Print",ExpressionUUID->"81ad3824-84bc-498c-8ca9-a871daac7718"],
+Cell[86801, 2050, 453, 11, 29, "Print",ExpressionUUID->"3d5ecec0-b52f-4629-9232-7d164b9a3d25"],
+Cell[87257, 2063, 2019, 39, 114, "Print",ExpressionUUID->"4fd48fe4-0853-4580-adfb-1c8b2486ddb4"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[89337, 2109, 169, 3, 44, "Subsubsection",ExpressionUUID->"b2beb819-79fb-4490-ba4a-2a53f0469323"],
+Cell[89509, 2114, 1729, 28, 188, "Text",ExpressionUUID->"7e1f6c35-3e46-4bb8-9ded-57dfe1d9644d"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[91287, 2148, 169, 3, 53, "Subsection",ExpressionUUID->"99b7a0a4-b2cd-429b-8f88-f0dec014abc7"],
+Cell[91459, 2153, 1580, 32, 320, "Text",ExpressionUUID->"1a667055-65d9-41d3-a623-a307fdfac193"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

@@ -1,0 +1,17 @@
+,$,GR,Mean,Sd,SR,Sk,Ku,MDD,mVaR,TE
+Risk-based portfolios,,,,,,,,,,
+Minimum Variance Portfolio,2.2,3.2,3.32,4.83,0.69,-1.33,8.71,18.77,0,
+Inverse Volatility Portfolio,2.8,4.18,4.44,7.27,0.61,-0.99,6.21,32.22,0,
+Equally Weighted Portfolio,3.1,4.6,5.15,10.48,0.49,-0.77,4.25,41.48,0,
+Equal Risk Contribution Portfolio,2.46,3.65,3.93,7.49,0.52,-0.88,4.78,30.53,0,
+Maximum Diversification Portfolio,2.59,3.86,4.07,6.33,0.64,-0.66,5.47,23.74,0,
+,,,,,,,,,,
+PRCC-optimized risk-based portfolios,,,,,,,,,,
+Minimum Variance Portfolio,2.99,4.45,4.62,5.81,0.8,-1.19,5.51,21.76,0,1.31
+Inverse Volatility Portfolio,3.6,5.2,5.75,10.12,0.57,-3.14,25.64,50.5,0,5.12
+Equally Weighted Portfolio,2.17,3.14,3.93,12.08,0.33,-2.34,14.55,56.25,0,4.57
+Equal Risk Contribution Portfolio,3.53,5.12,5.71,10.5,0.54,-2.9,26.12,53.54,0,5.64
+Maximum Diversification Portfolio,2.81,4.2,4.69,9.54,0.49,-3.66,32.24,51.25,0,3.97
+,,,,,,,,,,
+Other benchmark portfolio,,,,,,,,,,
+Maximum Sharpe Portfolio,3.55,5.15,5.49,8.23,0.67,-0.38,3.49,29.32,0,

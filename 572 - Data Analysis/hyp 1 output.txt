@@ -1,0 +1,53 @@
+> options(scipen=999)
+> priceage = read.table("C:\\Users\\Nick\\Desktop\\AMS\\572\\Project\\AMS 572 Housing Data.csv",
++                       header=TRUE, sep=",", colClasses=c(NA,"NULL","NULL","NULL","NULL","NULL",NA))
+> median(priceage$Age)
+[1] 18
+> underequal18 = subset(priceage, Age<=18)[,1]
+> greater18 = subset(priceage, Age>18)[,1]
+> length(underequal18)
+[1] 564
+> length(greater18)
+[1] 480
+> boxplot(underequal18,greater18, names=c("Age<=18","Age>18"), ylab="Price")
+> shapiro.test(underequal18)
+
+	Shapiro-Wilk normality test
+
+data:  underequal18
+W = 0.93494, p-value = 0.000000000000005793
+
+> shapiro.test(greater18)
+
+	Shapiro-Wilk normality test
+
+data:  greater18
+W = 0.80714, p-value < 0.00000000000000022
+
+> var.test(underequal18, greater18)
+
+	F test to compare two variances
+
+data:  underequal18 and greater18
+F = 1.3731, num df = 563, denom df = 479, p-value = 0.0003433
+alternative hypothesis: true ratio of variances is not equal to 1
+95 percent confidence interval:
+ 1.154862 1.630611
+sample estimates:
+ratio of variances 
+          1.373106 
+
+> t.test(underequal18, greater18)
+
+	Welch Two Sample t-test
+
+data:  underequal18 and greater18
+t = 12.431, df = 1042, p-value < 0.00000000000000022
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 45697.11 62828.03
+sample estimates:
+mean of x mean of y 
+ 192516.8  138254.3 
+
+> plot(priceage[,2],priceage[,1],xlim=c(0, 250), ylim=c(0, 600000),xlab="Age",ylab="Price")

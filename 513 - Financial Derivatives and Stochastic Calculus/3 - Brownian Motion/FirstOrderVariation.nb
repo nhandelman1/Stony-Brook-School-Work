@@ -1,0 +1,98 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      3827,         90]
+NotebookOptionsPosition[      3085,         65]
+NotebookOutlinePosition[      3656,         88]
+CellTagsIndexPosition[      3613,         85]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["First Order Variation", "Section",
+ CellChangeTimes->{{3.558028076597926*^9, 3.5580280832543073`*^9}, {
+   3.586992856794399*^9, 3.586992876466033*^9}, {3.7582262433046727`*^9, 
+   3.75822631790418*^9}, {3.763051171667095*^9, 3.763051176329441*^9}, {
+   3.7630651009658766`*^9, 3.7630651061516314`*^9}, {3.7630653977954283`*^9, 
+   3.7630653998943243`*^9}, 
+   3.763069697010412*^9},ExpressionUUID->"549bfb71-66ad-4d92-b7b9-\
+e573686161c9"],
+
+Cell[TextData[StyleBox["Assignment: \n1. Generate Brownian motion simulations \
+using both:\n\tA. Scaled random walk (based on independent Bernoulli random \
+variables, e.g. coin tosses)\n\tB. Sampled Brownian motion based on Gaussian \
+increments with the appropriate variance \n\t(Hint: see RandomVariate and \
+NormalDistribution functions)\n2.  Write a function that computes the first \
+order variation (FOV) of a given list of numbers.\n3.  Apply to both scaled \
+random walk (A) and to sampled Brownian motion (B), for 20 paths each (20 RW \
+paths, 20 BM paths)\n    i. For each simulated path, go from 0 to 10 seconds \
+with 10 sample points per second, and plot the FOV at each time point.  Thus \
+each plot should go from 0 to 10 seconds at 0.1 second increments.  \n    ii. \
+Which type of plot (RW vs BM) shows more variability and why?\n4.  Show that \
+FOV \[Rule]\[Infinity] as the partition size ||\[CapitalPi]||\[Rule]0. (Hint: \
+evaluate FOV for the number of points per unit time = 10, 100, 1000 and \
+observe the FOVvalues)", "Subsubsection"]], "Text",
+ CellChangeTimes->{{3.7582263902805843`*^9, 3.7582266050821624`*^9}, {
+   3.763051183081974*^9, 3.7630511876405582`*^9}, 3.7630570608264256`*^9, {
+   3.763057109244322*^9, 3.7630573996263666`*^9}, {3.763064666366785*^9, 
+   3.7630650814284887`*^9}, {3.7630651404301825`*^9, 
+   3.7630652697188063`*^9}, {3.763065771621621*^9, 3.7630658815605803`*^9}, {
+   3.7630701870350904`*^9, 
+   3.763070192982624*^9}},ExpressionUUID->"cd061dca-2839-4f7b-8885-\
+f13c9ad9989f"],
+
+Cell[TextData[StyleBox["Due Friday April 8th by Midnight.", \
+"Subsubsection"]], "Text",
+ CellChangeTimes->{{3.7582263902805843`*^9, 3.7582266050821624`*^9}, {
+   3.763051183081974*^9, 3.7630511876405582`*^9}, 3.7630570608264256`*^9, {
+   3.763057109244322*^9, 3.7630573996263666`*^9}, {3.763064666366785*^9, 
+   3.7630650814284887`*^9}, {3.7630651404301825`*^9, 
+   3.7630652697188063`*^9}, {3.7630653389520082`*^9, 
+   3.7630653897695503`*^9}},ExpressionUUID->"d222fe64-5ec9-41e4-ba7f-\
+3cde17453d46"]
+}, Open  ]]
+},
+WindowSize->{1339, 945},
+WindowMargins->{{-149, Automatic}, {837, Automatic}},
+WindowStatusArea->None,
+PrintingCopies->1,
+PrintingPageRange->{32000, 32000},
+PrintingOptions->{"Magnification"->1.,
+"PaperOrientation"->"Portrait",
+"PaperSize"->{612, 792}},
+ShowSelection->True,
+Magnification:>1.5 Inherited,
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Report.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 446, 7, 99, "Section",ExpressionUUID->"549bfb71-66ad-4d92-b7b9-e573686161c9"],
+Cell[1028, 31, 1535, 21, 268, "Text",ExpressionUUID->"cd061dca-2839-4f7b-8885-f13c9ad9989f"],
+Cell[2566, 54, 503, 8, 38, "Text",ExpressionUUID->"d222fe64-5ec9-41e4-ba7f-3cde17453d46"]
+}, Open  ]]
+}
+]
+*)
+

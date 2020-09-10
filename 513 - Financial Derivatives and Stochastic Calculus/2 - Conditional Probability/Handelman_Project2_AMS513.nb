@@ -1,0 +1,893 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     32445,        885]
+NotebookOptionsPosition[     30167,        831]
+NotebookOutlinePosition[     30739,        854]
+CellTagsIndexPosition[     30696,        851]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+Computer Project 2
+Due Wednesday February 27, by midnight
+AMS 513 Spring 2019\
+\>", "Section",
+ CellChangeTimes->{{3.558028076597926*^9, 3.5580280832543073`*^9}, {
+  3.586992856794399*^9, 3.586992876466033*^9}, {3.7582262433046727`*^9, 
+  3.75822631790418*^9}, {3.7602275002545385`*^9, 
+  3.7602275146065636`*^9}},ExpressionUUID->"c71dbe14-ff84-4171-bc2e-\
+1e4496c65477"],
+
+Cell[CellGroupData[{
+
+Cell["Part 1", "Section 1",
+ CellChangeTimes->{{3.758229399189452*^9, 3.758229401245945*^9}, {
+  3.760227556190168*^9, 
+  3.760227556658169*^9}},ExpressionUUID->"6cfa79bd-be44-4195-a91e-\
+90789bbe7b93"],
+
+Cell[TextData[{
+ "A nickel, a dime and a quarter are tossed (with values 5, 10, 25, resp.). \
+Let X be the random variable given by the sum of the coin values that land \
+with a head. Denoting a three-toss outcome as \[Omega] = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     SubscriptBox["\[Omega]", "N"], " ", 
+     SubscriptBox["\[Omega]", "D"], 
+     SubscriptBox["\[Omega]", "Q"]}]}], TraditionalForm]],ExpressionUUID->
+  "3b4198b9-3b82-4a77-ac52-b770d7cb74bf"],
+ "), X can be written\n\tX(\[Omega]) = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"5", "*", 
+     SubscriptBox["\[CapitalIota]", 
+      RowBox[{"{", 
+       RowBox[{
+        SubscriptBox["\[Omega]", "N"], "=", "H"}], "}"}]]}], "+"}], 
+   TraditionalForm]],ExpressionUUID->"8cc828e1-d9df-465d-b609-96a26ac36edf"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"10", "*", 
+     SubscriptBox["\[CapitalIota]", 
+      RowBox[{"{", 
+       RowBox[{
+        SubscriptBox["\[Omega]", "D"], "=", "H"}], "}"}]]}], "+"}], 
+   TraditionalForm]],ExpressionUUID->"7d80dabd-6c94-4abc-ae69-8a45862aaf15"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"25", "*", 
+    SubscriptBox["\[CapitalIota]", 
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["\[Omega]", "Q"], "=", "H"}], "}"}]]}], TraditionalForm]],
+  ExpressionUUID->"2551ee0c-d9b5-4b7a-9806-f545b1142c3c"],
+ "\n\[CapitalOmega] = {HHH, HHT, HTH, HTT, TTT, TTH, THT, THH}\n\t\nLet A be \
+the event that exactly two heads occur in the outcome.\n\nA = {HHT, HTH, THH}\
+\n\n",
+ StyleBox["(a) Given that the coins are all fair, what is the expected value \
+of X given that A has occurred, that is, \[CapitalEpsilon][X|A]?",
+  FontWeight->"Bold"],
+ "\n\nP(\[Omega]) = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["1", "8"], 
+    RowBox[{"\[ForAll]", 
+     RowBox[{"\[Omega]", "\[Element]", "\[CapitalOmega]"}]}]}], 
+   TraditionalForm]],ExpressionUUID->"10fa6c36-4dc5-4fcb-964b-146580b234b1"],
+ "\n\n\[CapitalEpsilon][X|A] = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["1", 
+     RowBox[{"P", "(", "A", ")"}]], 
+    RowBox[{
+     SubscriptBox["\[Sum]", 
+      RowBox[{"\[Omega]", "\[Element]", "A"}]], 
+     RowBox[{
+      RowBox[{"X", "(", "\[Omega]", ")"}], 
+      RowBox[{"P", "(", "\[Omega]", ")"}]}]}]}], TraditionalForm]], "Text",
+  ExpressionUUID->"7be9d5fc-f8df-4041-8731-b619914cfc68"],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox["1", 
+      RowBox[{"3", "/", "8"}]], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"15", "*", 
+        FractionBox["1", "8"]}], "+", 
+       RowBox[{"30", "*", 
+        FractionBox["1", "8"]}], "+", 
+       RowBox[{"35", "*", 
+        FractionBox["1", "8"]}]}], ")"}]}], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"(", 
+       RowBox[{"15", "+", "30", "+", "35"}], ")"}], "3"], "=", 
+     FractionBox["80", "3"]}]}], TraditionalForm]],ExpressionUUID->
+  "eef44afa-c11f-4508-99ff-9f292c498789"],
+ "\[TildeTilde] 26.7\n\n",
+ StyleBox["(b) Suppose the probability of a head is given by ",
+  FontWeight->"Bold"],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "N"], TraditionalForm]],
+  FontWeight->"Bold",ExpressionUUID->"d12240be-015b-4292-b305-46973747ee16"],
+ StyleBox[" = ",
+  FontWeight->"Bold"],
+ Cell[BoxData[
+  FormBox[
+   FractionBox["4", "5"], TraditionalForm]],
+  FontWeight->"Bold",ExpressionUUID->"8fbbce8a-59b3-4135-a219-9f471387ba33"],
+ StyleBox[", ",
+  FontWeight->"Bold"],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "D"], TraditionalForm]],
+  FontWeight->"Bold",ExpressionUUID->"7d10748e-9a60-4a92-b8bb-fef1e9b9abb0"],
+ StyleBox[" = ",
+  FontWeight->"Bold"],
+ Cell[BoxData[
+  FormBox[
+   FractionBox["1", "2"], TraditionalForm]],
+  FontWeight->"Bold",ExpressionUUID->"ba4d8e52-3aad-46b4-96fe-87685473b947"],
+ StyleBox[", ",
+  FontWeight->"Bold"],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["p", "Q"], TraditionalForm]],
+  FontWeight->"Bold",ExpressionUUID->"17ddb78d-c2cd-4362-9e26-7b8b7a26d4cd"],
+ StyleBox[" = ",
+  FontWeight->"Bold"],
+ Cell[BoxData[
+  FormBox[
+   FractionBox["1", "4"], TraditionalForm]],
+  FontWeight->"Bold",ExpressionUUID->"49084cb7-8e1b-443c-a10d-68aec571b0fc"],
+ StyleBox[", what is \[CapitalEpsilon][X|A]?\n",
+  FontWeight->"Bold"],
+ "\nP({HHT}) = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox["4", "5"], "*", 
+     FractionBox["1", "2"], "*", 
+     FractionBox["3", "4"]}], "=", 
+    FractionBox["12", "40"]}], TraditionalForm]],ExpressionUUID->
+  "6ff00a53-50e7-492d-960a-e7aef34172ec"],
+ "        P({HTH}) = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["4", "5"], "*", 
+    FractionBox["1", "2"], "*"}], TraditionalForm]],ExpressionUUID->
+  "184de404-986e-4192-b303-756eb0ef10dc"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["1", "4"], " ", "=", " ", 
+    RowBox[{
+     FractionBox["4", "40"], "        ", 
+     RowBox[{"P", "(", 
+      RowBox[{"{", "THH", "}"}], ")"}]}]}], TraditionalForm]],ExpressionUUID->
+  "97f9d746-22f5-410c-b7b1-64870469f59b"],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox["1", "5"], "*", 
+     FractionBox["1", "2"], "*", 
+     FractionBox["1", "4"]}], "=", 
+    FractionBox["1", "40"]}], TraditionalForm]],ExpressionUUID->
+  "7b5314c1-85e9-45ca-83e3-62d7abd0fc71"],
+ "\n\n\[CapitalEpsilon][X|A] = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["1", 
+     RowBox[{"P", "(", "A", ")"}]], 
+    RowBox[{
+     SubscriptBox["\[Sum]", 
+      RowBox[{"\[Omega]", "\[Element]", "A"}]], 
+     RowBox[{
+      RowBox[{"X", "(", "\[Omega]", ")"}], 
+      RowBox[{"P", "(", "\[Omega]", ")"}]}]}]}], TraditionalForm]], "Text",
+  ExpressionUUID->"d5208344-b821-44d0-ba21-0a210a4a74e9"],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox["1", 
+      RowBox[{"17", "/", "40"}]], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"15", "*", 
+        FractionBox["12", "40"]}], "+", 
+       RowBox[{"30", "*", 
+        FractionBox["4", "40"]}], "+", 
+       RowBox[{"35", "*", 
+        FractionBox["1", "40"]}]}], ")"}]}], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"(", 
+       RowBox[{"180", "+", "120", "+", "35"}], ")"}], "17"], "=", 
+     FractionBox["335", "17"]}]}], TraditionalForm]],ExpressionUUID->
+  "39e61ff5-fd27-4277-ad67-89976a478dcd"],
+ "\[TildeTilde] 19.7\n\n",
+ StyleBox["(c) With the probabilities from (b), what is the generalized \
+conditional expectation \[CapitalEpsilon][X|\[Sigma](A)]?\n\n",
+  FontWeight->"Bold"],
+ "\[Sigma](A) = {\[EmptySet],\[CapitalOmega],{HHT, HTH, THH},{HTT, HHH, TTT, \
+TTH, THT}}\n\nThe atoms of \[Sigma](A) are A = {HHT, HTH, THH} and B = {HTT, \
+HHH, TTT, TTH, THT}\n\nP({HTT}) = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox["4", "5"], "*", 
+     FractionBox["1", "2"], "*", 
+     FractionBox["3", "4"]}], "=", 
+    FractionBox["12", "40"]}], TraditionalForm]],ExpressionUUID->
+  "c5e5ff63-ad46-4d65-bd2e-bb325727aeaf"],
+ "        P({HHH}) = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["4", "5"], "*", 
+    FractionBox["1", "2"], "*"}], TraditionalForm]],ExpressionUUID->
+  "8f418a30-c4bd-4f0c-b176-bd615877e0c4"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["1", "4"], " ", "=", " ", 
+    RowBox[{
+     FractionBox["4", "40"], "        ", 
+     RowBox[{"P", "(", 
+      RowBox[{"{", "TTT", "}"}], ")"}]}]}], TraditionalForm]],ExpressionUUID->
+  "23a71f87-166f-493c-ab13-3a3fcf6dde0d"],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox["1", "5"], "*", 
+     FractionBox["1", "2"], "*", 
+     FractionBox["3", "4"]}], "=", 
+    FractionBox["3", "40"]}], TraditionalForm]],ExpressionUUID->
+  "46701983-337f-46eb-bc03-df4177fa185a"],
+ StyleBox["        ",
+  FontWeight->"Bold"],
+ "P({TTH})",
+ StyleBox[" = ",
+  FontWeight->"Bold"],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["1", "5"], "*", 
+    FractionBox["1", "2"], "*"}], TraditionalForm]],ExpressionUUID->
+  "22700608-053f-47c7-abf0-2b95838bf51c"],
+ StyleBox[" ",
+  FontWeight->"Bold"],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["1", "4"], " ", "=", " ", 
+    RowBox[{
+     FractionBox["1", "40"], "        ", 
+     RowBox[{"P", "(", 
+      RowBox[{"{", "THT", "}"}], ")"}]}]}], TraditionalForm]],ExpressionUUID->
+  "31832e78-88dc-4fe9-8723-38a1a8247beb"],
+ StyleBox[" = ",
+  FontWeight->"Bold"],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox["1", "5"], "*", 
+     FractionBox["1", "2"], "*", 
+     FractionBox["3", "4"]}], "=", 
+    FractionBox["3", "40"]}], TraditionalForm]],ExpressionUUID->
+  "c36643e3-142b-4db3-a16c-a9637ffa7b9f"],
+ StyleBox["\n\n",
+  FontWeight->"Bold"],
+ "\[CapitalEpsilon][X|B] = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox["1", 
+     RowBox[{"P", "(", "B", ")"}]], 
+    RowBox[{
+     SubscriptBox["\[Sum]", 
+      RowBox[{"\[Omega]", "\[Element]", "B"}]], 
+     RowBox[{
+      RowBox[{"X", "(", "\[Omega]", ")"}], 
+      RowBox[{"P", "(", "\[Omega]", ")"}]}]}]}], TraditionalForm]], "Text",
+  ExpressionUUID->"b7475a03-218a-48e1-ad0f-3cd233d5be91"],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox["1", 
+      RowBox[{"23", "/", "40"}]], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"5", "*", 
+        FractionBox["12", "40"]}], "+", 
+       RowBox[{"40", "*", 
+        FractionBox["4", "40"]}], "+", 
+       RowBox[{"0", "*", 
+        FractionBox["3", "40"]}], " ", "+", 
+       RowBox[{"25", "*", 
+        FractionBox["1", "40"]}], "+", 
+       RowBox[{"10", "*", 
+        FractionBox["3", "40"]}]}], ")"}]}], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"(", 
+       RowBox[{"60", "+", "160", "+", "25", "+", "30"}], ")"}], "23"], "=", 
+     FractionBox["275", "23"]}]}], TraditionalForm]],ExpressionUUID->
+  "ea1ed4e6-befb-48c8-a8fb-4d77a5adfcf9"],
+ "\[TildeTilde] 12",
+ StyleBox["\n\n",
+  FontWeight->"Bold"],
+ "\[CapitalEpsilon][X|\[Sigma](A)](\[Omega]) = \[CapitalEpsilon][X|A] * ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[CapitalIota]", 
+    RowBox[{"{", 
+     RowBox[{"\[Omega]", "\[Element]", "A"}], "}"}]], TraditionalForm]],
+  ExpressionUUID->"83b0b8bb-1baf-4369-8881-21d5af578b11"],
+ " + \[CapitalEpsilon][X|B] *",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    SubscriptBox["\[CapitalIota]", 
+     RowBox[{"{", 
+      RowBox[{"\[Omega]", "\[Element]", "B"}], "}"}]]}], TraditionalForm]],
+  ExpressionUUID->"414e7ff2-d245-4c94-a8c3-09d185b908e7"],
+ " = ",
+ Cell[BoxData[
+  FormBox[
+   FractionBox["335", "17"], TraditionalForm]],ExpressionUUID->
+  "2a755e16-f3d8-4124-96a9-6514a12f24c2"],
+ " * ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[CapitalIota]", 
+    RowBox[{"{", 
+     RowBox[{"\[Omega]", "\[Element]", "A"}], "}"}]], TraditionalForm]],
+  ExpressionUUID->"d16a5f61-90d6-4ef8-9e29-c366b6c715d1"],
+ " +  ",
+ Cell[BoxData[
+  FormBox[
+   FractionBox["175", "23"], TraditionalForm]],ExpressionUUID->
+  "b3abad10-5f92-4a4e-a9b6-01f0e753df49"],
+ "*",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"  ", 
+    SubscriptBox["\[CapitalIota]", 
+     RowBox[{"{", 
+      RowBox[{"\[Omega]", "\[Element]", "B"}], "}"}]]}], TraditionalForm]],
+  ExpressionUUID->"1face476-cb28-4f3e-82f0-8314b827d26a"],
+ "\n"
+}], "Text",
+ CellChangeTimes->CompressedData["
+1:eJwdyFsoQwEAh/HNJTWK47Ik92hLtlaSbeSWS1LLZg88aNpaLo2t4RS1muJJ
+zMbDmsiDDopCCaXMaGqzeEBNyQtW2p29Ced/Hr5+9ZWp9QptEovFKqKD31n1
+m1kpwRZe79wu5C+9HsLm7uoLeCuZvYJ/ZoMbOiPpXrgcrEkmaI2uQg782vFm
+wIY2fjks3h9k5G4Z+PCj+60K9qkDQugQj0ngyfFTE9QNbSvhUeWPCa5zOi3Q
+SXj2oEhgP4fj0v5LmOZIRCF1b2Zn0y6cZqRC14hyNYfWFlE54MHEkCuXljQY
+fbB0Q/4AfeYOPyx/zgzB6xMNo4jXGoPUcigObTnilzxame3sHVaQJZ+woJ+d
+gEKfpIhLG5NTjPk3ngpYGyAaoUxDtMM7alIBpaOqAear2zQwbikehnXWFRLO
+dPFN0D0lmIVhrX8eehYnrFAXpOyQfNSvweD0dbiOtkf3G4X/bqG9tg==
+  
+  "],ExpressionUUID->"9e6fdffc-12ed-40b0-b384-200400f13769"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Part 2", "Section 1",
+ CellChangeTimes->{{3.758229446238008*^9, 
+  3.758229448397195*^9}},ExpressionUUID->"a7b491cb-7e19-4725-a9ed-\
+1c1048e33c61"],
+
+Cell[TextData[{
+ "Create a Mathematica notebook that estimates the conditional probabilities \
+in Part 1 (a), (b), (c). For (c) you need to estimate the conditional \
+probabilities on the atoms of \[Sigma](A).\nHere are some hints:\n  1) \
+Construct a list of three tosses using the RandomVariate function with the \
+appropriate distribution.\n  2) Define a function ifTwoHeads that returns the \
+value X(\[Omega]) of a three-toss sequence \[Omega] = ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     SubscriptBox["\[Omega]", "N"], " ", 
+     SubscriptBox["\[Omega]", "D"], 
+     SubscriptBox["\[Omega]", "Q"]}]}], TraditionalForm]],ExpressionUUID->
+  "0729a147-70ef-438e-a46b-f8f5021530f9"],
+ ") if there are exactly two heads in it. Use the Function command to do \
+this.\n  3) Make a list lotsOfTrials of three-toss sequences using the Table \
+function, for some number N of trials.\n  4) Use the Map function to apply \
+ifTwoHeads to lotsOfTrials.\nYou will then have use a few more steps to \
+derive the numerical answers for (a), (b), and (c). Write your code in a way \
+that makes it easy to change the probability values, and the conditions, as \
+needed."
+}], "Text",
+ CellChangeTimes->{{3.760297155214324*^9, 
+  3.760297311716799*^9}},ExpressionUUID->"eb5f6ede-d39d-437a-8088-\
+69454a0294cf"],
+
+Cell[CellGroupData[{
+
+Cell["2.1 Function Module", "Subsection",
+ CellChangeTimes->{{3.760302464073535*^9, 
+  3.7603024823411674`*^9}},ExpressionUUID->"33792013-8402-4d30-9f6b-\
+e645230e1b14"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"xEstimateConditionalProbability2Heads", "[", 
+   RowBox[{
+   "nNickel_", ",", "nDime_", ",", "nQuarter_", ",", "nProbN_", ",", 
+    "nProbD_", ",", "nProbQ_", ",", "iTrials_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"vLotsOfTrials", " ", "=", " ", 
+      RowBox[{"MapThread", "[", 
+       RowBox[{"List", ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"RandomVariate", "[", 
+           RowBox[{
+            RowBox[{"BernoulliDistribution", "[", "nProbN", "]"}], ",", 
+            "iTrials"}], "]"}], ",", 
+          RowBox[{"RandomVariate", "[", 
+           RowBox[{
+            RowBox[{"BernoulliDistribution", "[", "nProbD", "]"}], ",", 
+            "iTrials"}], "]"}], ",", 
+          RowBox[{"RandomVariate", "[", 
+           RowBox[{
+            RowBox[{"BernoulliDistribution", "[", "nProbQ", "]"}], ",", 
+            "iTrials"}], "]"}]}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"vXValues", "=", 
+      RowBox[{"Map", "[", 
+       RowBox[{
+        RowBox[{"Function", "[", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Total", "[", "#", "]"}], "\[Equal]", "2"}], ",", 
+           RowBox[{"Dot", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"nNickel", ",", "nDime", ",", "nQuarter"}], "}"}], ",", 
+             "#"}], "]"}], ",", "Nothing"}], "]"}], "]"}], ",", 
+        "vLotsOfTrials"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"N", "[", 
+      RowBox[{"Mean", "[", "vXValues", "]"}], "]"}]}]}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.7602973201252136`*^9, 3.760297321856817*^9}, {
+   3.760297358985882*^9, 3.7602974134651775`*^9}, 3.7602981320648193`*^9, {
+   3.760298333980935*^9, 3.7602984677946596`*^9}, {3.7602985890604897`*^9, 
+   3.7602985948979006`*^9}, {3.7602988404191446`*^9, 
+   3.7602989280773354`*^9}, {3.7602990123224597`*^9, 
+   3.7602990413561106`*^9}, {3.7602992493496356`*^9, 
+   3.7602992580232506`*^9}, {3.7602993320971813`*^9, 3.760299339241994*^9}, {
+   3.760299455885399*^9, 3.760299458319003*^9}, {3.7602994981926727`*^9, 
+   3.7602995023578806`*^9}, {3.760299555026573*^9, 3.7602995767886114`*^9}, {
+   3.760299643297827*^9, 3.760299698121323*^9}, {3.760299859785144*^9, 
+   3.76029986917636*^9}, {3.760299930562066*^9, 3.7602999400860834`*^9}, {
+   3.760300062805115*^9, 3.7603000915415726`*^9}, {3.7603001630882177`*^9, 
+   3.760300267619692*^9}, {3.7603003947775154`*^9, 3.7603004245795727`*^9}, {
+   3.760300486771309*^9, 3.760300526111582*^9}, {3.760300693542121*^9, 
+   3.7603007168776712`*^9}, {3.760300748977145*^9, 3.7603007838432064`*^9}, {
+   3.760300907520372*^9, 3.760300948509847*^9}, {3.76030098442111*^9, 
+   3.7603009948263283`*^9}, {3.760301028678388*^9, 3.7603010455732174`*^9}, {
+   3.7603010869444904`*^9, 3.7603011305309668`*^9}, {3.760301183050065*^9, 
+   3.7603013583117733`*^9}, {3.7603015109106417`*^9, 
+   3.7603015384330907`*^9}, {3.7603016018522024`*^9, 3.760301607827013*^9}, {
+   3.7603019583466396`*^9, 3.7603020589064164`*^9}, {3.760302143505365*^9, 
+   3.760302390372199*^9}, {3.7603026051127834`*^9, 3.7603026063763857`*^9}, {
+   3.7603055043414383`*^9, 3.7603055053866396`*^9}, {3.7603057447846603`*^9, 
+   3.760305766250298*^9}, 3.7603057986203547`*^9, {3.7603058392949038`*^9, 
+   3.7603058406989064`*^9}, {3.7603059515597353`*^9, 
+   3.7603060225804663`*^9}, {3.7603063798567076`*^9, 
+   3.7603063857691183`*^9}, {3.7603065923796916`*^9, 
+   3.7603066007101064`*^9}, {3.7603067235515566`*^9, 3.760306734830376*^9}, {
+   3.7603067661396313`*^9, 3.7603067982600875`*^9}, 
+   3.760306831188551*^9},ExpressionUUID->"0050cd32-2e75-449e-9f33-\
+7e09d06ab414"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2.2 Estimate Conditional Probability (a) ", "Subsection",
+ CellChangeTimes->{{3.76030249521419*^9, 
+  3.760302526918446*^9}},ExpressionUUID->"08d2ba87-f8f7-4449-bfcf-\
+9fd4a50c6783"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nNickel", " ", "=", " ", "5"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nDime", " ", "=", " ", "10"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"nQuarter", " ", "=", " ", "25"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nProbN", " ", "=", " ", 
+   RowBox[{"1", "/", "2"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nProbD", " ", "=", " ", 
+   RowBox[{"1", "/", "2"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"nProbQ", " ", "=", " ", 
+    RowBox[{"1", "/", "2"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"iTrials", " ", "=", " ", "10000"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"StringForm", "[", 
+   RowBox[{"\"\<E[X|A]\[TildeTilde]``\>\"", ",", 
+    RowBox[{"xEstimateConditionalProbability2Heads", "[", 
+     RowBox[{
+     "nNickel", ",", "nDime", ",", "nQuarter", ",", "nProbN", ",", "nProbD", 
+      ",", "nProbQ", ",", "iTrials"}], "]"}]}], "]"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.760302539398468*^9, 3.7603025469644814`*^9}, 
+   3.760302649735272*^9, 3.7603055091930466`*^9, {3.7603062025111823`*^9, 
+   3.7603062527276707`*^9}, {3.760306332724611*^9, 3.760306333317412*^9}, {
+   3.760306391012538*^9, 
+   3.7603064028529587`*^9}},ExpressionUUID->"95a9d091-084c-4bc6-88b5-\
+0abac654c08a"],
+
+Cell[BoxData[
+ InterpretationBox["\<\"E[X|A]\[TildeTilde]\\!\\(\\*RowBox[{\\\"26.\
+884894016635364`\\\"}]\\)\"\>",
+  StringForm["E[X|A]\[TildeTilde]``", 26.884894016635364`],
+  Editable->False]], "Print",
+ CellChangeTimes->{{3.760305782255926*^9, 3.7603058058743677`*^9}, 
+   3.7603058490771213`*^9, {3.7603059665705657`*^9, 3.760306036916891*^9}, 
+   3.7603064186401863`*^9, 
+   3.760306920158908*^9},ExpressionUUID->"220daf17-6af6-4340-9d24-\
+963dad31cf54"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2.3 Estimate Conditional Probability (b)", "Subsection",
+ CellChangeTimes->{{3.7603025527394915`*^9, 
+  3.760302563831111*^9}},ExpressionUUID->"b4282426-d658-4fc6-95f1-\
+905573c4eebd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nNickel", " ", "=", " ", "5"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nDime", " ", "=", " ", "10"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"nQuarter", " ", "=", " ", "25"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nProbN", " ", "=", " ", 
+   RowBox[{"4", "/", "5"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nProbD", " ", "=", " ", 
+   RowBox[{"1", "/", "2"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"nProbQ", " ", "=", " ", 
+    RowBox[{"1", "/", "4"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"iTrials", " ", "=", " ", "10000"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", 
+  RowBox[{"StringForm", "[", 
+   RowBox[{"\"\<E[X|A]\[TildeTilde]``\>\"", ",", 
+    RowBox[{"xEstimateConditionalProbability2Heads", "[", 
+     RowBox[{
+     "nNickel", ",", "nDime", ",", "nQuarter", ",", "nProbN", ",", "nProbD", 
+      ",", "nProbQ", ",", "iTrials"}], "]"}]}], "]"}], "]"}]}], "Input",
+ CellChangeTimes->{
+  3.76030257470433*^9, {3.760302634270644*^9, 3.7603026569736843`*^9}, 
+   3.760305511829451*^9, 
+   3.7603064093737698`*^9},ExpressionUUID->"fdb9baa4-31f3-4e3e-a928-\
+604642ea8b4d"],
+
+Cell[BoxData[
+ InterpretationBox["\<\"E[X|A]\[TildeTilde]\\!\\(\\*RowBox[{\\\"19.\
+57670720299345`\\\"}]\\)\"\>",
+  StringForm["E[X|A]\[TildeTilde]``", 19.57670720299345],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.7603060417841*^9, 3.7603064223861933`*^9, 
+  3.7603069243241153`*^9},ExpressionUUID->"885b8626-fe3e-4943-8690-\
+899a611fc28a"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2.4 Estimate Generalized Conditional Probability (c)", "Subsection",
+ CellChangeTimes->{{3.76030258038674*^9, 
+  3.7603025886547546`*^9}},ExpressionUUID->"923276e0-278e-4ef0-aea2-\
+7a3362d801bb"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"xEstimateGeneralizedConditionalProbability", "[", 
+    RowBox[{
+    "nNickel_", ",", "nDime_", ",", "nQuarter_", ",", "nProbN_", ",", 
+     "nProbD_", ",", "nProbQ_", ",", "iTrials_", ",", "vAtoms_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"vLotsOfTrials", " ", "=", " ", 
+       RowBox[{"MapThread", "[", 
+        RowBox[{"List", ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"RandomVariate", "[", 
+            RowBox[{
+             RowBox[{"BernoulliDistribution", "[", "nProbN", "]"}], ",", 
+             "iTrials"}], "]"}], ",", 
+           RowBox[{"RandomVariate", "[", 
+            RowBox[{
+             RowBox[{"BernoulliDistribution", "[", "nProbD", "]"}], ",", 
+             "iTrials"}], "]"}], ",", 
+           RowBox[{"RandomVariate", "[", 
+            RowBox[{
+             RowBox[{"BernoulliDistribution", "[", "nProbQ", "]"}], ",", 
+             "iTrials"}], "]"}]}], "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"vXValues1", "=", 
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{"Function", "[", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"MemberQ", "[", 
+             RowBox[{
+              RowBox[{"vAtoms", "[", 
+               RowBox[{"[", "1", "]"}], "]"}], ",", "#"}], "]"}], ",", 
+            RowBox[{"Dot", "[", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"nNickel", ",", "nDime", ",", "nQuarter"}], "}"}], ",",
+               "#"}], "]"}], ",", "Nothing"}], "]"}], "]"}], ",", 
+         "vLotsOfTrials"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"vXValues2", "=", 
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{"Function", "[", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"MemberQ", "[", 
+             RowBox[{
+              RowBox[{"vAtoms", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], ",", "#"}], "]"}], ",", 
+            RowBox[{"Dot", "[", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"nNickel", ",", "nDime", ",", "nQuarter"}], "}"}], ",",
+               "#"}], "]"}], ",", "Nothing"}], "]"}], "]"}], ",", 
+         "vLotsOfTrials"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"StringForm", "[", 
+        RowBox[{
+        "\"\<E[X|\[Sigma](A)](\[Omega])\[TildeTilde]``*\!\(\*SubscriptBox[\(\
+\[CapitalIota]\), \({\[Omega] \[Element] ``}\)]\)+``*\!\(\*SubscriptBox[\(\
+\[CapitalIota]\), \({\[Omega] \[Element] ``}\)]\)\>\"", ",", 
+         RowBox[{"N", "[", 
+          RowBox[{"Mean", "[", "vXValues1", "]"}], "]"}], ",", 
+         RowBox[{"vAtoms", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], ",", 
+         RowBox[{"N", "[", 
+          RowBox[{"Mean", "[", "vXValues2", "]"}], "]"}], ",", 
+         RowBox[{"vAtoms", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], "]"}], "]"}]}]}], 
+    "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nNickel", " ", "=", " ", "5"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nDime", " ", "=", " ", "10"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"nQuarter", " ", "=", " ", "25"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nProbN", " ", "=", " ", 
+   RowBox[{"4", "/", "5"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"nProbD", " ", "=", " ", 
+   RowBox[{"1", "/", "2"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"nProbQ", " ", "=", " ", 
+    RowBox[{"1", "/", "4"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"iTrials", " ", "=", " ", "10000"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vAtoms", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", "1", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "0", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1", ",", "1"}], "}"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", "0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "1", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1", ",", "0"}], "}"}]}], "}"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"xEstimateGeneralizedConditionalProbability", "[", 
+  RowBox[{
+  "nNickel", ",", "nDime", ",", "nQuarter", ",", "nProbN", ",", "nProbD", ",",
+    "nProbQ", ",", "iTrials", ",", "vAtoms"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.7603064899967117`*^9, 3.760306536063593*^9}, {
+  3.7603072218287535`*^9, 3.76030757471618*^9}, {3.7603076255590706`*^9, 
+  3.7603076400514956`*^9}, {3.7603077221856403`*^9, 3.76030780027098*^9}, {
+  3.7603078673338985`*^9, 
+  3.760307876116714*^9}},ExpressionUUID->"ffa23574-bb1b-4f3b-ac19-\
+fbbf047f5ede"],
+
+Cell[BoxData[
+ InterpretationBox["\<\"E[X|\[Sigma](A)](\[Omega])\[TildeTilde]\\!\\(\\*\
+RowBox[{\\\"19.876970855231725`\\\"}]\\)*\\!\\(\\*SubscriptBox[\\(\
+\[CapitalIota]\\), \\({\[Omega] \[Element] \\!\\(\\*RowBox[{\\\"{\\\", \
+RowBox[{RowBox[{\\\"{\\\", RowBox[{\\\"1\\\", \\\",\\\", \\\"1\\\", \
+\\\",\\\", \\\"0\\\"}], \\\"}\\\"}], \\\",\\\", RowBox[{\\\"{\\\", RowBox[{\\\
+\"1\\\", \\\",\\\", \\\"0\\\", \\\",\\\", \\\"1\\\"}], \\\"}\\\"}], \
+\\\",\\\", RowBox[{\\\"{\\\", RowBox[{\\\"0\\\", \\\",\\\", \\\"1\\\", \
+\\\",\\\", \\\"1\\\"}], \\\"}\\\"}]}], \
+\\\"}\\\"}]\\)}\\)]\\)+\\!\\(\\*RowBox[{\\\"12.017543859649123`\\\"}]\\)*\\!\\\
+(\\*SubscriptBox[\\(\[CapitalIota]\\), \\({\[Omega] \[Element] \
+\\!\\(\\*RowBox[{\\\"{\\\", RowBox[{RowBox[{\\\"{\\\", RowBox[{\\\"1\\\", \
+\\\",\\\", \\\"0\\\", \\\",\\\", \\\"0\\\"}], \\\"}\\\"}], \\\",\\\", \
+RowBox[{\\\"{\\\", RowBox[{\\\"1\\\", \\\",\\\", \\\"1\\\", \\\",\\\", \
+\\\"1\\\"}], \\\"}\\\"}], \\\",\\\", RowBox[{\\\"{\\\", RowBox[{\\\"0\\\", \\\
+\",\\\", \\\"0\\\", \\\",\\\", \\\"0\\\"}], \\\"}\\\"}], \\\",\\\", \
+RowBox[{\\\"{\\\", RowBox[{\\\"0\\\", \\\",\\\", \\\"0\\\", \\\",\\\", \
+\\\"1\\\"}], \\\"}\\\"}], \\\",\\\", RowBox[{\\\"{\\\", RowBox[{\\\"0\\\", \\\
+\",\\\", \\\"1\\\", \\\",\\\", \\\"0\\\"}], \\\"}\\\"}]}], \
+\\\"}\\\"}]\\)}\\)]\\)\"\>",
+  StringForm[
+  "E[X|\[Sigma](A)](\[Omega])\[TildeTilde]``*\!\(\*SubscriptBox[\(\
+\[CapitalIota]\), \({\[Omega] \[Element] ``}\)]\)+``*\!\(\*SubscriptBox[\(\
+\[CapitalIota]\), \({\[Omega] \[Element] ``}\)]\)", 19.876970855231725`, {{1, 
+   1, 0}, {1, 0, 1}, {0, 1, 1}}, 12.017543859649123`, {{1, 0, 0}, {1, 1, 1}, {
+   0, 0, 0}, {0, 0, 1}, {0, 1, 0}}],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.760306504847938*^9, {3.7603074827228184`*^9, 3.7603075101164665`*^9}, {
+   3.76030761443385*^9, 3.7603076646371393`*^9}, 3.7603078080673943`*^9, 
+   3.7603078836515274`*^9, {3.7603079430720315`*^9, 3.7603079494836426`*^9}, 
+   3.7603079994817305`*^9, 
+   3.760308134214775*^9},ExpressionUUID->"abbb398b-339d-4b8d-9700-\
+abfaafebe63f"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1904, 998},
+WindowMargins->{{-8, Automatic}, {Automatic, 0}},
+WindowStatusArea->None,
+PrintingCopies->1,
+PrintingPageRange->{32000, 32000},
+PrintingOptions->{"Magnification"->1.,
+"PaperOrientation"->"Portrait",
+"PaperSize"->{612, 792}},
+ShowSelection->True,
+Magnification:>1.5 Inherited,
+FrontEndVersion->"11.2 for Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"Report.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 381, 9, 166, "Section",ExpressionUUID->"c71dbe14-ff84-4171-bc2e-1e4496c65477"],
+Cell[CellGroupData[{
+Cell[963, 33, 202, 4, 62, "Section 1",ExpressionUUID->"6cfa79bd-be44-4195-a91e-90789bbe7b93"],
+Cell[1168, 39, 11756, 370, 884, "Text",ExpressionUUID->"9e6fdffc-12ed-40b0-b384-200400f13769"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12961, 414, 153, 3, 103, "Section 1",ExpressionUUID->"a7b491cb-7e19-4725-a9ed-1c1048e33c61"],
+Cell[13117, 419, 1315, 25, 180, "Text",ExpressionUUID->"eb5f6ede-d39d-437a-8088-69454a0294cf"],
+Cell[CellGroupData[{
+Cell[14457, 448, 169, 3, 57, "Subsection",ExpressionUUID->"33792013-8402-4d30-9f6b-e645230e1b14"],
+Cell[14629, 453, 3811, 75, 209, "Input",ExpressionUUID->"0050cd32-2e75-449e-9f33-7e09d06ab414"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18477, 533, 188, 3, 57, "Subsection",ExpressionUUID->"08d2ba87-f8f7-4449-bfcf-9fd4a50c6783"],
+Cell[CellGroupData[{
+Cell[18690, 540, 1456, 36, 349, "Input",ExpressionUUID->"95a9d091-084c-4bc6-88b5-0abac654c08a"],
+Cell[20149, 578, 459, 9, 57, "Print",ExpressionUUID->"220daf17-6af6-4340-9d24-963dad31cf54"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20657, 593, 190, 3, 57, "Subsection",ExpressionUUID->"b4282426-d658-4fc6-95f1-905573c4eebd"],
+Cell[CellGroupData[{
+Cell[20872, 600, 1328, 35, 349, "Input",ExpressionUUID->"fdb9baa4-31f3-4e3e-a928-604642ea8b4d"],
+Cell[22203, 637, 349, 7, 57, "Print",ExpressionUUID->"885b8626-fe3e-4943-8690-899a611fc28a"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22601, 650, 201, 3, 57, "Subsection",ExpressionUUID->"923276e0-278e-4ef0-aea2-7a3362d801bb"],
+Cell[CellGroupData[{
+Cell[22827, 657, 5237, 134, 607, "Input",ExpressionUUID->"ffa23574-bb1b-4f3b-ac19-fbbf047f5ede"],
+Cell[28067, 793, 2060, 33, 60, "Print",ExpressionUUID->"abbb398b-339d-4b8d-9700-abfaafebe63f"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
